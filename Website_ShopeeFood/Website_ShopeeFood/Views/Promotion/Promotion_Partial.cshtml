@@ -1,0 +1,21 @@
+﻿
+@model IEnumerable<Website_ShopeeFood.Models.PromotionModels>
+
+@foreach(var item in Model)
+{
+    <div class="list-item-restaurant" style="float:left;">
+        <a class="item-content" target="_blank">
+            <div class="image-restaurant">
+                <img src="@item.Image">
+            </div>
+            <div class="info-restaurant">
+                <div class="restaurant-info">
+                    <h4 class="name-rest" title="@item.PromotionName">@item.PromotionName</h4>
+                    <p>
+                        17 địa điểm
+                    </p>
+                </div>
+            </div>
+        </a>
+    </div>
+}

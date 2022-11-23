@@ -1,0 +1,240 @@
+﻿@using Website_ShopeeFood.Models
+
+@{
+    ViewData["Title"] = "ListOfRestaurant";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="/css/StyleForHomePage.css">
+<link rel="stylesheet" href="/css/BodyForHomePage.css">
+<link rel="stylesheet" href="/css/ContentForHomePage.css">
+<link rel="stylesheet" href="/css/Login.css">
+<link rel="stylesheet" href="/css/Footer.css">
+<link rel="stylesheet" href="/css//StyleList.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+<div class="container">
+    <div class="now-list-filter">
+        <div class="nav-filter clearfix">
+            <div class="list-filter">
+                <div class="item-filter">
+                    <span class="dropdown-toggle" id="Distrist">
+                        <span id="myBtn">Khu Vực</span>
+                    </span>
+                    <div class="container-box-filter" id="myArea">
+                        <p class="closeArea" id="get_Save_Area" onclick="closeForm()" style="position: absolute; margin-left: 813px; font-weight: 700; margin-top: -18px; cursor: pointer;">X</p>
+                        <div class="content" id="DetailArea_Partial" style="padding:0%; text-align:inherit; background-color:#fff;">
+                            <!--Chèn Partial-->
+                        </div>
+                    </div>
+                </div>
+                <div class="item-filter">
+                    <span class="dropdown-toggle" id="TypeOfFood">
+                        <span id="myBtnType"> Phân Loại </span>
+                    </span>
+                    <div class="container-box-filter" id="myTypes">
+                        <p class="closeType" id="get_Save_Type" onclick="closeFormType()" style="position: absolute; margin-left: 813px; font-weight: 700; margin-top: -18px; cursor: pointer;">X</p>
+                        <div id="getTypes_Partial" class="content" style="padding:0%; text-align:inherit; background-color:#fff;">
+                            <!--Thêm Partial View-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-right">
+                <div class="result">
+                    200 Kết Quả
+                </div>
+                <select class="filter-sort">
+                    <option>Đúng nhất</option>
+                    <option>Gần tôi</option>
+                    <option>Đánh giá</option>
+                    <option>Bán chạy</option>
+                    <option>Giao nhanh</option>
+                </select>
+            </div>
+        </div>
+        <!--------------------------------------------->
+        <div class="tag-filter">
+            <div class="widget-tag" style="margin-left: 14px;">
+                Khu Vực:
+                <span class="keyword-districts" style="font-weight: 700; font-size: 13px;"></span>
+                <span id="restaurant-districts checking-close-districts" style="cursor: pointer; font-size: 15px; font-weight: 700;">x</span>
+            </div>
+            <div class="widget-tag" style="margin-left: 14px;">
+                Phân Loại:
+                <span class="keyword-types" style="font-weight: 700; font-size: 13px;"></span>
+                <span id="restaurant-districts checking-close-types" style="cursor: pointer; font-size: 15px; font-weight: 700;">x</span>
+            </div>
+        </div>
+        <!--------------------------------------------->
+    </div>
+
+    <div class="now-list-restaurant marginBottom">
+        <div class="list-restaurant" style="display: flow-root;">
+            <div class="now-loading-restaurant">
+                <div class="box-loading">
+                    <div class="box-thumbnail"></div>
+                    <div class="box-line-df"></div>
+                    <div class="box-line-lgx"></div>
+                    <div class="box-line-lg"></div>
+                </div>
+                <div class="box-loading">
+                    <div class="box-thumbnail"></div>
+                    <div class="box-line-df"></div>
+                    <div class="box-line-lgx"></div>
+                    <div class="box-line-lg"></div>
+                </div>
+                <div class="box-loading">
+                    <div class="box-thumbnail"></div>
+                    <div class="box-line-df"></div>
+                    <div class="box-line-lgx"></div>
+                    <div class="box-line-lg"></div>
+                </div>
+                <div class="box-loading">
+                    <div class="box-thumbnail"></div>
+                    <div class="box-line-df"></div>
+                    <div class="box-line-lgx"></div>
+                    <div class="box-line-lg"></div>
+                </div>
+                <div class="box-loading">
+                    <div class="box-thumbnail"></div>
+                    <div class="box-line-df"></div>
+                    <div class="box-line-lgx"></div>
+                    <div class="box-line-lg"></div>
+                </div>
+                <div class="box-loading">
+                    <div class="box-thumbnail"></div>
+                    <div class="box-line-df"></div>
+                    <div class="box-line-lgx"></div>
+                    <div class="box-line-lg"></div>
+                </div>
+                <div class="box-loading">
+                    <div class="box-thumbnail"></div>
+                    <div class="box-line-df"></div>
+                    <div class="box-line-lgx"></div>
+                    <div class="box-line-lg"></div>
+                </div>
+                <div class="box-loading">
+                    <div class="box-thumbnail"></div>
+                    <div class="box-line-df"></div>
+                    <div class="box-line-lgx"></div>
+                    <div class="box-line-lg"></div>
+                </div>
+                <div class="box-loading">
+                    <div class="box-thumbnail"></div>
+                    <div class="box-line-df"></div>
+                    <div class="box-line-lgx"></div>
+                    <div class="box-line-lg"></div>
+                </div>
+            </div>
+            <div id="list_of_restaurant_partial">
+            </div>
+        </div>
+    </div>
+
+    <ul class="pagination">
+        <li class="">
+            <a class="" href="#" style="color: #f13123;">
+                <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li class=""><a class="" href="#">1</a></li>
+        <li class=""><a class="" href="#">2</a></li>
+        <li class=""><a class="" href="#">3</a></li>
+        <li class=""><a class="" href="#">4</a></li>
+        <li class=""><a class="" href="#">5</a></li>
+        <li class=""><a class="" href="#">6</a></li>
+        <li class=""><a class="" href="#">7</a></li>
+        <li class=""><a class="" href="#">8</a></li>
+        <li class="">
+            <a class="" href="#" style="color: #f13123;">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+<script>
+    $('#list_of_restaurant_partial').load('/Restaurant/listOfRestaurant');
+    $('#DetailArea_Partial').load('/DetailAreas/getDistrics_Partial')
+    $('#getTypes_Partial').load('/Types/getListOfTypes_Partial')
+</script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+
+<!--Hiển Thị Khu Vực-->
+<script>
+    //Lấy ID khu vực
+    var modalArea = document.getElementById("myArea");
+
+    // lấy ID của nút button
+    var btn = document.getElementById("myBtn");
+
+    // Lấy Classname của span
+    var span = document.getElementsByClassName("closeArea");
+
+
+    // nhấn vào button thì mở lên
+    btn.onclick = function () {
+        modalArea.style.display = "block";
+    }
+
+    // nhấn vào thẻ span chứa x thì đóng lại
+    span.onclick = function () {
+        modalArea.style.display = "none";
+    }
+
+    //// nhập ngoài phạm vi cũng sẽ bị tự động tắt
+    //window.onclick = function (event) {
+    //    if (event.target != modalArea) {
+    //        modalArea.style.display = "none";
+    //    }
+    //}
+
+    function closeForm() {
+        modalArea.style.display = "none";
+    }
+</script>
+
+<!--Hiển Thị Loại Món Ăn-->
+<script>
+    var modalType = document.getElementById("myTypes");
+
+    var btnType = document.getElementById("myBtnType");
+
+    var spanType = document.getElementsByClassName("closeType");
+
+    btnType.onclick = function () {
+        modalType.style.display = "block";
+    }
+
+    spanType.onclick = function () {
+        modalType.style.display = "none";
+    }
+
+    //window.onclick = function (event) {
+    //    if (event.target == modalType) {
+    //        modalType.style.display = "none";
+    //    }
+    //}
+
+    function closeFormType() {
+        modalType.style.display = "none";
+    }
+</script>
+

@@ -1,0 +1,94 @@
+﻿.main-footer {
+    clear: both;
+    background-color: #f2f2f2;
+    margin-top: -50px;
+}
+
+.container-inner {
+    padding-top: 40px;
+    padding-bottom: 30px;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+.block-footer {
+    float: left;
+    color: #959595;
+    padding: 0 70px 0 10px;
+}
+
+    .block-footer .menu-item {
+        padding: 3px 3px;
+    }
+
+        .block-footer .menu-item a {
+            text-decoration: none;
+        }
+
+.main-footer .apps {
+    width: 135px;
+    height: 50px;
+    padding: 3px 0;
+    display: grid;
+    margin-bottom: 25px;
+}
+
+.apps__app-strore-vi {
+    background-image: url('https://shopeefood.vn/app/assets/img/AppStore-vn.png?1afe809ef1884945ef4a05dacec7679e');
+    background-size: cover;
+}
+
+.apps__google-play-vi {
+    background-image: url('https://shopeefood.vn/app/assets/img/PlayStore-vn.png?a5bc23fd384a415654c9115efebb67db');
+    background-size: cover;
+}
+
+.apps__Huawei-vi {
+    background-image: url('https://shopeefood.vn/app/assets/img/Huawei-gallery-vn.png?a17f5e9f3500255a52ec23de20dc115a');
+    background-size: cover;
+}
+
+.txt-center {
+    text-align: center;
+}
+
+.logo-footer {
+    margin-top: 23px;
+    margin-bottom: 20px;
+}
+
+.block-footer .social-icon li {
+    list-style-type: none;
+    float: left;
+    padding: 5px 15px;
+}
+
+
+
+.block-footer .social-icon .ico {
+    font-size: 16px;
+    color: #fff;
+    background-color: #959595;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+}
+
+.block-last {
+    float: right;
+    text-align: right;
+    font-size: 16px;
+}
+
+.title-block {
+    font-size: 16px;
+    color: black;
+    font-weight: 700;
+    padding-bottom: 15px;
+}
+
+.text p {
+    font-size: 13px;
+    color: #959595;
+}

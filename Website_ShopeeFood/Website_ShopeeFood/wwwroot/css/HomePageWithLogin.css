@@ -1,0 +1,35 @@
+﻿.use-account img {
+    height: 30px;
+    width: 30px;
+    position: relative;
+    margin-top: 1px;
+    border-radius: 50%;
+}
+
+.use-account .name-user {
+    font-size: 15px;
+    color: black;
+    position: relative;
+    float: right;
+    margin-top: 5px;
+    padding: 0 12px;
+}
+
+.dropdown-item {
+    cursor: pointer;
+}
+
+    .dropdown-item:hover {
+        background-color: rgb(211, 197, 178);
+    }
+
+    .dropdown-item i {
+        padding: 14px 15px;
+        margin-left: -15px;
+        height: 43px;
+    }
+
+    .dropdown-item span {
+        color: black;
+        font-weight: 300;
+    }

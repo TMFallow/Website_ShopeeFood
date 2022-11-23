@@ -1,0 +1,80 @@
+﻿@model Website_ShopeeFood.Models.RestaurantsModel
+
+<link rel="stylesheet" href="/css/Details.css">
+
+@if (Model != null)
+{
+    <div class="details-restaurant-img">
+        <img src="@Model.Image">
+    </div>
+
+    <div class="details-restaurant-info">
+        <ul class="breadcrumb-ul">
+            <li class="breadcrumb"><a href="/Home/Index">Home</a></li>
+            <li class="breadcrumb"><a href="~/Restaurant/AreaID?AreaID=@Model.AreaID" id="NameArea_Partial"></a></li>
+            <li class="breadcrumb"><a href="~/Restaurant/DetailOfRestaurant?RestaurantID=@Model.RestaurantID">@Model.NameofRestaurant</a></li>
+        </ul>
+        <div class="kind-restaurant">
+            <span>Dessert</span>
+        </div>
+        <h1 class="name-restaurant">@Model.Address</h1>
+        <div class="address-restaurant">
+            @Model.Address
+        </div>
+        <div class="rating">
+            <div class="star">
+                <span class="full">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </span>
+                <span class="full">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </span>
+                <span class="full">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </span>
+                <span class="full">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </span>
+                <span class="half">
+                    <i class="fa fa-star-half" aria-hidden="true"></i>
+                </span>
+                <span class="number-rating">
+                    999+
+                </span>
+                <span class="text-rating">
+                    Đánh giá trên ShopeeFood
+                </span>
+            </div>
+            <div class="more-rating">
+                <a href="#">Xem thêm lượt đánh giá từ ShopeeFood</a>
+            </div>
+            <div class="time-open">
+                <i class="fa fa-clock-o" aria-hidden="true">
+                </i>
+                @Model.OpenTime.Hour:00 - @Model.CloseTime.Hour:00
+            </div>
+            <div class="cost">
+                <i class="fas fa-dollar-sign"></i>
+                22.000 - 50.000 VND
+            </div>
+            <div class="services">
+                <div class="services-item">
+                    <div class="services-title">Phí dịch vụ</div>
+                    <div class="services-content">0.0% phí phục vụ</div>
+                </div>
+                <div class="services-item">
+                    <div class="services-title">Dịch vụ bởi</div>
+                    <div class="services-content">ShopeeFood</div>
+                </div>
+            </div>
+        </div>
+    </div>    
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+<script>
+    $('#NameArea_Partial').load('/Areas/NameOfArea_Partial');
+</script>

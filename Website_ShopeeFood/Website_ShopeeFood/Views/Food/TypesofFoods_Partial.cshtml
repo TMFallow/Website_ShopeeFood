@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Website_ShopeeFood.Models.FoodModel>
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        <div class="item-restaurant-row" style="height: 81px; left: 0px; position: absolute; top: 80px; width: 100%;">
+            <div class="row">
+                <div class="col-auto item-restaurant-img">
+                    <button class="inline">
+                        <img src="@item.Images" alt="@item.NameofFood" width="60" height="60">
+                    </button>
+                </div>
+                <div class="col item-restaurant-info">
+                    <h2 class="item-restaurant-name">@item.NameofFood</h2>
+                </div>
+                <div class="col-auto item-restaurant-more">
+                    <div class="row ">
+                        <div class="col-auto product-price">
+                            <div class="current-price">
+                                @item.Price
+                                <span style="font-weight: 400;position: relative;top: -9px;font-size: 10px;right: 0;">đ</span>
+                            </div>
+                        </div>
+                        <div class="col-auto adding-food-cart txt-right">
+                            <div class="btn-adding">+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<script>
+    var row = $('.item-restaurant-row');
+
+    row.each(function(i){
+        i = i + 1;
+        $(this).css({top: (90 * i) + 'px'}); 
+    });
+</script>

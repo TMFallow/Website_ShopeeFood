@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Website_ShopeeFood.Models.RestaurantsModel>
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        <div class="list-item-restaurant" style="float:left;">
+            <a class="item-content" target="_blank" href="~/Restaurant/DetailOfRestaurant?restaurantId=@item.RestaurantID">
+                <div class="image-restaurant">
+                    <div class="icon-prefered">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>&nbsp;Yêu Thích
+                    </div>
+                    <img class="edit-img" src="@item.Image" style="height:150px; width:200px">
+                </div>
+                <div class="info-restaurant">
+                    <div class="restaurant-info">
+                        <h4 class="name-rest" title="@item.NameofRestaurant">@item.NameofRestaurant</h4>
+                        <div class="address-rest" title="@item.Address">
+                            @item.Address
+                        </div>
+                    </div>
+                    <p class="sale-promotion">
+                        <i class="fa fa-tag" aria-hidden="true"></i>
+                        Giảm Món
+                    </p>
+                </div>
+            </a>
+        </div>
+    }
+}
+
+

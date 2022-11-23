@@ -1,0 +1,1006 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="scroll" class="now-banner" style="position:fixed; top:70px;">
+                <div class="container">
+                    <div class="now-search">
+                        <div>
+                            <h1 class="title">Đặt Thực Phẩm, Giao Hàng Từ 20'...</h1>
+                            <div class="local">
+                                Có Khoảng 100000 Địa Điểm Ở TP. HCM
+                            </div>
+                        </div>
+                        <div class="form-search">
+                            <div class="input-group">
+                                <input type="text" id="txtSearchHome" placeholder="Tìm Kiếm Shop" value="">
+                                <a>
+                                    <button type="button" class="btn btn-search">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="category-list-filters">
+                            <a asp-area="" asp-controller="Home" asp-action="ListofFood">
+                                <span class="category-item">All</span>
+                            </a>
+                            <a href="#">
+                                <span class="category-item">Thực Phẩm Tươi</span>
+                            </a>
+                            <a href="#">
+                                <span class="category-item">Đồ Chay</span>
+                            </a>
+                            <a href="#">
+                                <span class="category-item">Món Nước</span>
+                            </a>
+                            <a href="#">
+                                <span class="category-item">Món Khô</span>
+                            </a>
+                            <a href="#">
+                                <span class="category-item">Đồ Hộp/Đồ Uống</span>
+                            </a>
+                            <a href="#">
+                                <span class="category-item">Rau Củ</span>
+                            </a>
+                            <a href="#">
+                                <span class="category-item">Chế Biến Sẵn</span>
+                            </a>
+                            <a href="#">
+                                <span class="category-item">Gia Vị</span>
+                            </a>
+                        </div>
+                        <div>
+                            <div class="font18 mt-3 mb-2">
+                                Sử dụng App ShopeeFood để có nhiều mã giảm giá
+                                <br> 
+                                và trải nghiệp tốt hơn
+                            </div>
+                            <a target="_blank" href="https://itunes.apple.com/us/app/deliverynow/id1137866760" title="App Store">
+                                <span class="icon icon-app-store-big"></span>
+                            </a>
+                            <a target="_blank" href="https://play.google.com/store/apps/details?id=com.deliverynow" title="App Store">
+                                <span class="icon icon-gg-play-big"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <div class="contain-main-home clearfix">
+                <div class="container">
+                    <div class="main-right-home">
+                        <div class="user-get-local">
+                            <div class="row align-item-center no-gutters pointer">
+                                <div class="col-auto">
+                                    <span class="txt-blue-blod">Thực Phẩm</span>
+                                    <i class="fa fa-long-arrow-alt-right" aria-hidden="true"></i>
+                                </div>
+                                <div class="col pl-2 pr-2 txt">
+                                    Chọn địa chỉ giao hàng
+                                </div>
+                                <div class="col-auto">
+                                    <span class="pl-2 pr-2 link" data-toggle="modal">
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="now-list-restaurant deal-tab">
+                            <div class="title-wraper">
+                                <h2 class="title">Ưu Đãi</h2>
+                                <a class="view-all-deals" href="">
+                                    <span class="icon-list-deal">
+                                        <span class="square"></span>
+                                        <span class="square"></span>
+                                        <span class="square"></span>
+                                        <span class="square"></span>
+                                    </span>
+                                    Xem tất cả
+                                </a>
+                            </div>
+                            <div class="list-restaurant" style="display: flow-root;">
+                                <div class="now-loading-restaurant">
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                </div>
+                                <div class="list-item-restaurant" style="float:left;">
+                                    <a class="item-content" target="_blank" href="#">
+                                        <div class="image-restaurant">
+                                            <div class="icon-prefered">
+                                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>Yêu Thích
+                                            </div>
+                                            <img src="https://images.foody.vn/res/g114/1132804/prof/s280x175/image-a8c849e4-221101143211.jpg">
+                                        </div>
+                                        <div class="info-restaurant">
+                                            <div class="restaurant-info">
+                                                <h4 class="name-rest" title="Lotteria">Lotteria</h4>
+                                                <div class="address-rest" title="100, Đường Lê Trọng Tấn, Phường Tây Thạnh, Tân Phú, TP. HCM">
+                                                    100, Đường Lê Trọng Tấn, Phường Tây Thạnh, Tân Phú, TP. HCM
+                                                </div>
+                                            </div>
+                                            <p class="sale-promotion">
+                                                <i class="fa fa-tag" aria-hidden="true"></i>
+                                                 Giảm Món
+                                            </p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="list-item-restaurant"style="float:left;">
+                                    <a class="item-content" target="_blank" >
+                                        <div class="image-restaurant">
+                                            <div class="icon-prefered">
+                                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>Yêu Thích
+                                            </div>
+                                            <img src="https://images.foody.vn/res/g114/1132804/prof/s280x175/image-a8c849e4-221101143211.jpg">
+                                        </div>
+                                        <div class="info-restaurant">
+                                            <div class="restaurant-info">
+                                                <h4 class="name-rest" title="Lotteria">Lotteria</h4>
+                                                <div class="address-rest" title="100, Đường Lê Trọng Tấn, Phường Tây Thạnh, Tân Phú, TP. HCM">
+                                                    100, Đường Lê Trọng Tấn, Phường Tây Thạnh, Tân Phú, TP. HCM
+                                                </div>
+                                            </div>
+                                            <p class="sale-promotion">
+                                                <i class="fa fa-tag" aria-hidden="true"></i>
+                                                 Giảm Món
+                                            </p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="list-item-restaurant" style="float:left;">
+                                    <a class="item-content" target="_blank" >
+                                        <div class="image-restaurant">
+                                            <div class="icon-prefered">
+                                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>Yêu Thích
+                                            </div>
+                                            <img src="https://images.foody.vn/res/g114/1132804/prof/s280x175/image-a8c849e4-221101143211.jpg">
+                                        </div>
+                                        <div class="info-restaurant">
+                                            <div class="restaurant-info">
+                                                <h4 class="name-rest" title="Lotteria">Lotteria</h4>
+                                                <div class="address-rest" title="100, Đường Lê Trọng Tấn, Phường Tây Thạnh, Tân Phú, TP. HCM">
+                                                    100, Đường Lê Trọng Tấn, Phường Tây Thạnh, Tân Phú, TP. HCM
+                                                </div>
+                                            </div>
+                                            <p class="sale-promotion">
+                                                <i class="fa fa-tag" aria-hidden="true"></i>
+                                                 Giảm Món
+                                            </p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="list-item-restaurant" style="float:left;">
+                                    <a class="item-content" target="_blank" >
+                                        <div class="image-restaurant">
+                                            <div class="icon-prefered">
+                                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>Yêu Thích
+                                            </div>
+                                            <img src="https://images.foody.vn/res/g114/1132804/prof/s280x175/image-a8c849e4-221101143211.jpg">
+                                        </div>
+                                        <div class="info-restaurant">
+                                            <div class="restaurant-info">
+                                                <h4 class="name-rest" title="Lotteria">Lotteria</h4>
+                                                <div class="address-rest" title="100, Đường Lê Trọng Tấn, Phường Tây Thạnh, Tân Phú, TP. HCM">
+                                                    100, Đường Lê Trọng Tấn, Phường Tây Thạnh, Tân Phú, TP. HCM
+                                                </div>
+                                            </div>
+                                            <p class="sale-promotion">
+                                                <i class="fa fa-tag" aria-hidden="true"></i>
+                                                 Giảm Món
+                                            </p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="list-item-restaurant " style="float:left;">
+                                    <a class="item-content" target="_blank" >
+                                        <div class="image-restaurant">
+                                            <div class="icon-prefered">
+                                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>Yêu Thích
+                                            </div>
+                                            <img src="https://images.foody.vn/res/g114/1132804/prof/s280x175/image-a8c849e4-221101143211.jpg">
+                                        </div>
+                                        <div class="info-restaurant">
+                                            <div class="restaurant-info">
+                                                <h4 class="name-rest" title="Lotteria">Lotteria</h4>
+                                                <div class="address-rest" title="100, Đường Lê Trọng Tấn, Phường Tây Thạnh, Tân Phú, TP. HCM">
+                                                    100, Đường Lê Trọng Tấn, Phường Tây Thạnh, Tân Phú, TP. HCM
+                                                </div>
+                                            </div>
+                                            <p class="sale-promotion">
+                                                <i class="fa fa-tag" aria-hidden="true"></i>
+                                                 Giảm Món
+                                            </p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="list-item-restaurant " style="float:left;">
+                                    <a class="item-content" target="_blank" >
+                                        <div class="image-restaurant">
+                                            <div class="icon-prefered">
+                                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>Yêu Thích
+                                            </div>
+                                            <img src="https://images.foody.vn/res/g114/1132804/prof/s280x175/image-a8c849e4-221101143211.jpg">
+                                        </div>
+                                        <div class="info-restaurant">
+                                            <div class="restaurant-info">
+                                                <h4 class="name-rest" title="Lotteria">Lotteria</h4>
+                                                <div class="address-rest" title="100, Đường Lê Trọng Tấn, Phường Tây Thạnh, Tân Phú, TP. HCM">
+                                                    100, Đường Lê Trọng Tấn, Phường Tây Thạnh, Tân Phú, TP. HCM
+                                                </div>
+                                            </div>
+                                            <p class="sale-promotion">
+                                                <i class="fa fa-tag" aria-hidden="true"></i>
+                                                 Giảm Món
+                                            </p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="list-item-restaurant " style="float:left;">
+                                    <a class="item-content" target="_blank" >
+                                        <div class="image-restaurant">
+                                            <div class="icon-prefered">
+                                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>Yêu Thích
+                                            </div>
+                                            <img src="https://images.foody.vn/res/g114/1132804/prof/s280x175/image-a8c849e4-221101143211.jpg">
+                                        </div>
+                                        <div class="info-restaurant">
+                                            <div class="restaurant-info">
+                                                <h4 class="name-rest" title="Lotteria">Lotteria</h4>
+                                                <div class="address-rest" title="100, Đường Lê Trọng Tấn, Phường Tây Thạnh, Tân Phú, TP. HCM">
+                                                    100, Đường Lê Trọng Tấn, Phường Tây Thạnh, Tân Phú, TP. HCM
+                                                </div>
+                                            </div>
+                                            <p class="sale-promotion">
+                                                <i class="fa fa-tag" aria-hidden="true"></i>
+                                                 Giảm Món
+                                            </p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="list-item-restaurant " style="float:left;">
+                                    <a class="item-content" target="_blank" >
+                                        <div class="image-restaurant">
+                                            <div class="icon-prefered">
+                                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>Yêu Thích
+                                            </div>
+                                            <img src="https://images.foody.vn/res/g114/1132804/prof/s280x175/image-a8c849e4-221101143211.jpg">
+                                        </div>
+                                        <div class="info-restaurant">
+                                            <div class="restaurant-info">
+                                                <h4 class="name-rest" title="Lotteria">Lotteria</h4>
+                                                <div class="address-rest" title="100, Đường Lê Trọng Tấn, Phường Tây Thạnh, Tân Phú, TP. HCM">
+                                                    100, Đường Lê Trọng Tấn, Phường Tây Thạnh, Tân Phú, TP. HCM
+                                                </div>
+                                            </div>
+                                            <p class="sale-promotion">
+                                                <i class="fa fa-tag" aria-hidden="true"></i>
+                                                 Giảm Món
+                                            </p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="list-item-restaurant " style="float:left;">
+                                    <a class="item-content" target="_blank" >
+                                        <div class="image-restaurant">
+                                            <div class="icon-prefered">
+                                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>Yêu Thích
+                                            </div>
+                                            <img src="https://images.foody.vn/res/g114/1132804/prof/s280x175/image-a8c849e4-221101143211.jpg">
+                                        </div>
+                                        <div class="info-restaurant">
+                                            <div class="restaurant-info">
+                                                <h4 class="name-rest" title="Lotteria">Lotteria</h4>
+                                                <div class="address-rest" title="100, Đường Lê Trọng Tấn, Phường Tây Thạnh, Tân Phú, TP. HCM">
+                                                    100, Đường Lê Trọng Tấn, Phường Tây Thạnh, Tân Phú, TP. HCM
+                                                </div>
+                                            </div>
+                                            <p class="sale-promotion">
+                                                <i class="fa fa-tag" aria-hidden="true"></i>
+                                                 Giảm Món
+                                            </p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="see-more-center">
+                                <button class="btn btn-none mt-2 link">
+                                    <span>Xem Thêm</span>
+                                    <i class="fas fa-redo"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="now-list-restaurant collection">
+                            <div class="title-wraper">
+                                <h2 class="title">Bộ Sưu Tập</h2>
+                                <a class="view-all-deals" href="#">
+                                    <span class="icon-list-deal">
+                                        <span class="square"></span>
+                                        <span class="square"></span>
+                                        <span class="square"></span>
+                                        <span class="square"></span>
+                                    </span>
+                                    Xem Tất Cả
+                                </a>
+                            </div>
+                            <div class="list-restaurant" style="display: flow-root;">
+                                <div class="now-loading-restaurant">
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="list-item-restaurant" style="float:left;">
+                                        <a class="item-content" target="_blank" >
+                                            <div class="image-restaurant">
+                                                <img src="https://images.foody.vn/delivery/collection/s320x200/image-5144053d-221031173842.jpeg">
+                                            </div>
+                                            <div class="info-restaurant">
+                                                <div class="restaurant-info">
+                                                    <h4 class="name-rest" title="Chợ tươi giá hời giảm 20%">Chợ tươi giá hời giảm 20%</h4>
+                                                    <p>
+                                                        17 địa điểm 
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="list-item-restaurant" style="float:left;">
+                                        <a class="item-content" target="_blank" >
+                                            <div class="image-restaurant">
+                                                <img src="https://images.foody.vn/delivery/collection/s320x200/image-5144053d-221031173842.jpeg">
+                                            </div>
+                                            <div class="info-restaurant">
+                                                <div class="restaurant-info">
+                                                    <h4 class="name-rest" title="Chợ tươi giá hời giảm 20%">Chợ tươi giá hời giảm 20%</h4>
+                                                    <p>
+                                                        17 địa điểm 
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="list-item-restaurant" style="float:left;">
+                                        <a class="item-content" target="_blank" >
+                                            <div class="image-restaurant">
+                                                <img src="https://images.foody.vn/delivery/collection/s320x200/image-5144053d-221031173842.jpeg">
+                                            </div>
+                                            <div class="info-restaurant">
+                                                <div class="restaurant-info">
+                                                    <h4 class="name-rest" title="Chợ tươi giá hời giảm 20%">Chợ tươi giá hời giảm 20%</h4>
+                                                    <p>
+                                                        17 địa điểm 
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="list-item-restaurant" style="float:left;">
+                                        <a class="item-content" target="_blank" >
+                                            <div class="image-restaurant">
+                                                <img src="https://images.foody.vn/delivery/collection/s320x200/image-5144053d-221031173842.jpeg">
+                                            </div>
+                                            <div class="info-restaurant">
+                                                <div class="restaurant-info">
+                                                    <h4 class="name-rest" title="Chợ tươi giá hời giảm 20%">Chợ tươi giá hời giảm 20%</h4>
+                                                    <p>
+                                                        17 địa điểm 
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="list-item-restaurant" style="float:left;">
+                                        <a class="item-content" target="_blank" >
+                                            <div class="image-restaurant">
+                                                <img src="https://images.foody.vn/delivery/collection/s320x200/image-5144053d-221031173842.jpeg">
+                                            </div>
+                                            <div class="info-restaurant">
+                                                <div class="restaurant-info">
+                                                    <h4 class="name-rest" title="Chợ tươi giá hời giảm 20%">Chợ tươi giá hời giảm 20%</h4>
+                                                    <p>
+                                                        17 địa điểm 
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="list-item-restaurant" style="float:left;">
+                                        <a class="item-content" target="_blank" >
+                                            <div class="image-restaurant">
+                                                <img src="https://images.foody.vn/delivery/collection/s320x200/image-5144053d-221031173842.jpeg">
+                                            </div>
+                                            <div class="info-restaurant">
+                                                <div class="restaurant-info">
+                                                    <h4 class="name-rest" title="Chợ tươi giá hời giảm 20%">Chợ tươi giá hời giảm 20%</h4>
+                                                    <p>
+                                                        17 địa điểm 
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="now-list-restaurant home-tab">
+                            <div class="tab-header align-item-center row">
+                                <div class="col">
+                                    <button class="btn item-button link">Vừa đặt</button>
+                                    <button class="btn item-button link">Đặt nhiều</button>
+                                    <button class="btn item-button link">Gần tôi</button>
+                                    <button class="btn item-button link">Nổi bật</button>
+                                </div>
+                                <div class="col-auto">
+                                    <select>
+                                        <option>Chọn Quận Huyện</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="list-restaurant " style="display: flow-root;">
+                                <div class="now-loading-restaurant">
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                    <div class="box-loading">
+                                        <div class="box-thumbnail"></div>
+                                        <div class="box-line-df"></div>
+                                        <div class="box-line-lgx"></div>
+                                        <div class="box-line-lg"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="list-item-restaurant1" style="float:left;">
+                                        <a class="item-content1" target="_blank" >
+                                            <div class="row no-gutters">                                            
+                                                <div class="col-auto">
+                                                    <div class="image-restaurant-tab">
+                                                        <img src="https://images.foody.vn/res/g69/680874/prof/s280x175/image-ceaf8f37-221101143210.jpg">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="name-rest options">
+                                                        <span title="Trà Dâu Đà Lạt - Nguyễn Thượng Hiền">Trà Dâu Đà Lạt - Nguyễn Thượng Hiền</span>
+                                                    </div>
+                                                    <div class="row txt">
+                                                        <div class="col">
+                                                            <div class="address-rest mb-1">
+                                                                73 Nguyễn Thượng Hiền, P. 5, Quận 3, TP. HCM
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="list-item-restaurant1" style="float:left;">
+                                        <a class="item-content1" target="_blank" >
+                                            <div class="row no-gutters">                                            
+                                                <div class="col-auto">
+                                                    <div class="image-restaurant-tab">
+                                                        <img src="https://images.foody.vn/res/g69/680874/prof/s280x175/image-ceaf8f37-221101143210.jpg">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="name-rest options">
+                                                        <span title="Trà Dâu Đà Lạt - Nguyễn Thượng Hiền">Trà Dâu Đà Lạt - Nguyễn Thượng Hiền</span>
+                                                    </div>
+                                                    <div class="row txt">
+                                                        <div class="col">
+                                                            <div class="address-rest mb-1">
+                                                                73 Nguyễn Thượng Hiền, P. 5, Quận 3, TP. HCM
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="list-item-restaurant1" style="float:left;">
+                                        <a class="item-content1" target="_blank" >
+                                            <div class="row no-gutters">                                            
+                                                <div class="col-auto">
+                                                    <div class="image-restaurant-tab">
+                                                        <img src="https://images.foody.vn/res/g69/680874/prof/s280x175/image-ceaf8f37-221101143210.jpg">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="name-rest options">
+                                                        <span title="Trà Dâu Đà Lạt - Nguyễn Thượng Hiền">Trà Dâu Đà Lạt - Nguyễn Thượng Hiền</span>
+                                                    </div>
+                                                    <div class="row txt">
+                                                        <div class="col">
+                                                            <div class="address-rest mb-1">
+                                                                73 Nguyễn Thượng Hiền, P. 5, Quận 3, TP. HCM
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="list-item-restaurant1" style="float:left;">
+                                        <a class="item-content1" target="_blank" >
+                                            <div class="row no-gutters">                                            
+                                                <div class="col-auto">
+                                                    <div class="image-restaurant-tab">
+                                                        <img src="https://images.foody.vn/res/g69/680874/prof/s280x175/image-ceaf8f37-221101143210.jpg">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="name-rest options">
+                                                        <span title="Trà Dâu Đà Lạt - Nguyễn Thượng Hiền">Trà Dâu Đà Lạt - Nguyễn Thượng Hiền</span>
+                                                    </div>
+                                                    <div class="row txt">
+                                                        <div class="col">
+                                                            <div class="address-rest mb-1">
+                                                                73 Nguyễn Thượng Hiền, P. 5, Quận 3, TP. HCM
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="list-item-restaurant1" style="float:left;">
+                                        <a class="item-content1" target="_blank" >
+                                            <div class="row no-gutters">                                            
+                                                <div class="col-auto">
+                                                    <div class="image-restaurant-tab">
+                                                        <img src="https://images.foody.vn/res/g69/680874/prof/s280x175/image-ceaf8f37-221101143210.jpg">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="name-rest options">
+                                                        <span title="Trà Dâu Đà Lạt - Nguyễn Thượng Hiền">Trà Dâu Đà Lạt - Nguyễn Thượng Hiền</span>
+                                                    </div>
+                                                    <div class="row txt">
+                                                        <div class="col">
+                                                            <div class="address-rest mb-1">
+                                                                73 Nguyễn Thượng Hiền, P. 5, Quận 3, TP. HCM
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="list-item-restaurant1" style="float:left;">
+                                        <a class="item-content1" target="_blank" >
+                                            <div class="row no-gutters">                                            
+                                                <div class="col-auto">
+                                                    <div class="image-restaurant-tab">
+                                                        <img src="https://images.foody.vn/res/g69/680874/prof/s280x175/image-ceaf8f37-221101143210.jpg">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="name-rest options">
+                                                        <span title="Trà Dâu Đà Lạt - Nguyễn Thượng Hiền">Trà Dâu Đà Lạt - Nguyễn Thượng Hiền</span>
+                                                    </div>
+                                                    <div class="row txt">
+                                                        <div class="col">
+                                                            <div class="address-rest mb-1">
+                                                                73 Nguyễn Thượng Hiền, P. 5, Quận 3, TP. HCM
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="list-item-restaurant1" style="float:left;">
+                                        <a class="item-content1" target="_blank" >
+                                            <div class="row no-gutters">                                            
+                                                <div class="col-auto">
+                                                    <div class="image-restaurant-tab">
+                                                        <img src="https://images.foody.vn/res/g69/680874/prof/s280x175/image-ceaf8f37-221101143210.jpg">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="name-rest options">
+                                                        <span title="Trà Dâu Đà Lạt - Nguyễn Thượng Hiền">Trà Dâu Đà Lạt - Nguyễn Thượng Hiền</span>
+                                                    </div>
+                                                    <div class="row txt">
+                                                        <div class="col">
+                                                            <div class="address-rest mb-1">
+                                                                73 Nguyễn Thượng Hiền, P. 5, Quận 3, TP. HCM
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="see-more-center">
+                                    <button class="btn btn-none mt-2 link">
+                                        <span>Xem Thêm</span>
+                                        <i class="fas fa-redo"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="background-content">
+                <div class="container">
+                    <div class="now-container-coporation">
+                        <h4 class="title">
+                            <span>Đơn hàng của bạn sẽ được bảo quản như thế nào?</span>
+                        </h4>
+                        <span>
+                            <p class="fnt-15">
+                                ShopeeFood sẽ bảo quản đơn của bạn bằng túi & thùng để chống nắng mưa, giữ nhiệt... trên đường đi một cách tốt nhất. 
+                            </p>
+                        </span>
+                        <img src="https://shopeefood.vn/app/assets/img/Box-food-preservation-footer.png?82adfd2ec19091256d09a94dac77aaba" alt="Food Preservation">
+                    </div>
+
+                    <div class="now-container-coporation1 img-right">
+                        <h4 class="title">
+                            <span>Ứng Dụng Shopee Partner</span>
+                        </h4>
+                        <span>
+                            <p class="fnt-14">
+                                - <b>Ứng dụng Shopee Partner</b> là ứng dụng quản lý đơn hàng cho các nhà hàng đối tác của dịch vụ đặt món tận nơi
+                            </p>
+                            <p class="fnt-14">
+                                - <b>ShopeeFood.vn </b> luôn sẵn sàng hợp tác với các nhà hàng, quán ăn, cafe... để mở rộng kinh doanh cũng như gia tăng khách hàng. Hãy kết nối vào hệ thống đặt và giao hàng để giảm bớt chi phí quản lý, vận hành, marketing, công nghệ...
+                                Đăng ký tham gia: 
+                                <b> <a href="#"> tại đây </a> </b>
+                            </p>
+                        </span>
+                        <div class="img-coporation">
+                            <img src="https://shopeefood.vn/app/assets/img/banner-phone-reg-merchant.png?d657e88bd087afc6919b1c6c6da0dc49" style="height: 300px; width:300px;">
+                        </div>
+                    </div>
+
+                    <div class="now-container-coporation1 img-right">
+                        <h4 class="title">
+                            <a href="#">
+                                <span>
+                                    <span style="color:#EE4D2D; font-weight:500;">ShopeeFood.vn</span>
+                                    Hợp tác nhân viên giao nhận - ShopeeFood Driver
+                                </span>
+                            </a>    
+                        </h4>
+                        <span>
+                            <p class="fnt-15">
+                                Giúp bạn tăng thu nhập trong thời gian rảnh rỗi
+                            </p>
+                            <p >
+                                <span style="color:#EE4D2D; font-weight:500;"> ShopeeFood </span>
+                                tìm kiếm hợp tác với các cá nhân để thực hiện việc giao hàng, chúng tôi sẽ cung cấp ứng dụng (app), 1 số dụng cụ cần thiết để bạn có thể tiếp nhận & giao hàng, kiếm thêm thu nhập
+                                <br>
+                                Đăng ký tham gia 
+                                <a href="#" style="color: #4D77A2; font-weight: 600;">tại đây</a>
+                                hoặc gửi Email qua 
+                                <a href="#" style="color: #4D77A2; font-weight: 600;">tuyendung@gofast.vn</a>
+                                - hoặc gọi qua số điện thoại (028) 7109 9179. 
+                            </p>
+                        </span>
+                        <div class="img-coporation">
+                            <img src="https://shopeefood.vn/app/assets/img/bg-deliverynow-dat-mon-truc-tuyen-giao-hang-tan-noi.png?0a045d11888296eb26473f6126cad3f4" style="height: 200px; width:160px; margin-left: 195px;">
+                        </div>
+                    </div>
+
+                    <div class="footer-link">
+                        <h2>
+                            <span style="font-size: 20px; font-weight:500;">
+                                <strong>ShopeeFood Fresh - Đi chợ online gói gọn trong bàn tay &nbsp;</strong>
+                            </span>
+                        </h2>
+                        <p>
+                            <span style="font-size: 13px;">
+                                ShopeeFood Fresh là một trong những ứng dụng đi chợ online có sức ảnh hưởng và thu hút sự chú ý của nhiều người dùng với loạt ưu điểm sáng giá, như chỉ cần vài cú click đơn giản là bạn có thể dễ dàng lựa chọn những loại thực phẩm tươi ngon nhất cho bữa cơm gia đình dù đang ở nơi đâu. Tiết kiệm thời gian, hàng loạt
+                            </span>
+                            <a><span style="font-size: 13px; color: #1155c1;">deal giảm giá,</span></a>
+                            <span style="font-size: 13px;">
+                                 không chen chúc mua đồ và xếp hàng thanh toán
+                            </span>
+                        </p>
+                        <p>
+                            <span style="font-size: 13px;">
+                                Bạn có thể đặt mua online thịt, cá , trứng, sữa, trái cây, rau củ quả và rất nhiều mặt hàng tươi sống khác nữa trên hệ thống của ShopeeFood Fresh.
+                            </span>
+                        </p>
+
+                        <h2>
+                            <span style="font-size: 20px; font-weight:500;">
+                                <strong>Tại sao lại lựa chọn đặt thực phẩm online qua ShopeeFood Fresh?  &nbsp;</strong>
+                            </span>
+                        </h2>
+                        <p>
+                            <span style="font-size: 13px;">
+                                Là ứng dụng đi chợ online đầu tiên tại Việt Nam, ShopeeFood Fresh đã mang lại nhiều ưu thế cũng như cạnh tranh mạnh mẽ so với các nền tảng đối thủ khác cũng như so với cách đi chợ truyền thống
+                            </span>
+                        </p>
+                        <ul>
+                            <li>
+                                <span style="font-size: 14px; font-weight:blod;"><strong>Danh sách siêu thị, cửa hàng tiện lợi</strong></span>
+                                <span style="font-size: 13px;">được cập nhật thường xuyên ở tỉnh thành khác nhau, cập nhật liên tục về địa điểm, giá cả và thời gian; giúp việc đi chợ trực tuyến trở nên dễ dàng </span>
+                            </li>
+                            <li>
+                                <span style="font-size: 14px; font-weight:blod;"><strong>Ưu đãi ngập tràn:</strong></span>
+                                <span style="font-size: 13px;">deal giảm giá, đồng giá khủng từ hàng loạt cửa hàng hợp tác trên ShopeeFood Fresh:  Homefarm, Farmer Market, MEATDeli,... </span>
+                            </li>
+                            <li>
+                                <span style="font-size: 14px; font-weight:blod;"><strong>Nguồn hàng tươi sống an toàn - giá rẻ:</strong></span>
+                                <span style="font-size: 13px;">Chợ thực phẩm online là nơi có thể mua rau củ quả, thịt, cá, hải sản, trái cây nội/ ngoại nhập, gạo, gia vị, trà, thực phẩm dinh dưỡng... với định lượng rõ ràng.
+                                     Thậm chí bạn còn có thể tìm thấy những món đặc sản vùng miền ngay trên ShopeeFood Fresh mà không cần cất công tìm kiếm cửa hàng. 
+                                    Nếu bạn còn băn khoăn mua thực phẩm tươi sống online trên ShopeeFood có đảm bảo không thì hoàn toàn có thể tin tưởng với chính sách và dịch vụ khách hàng của ShopeeFood. </span>
+                            </li>
+                            <li>
+                                <span style="font-size: 14px; font-weight:blod;"><strong>Tiện dụng và tiết kiệm:</strong></span>
+                                <span style="font-size: 13px;">với ứng dụng đi chợ trực tuyến ShopeeFood, hỗ trợ bạn tìm kiếm và mua thực phẩm online đúng nhu cầu, 
+                                    uy tín và có nguồn cung cấp rõ ràng có thương hiệu trên thị trường. Ngoài việc tiết kiệm chi phí đi lại, hình thức đi chợ online còn có nhiều ưu điểm khác: 
+                                    miễn phí ship đồ ăn online trong vòng bán kính 3km, giao hàng siêu tốc 1 tiếng... </span>
+                            </li>
+                        </ul>
+
+                        <h2>
+                            <span style="font-size: 20px; font-weight:500;">
+                                <strong>Trải nghiệm thân thiện, thanh toán đơn giản với App ShopeeFood &nbsp;</strong>
+                            </span>
+                        </h2>
+                        <p>
+                            <span style="font-size: 13px;">
+                                Giao diện ShopeeFood Fresh được tối ưu với các đề mục cụ thể, đồng thời phân chia rõ thành các bộ sưu tập khác nhau trên ứng dụng giúp cho việc đi chợ online trở nên dễ dàng hơn. 
+                                Chưa kể, nhằm tiếp tục mang đến sự thuận tiện cho người dùng, ShopeeFood Fresh - dịch vụ đi chợ mua thực phẩm tươi sống online đã có mặt trên ứng dụng Shopee - 
+                                mang đến trải nghiệm mua sắm trực tuyến thuận tiện, nhanh chóng và an toàn trong mua sắm.
+                            </span>
+                        </p>
+                        <p>
+                            <span style="font-size: 13px;">
+                                Ứng dụng đi chợ bên cạnh hình thức trả tiền mặt khi nhận hàng, người dùng ShopeeFood còn có thể thanh toán qua ví điện tử ShopeePay với nhiều ưu đãi hấp dẫn, thẻ tín dụng (Visa/Mastercard), thẻ ATM hoặc tài khoản ngân hàng online (iBanking).
+                            </span>
+                        </p>
+                    </div>
+
+
+
+                    <div class="footer-link">
+                        <p class="footer-link-head">
+                            Danh Mục
+                        </p>
+                        <div class="footer-link-body">
+                            <div class="footer-link-item">
+                                <a href="#" class="footer-link-subitem-wrapper">Thuốc</a>
+                                <ul class="footer-link-subitem-wrapper-list">
+                                    <a href="#" class="footer-link-subitem">Hóa mỹ phẩm</a>
+                                    <a href="#" class="footer-link-subitem">BCS</a>
+                                    <a href="#" class="footer-link-subitem">Thiết bị</a>
+                                    <a href="#" class="footer-link-subitem">Vitamins</a>
+                                    <a href="#" class="footer-link-subitem">Thuốc tây</a>
+                                    <a href="#" class="footer-link-subitem">Khẩu trang</a>
+                                    <a href="#" class="footer-link-subitem">Khẩn cấp</a>
+                                </ul>
+                            </div>
+                            <div class="footer-link-item">
+                                <a href="#" class="footer-link-subitem-wrapper">Thú Cưng</a>
+                                <ul class="footer-link-subitem-wrapper-list">
+                                    <a href="#" class="footer-link-subitem">Thú Cưng</a>
+                                </ul>
+                            </div>
+                            <div class="footer-link-item">
+                                <a href="#" class="footer-link-subitem-wrapper">Đồ Ăn</a>
+                                <ul class="footer-link-subitem-wrapper-list">
+                                    <a href="#" class="footer-link-subitem">Vỉa hè</a>
+                                    <a href="#" class="footer-link-subitem">Món lẩu</a>
+                                    <a href="#" class="footer-link-subitem">cơm hộp</a>
+                                    <a href="#" class="footer-link-subitem">Đồ nương</a>
+                                    <a href="#" class="footer-link-subitem">Món gà</a>
+                                    <a href="#" class="footer-link-subitem">Hamburger</a>
+                                    <a href="#" class="footer-link-subitem">Phở</a>
+                                    <a href="#" class="footer-link-subitem">Tráng miệng</a>
+                                </ul>
+                            </div>
+
+                            <div class="footer-link-item">
+                                <a href="#" class="footer-link-subitem-wrapper">Sản Phẩm</a>
+                                <ul class="footer-link-subitem-wrapper-list">
+                                    <a href="#" class="footer-link-subitem">Mỹ phẩm</a>
+                                    <a href="#" class="footer-link-subitem">Sữa</a>
+                                    <a href="#" class="footer-link-subitem">Tả bỉm</a>
+                                    <a href="#" class="footer-link-subitem">Dụng cụ</a>
+                                    <a href="#" class="footer-link-subitem">Quần áo</a>
+                                    <a href="#" class="footer-link-subitem">Trang sức</a>
+                                </ul>
+                            </div>
+
+                            <div class="footer-link-item">
+                                <a href="#" class="footer-link-subitem-wrapper">Thực Phẩm</a>
+                                <ul class="footer-link-subitem-wrapper-list">
+                                    <a href="#" class="footer-link-subitem">Ăn chay</a>
+                                    <a href="#" class="footer-link-subitem">Gia vị</a>
+                                    <a href="#" class="footer-link-subitem">Hải sản</a>
+                                    <a href="#" class="footer-link-subitem">Rau củ</a>
+                                    <a href="#" class="footer-link-subitem">Thịt trứng</a>
+                                </ul>
+                            </div>
+
+                            <div class="footer-link-item">
+                                <a href="#" class="footer-link-subitem-wrapper">Hoa</a>
+                                <ul class="footer-link-subitem-wrapper-list">
+                                    <a href="#" class="footer-link-subitem">Cây cảnh</a>
+                                    <a href="#" class="footer-link-subitem">Chúc mừng</a>
+                                    <a href="#" class="footer-link-subitem">Sinh nhật</a>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

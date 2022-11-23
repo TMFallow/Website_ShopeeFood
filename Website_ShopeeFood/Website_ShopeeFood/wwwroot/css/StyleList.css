@@ -1,0 +1,130 @@
+﻿.container .now-list-filter {
+    padding: 15px;
+}
+
+.now-list-filter .nav-filter {
+    padding-bottom: 0px;
+    border-bottom: 1px solid #d7d7d7;
+    position: relative;
+}
+
+.list-filter {
+    float: left;
+    padding: 10px;
+}
+
+    .list-filter .item-filter {
+        float: left;
+        position: static;
+        font-size: 15px;
+        padding: 0 10px;
+        color: #6d6f71;
+    }
+
+        .list-filter .item-filter .dropdown-toggle {
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+.now-list-filter .list-filter .item-filter .show .container-box-filter {
+    display: block;
+}
+
+.now-list-filter .list-filter .item-filter .container-box-filter {
+    position: absolute;
+    top: 100%;
+    z-index: 2;
+    left: 0;
+    background-color: #fff;
+    height: 180px;
+    width: 860px;
+    border-radius: 0 6px 6px;
+    overflow-y: auto;
+    display: none;
+    padding: 15px;
+    margin-top: -6px;
+    box-shadow: 1px 1px 5px 0;
+}
+
+.custom-checkbox {
+    width: 33.33%;
+    float: left;
+    margin-bottom: 10px;
+}
+
+.filter-right {
+    float: right;
+}
+
+.result {
+    float: left;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.filter-sort {
+    padding: 5px;
+    border-radius: 5px;
+    border-color: #d7d7d7;
+    margin-top: 3px;
+}
+
+.tag-filter {
+    display: flex;
+    padding-top: 10px;
+}
+
+    .tag-filter .widget-tag {
+        font-size: 12px;
+        display: inline-block;
+        position: relative;
+        margin-right: 15px;
+        padding: 4px 7px;
+        background-color: #d7d7d7;
+        border-radius: 2px;
+        
+    }
+
+        .tag-filer .widget-tag .keyword {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+.now-list-restaurant .list-item-restaurant .item-content .image-restaurant .icon-prefered {
+    text-transform: none;
+    position: absolute;
+    background: #f13233;
+    color: #fff;
+    bottom: 5px;
+    left: 7px;
+    z-index: 1;
+    padding: 3px 5px;
+}
+
+.marginBottom {
+    margin-bottom: 70px;
+}
+
+.pagination {
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 80px;
+    text-align: center;
+    list-style-type: none;
+    margin-left: 400px;
+}
+
+    .pagination li {
+        position: relative;
+        padding: 0 20px;
+        font-size: 18px;
+    }
+
+        .pagination li a {
+            color: #6d6f71;
+        }
+
+            .pagination li a:hover {
+                color: #f13123;
+                text-decoration: none;
+            }

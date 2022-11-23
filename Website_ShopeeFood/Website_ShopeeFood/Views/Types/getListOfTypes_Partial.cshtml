@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Website_ShopeeFood.Models.TypesModel>
+
+@if(Model !=null)
+{
+    @foreach(var item in Model)
+    {
+        <div class="custom-checkbox">
+            <input class="types" type="checkbox"/>
+            <label for="@item.NameofType">@item.NameofType</label>
+        </div>
+    }
+}
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+
+<script>
+
+    $(function () {
+        $('#get_Save_Type').click(function () {
+            var value1 = [];
+            $('.types:checked').each(function (i) {
+                value1[i] = $(this).val();
+            });
+
+            var number1 = 0;
+
+            for (var j = 0; j < value1.length; j++) {
+                number1 = number1 + 1;
+            }
+
+            if (number1 != 0) {
+                $('.keyword-types').html("(" + number1 + ")")
+            }
+            else {
+                $('.keyword-types').html("")
+            }
+            $.ajax({
+                type: "POST",
+                url: "/Restaurant/filterRestaurantByTypes",
+                data: { "list_types": value1 },
+                success: function (response) {
+                    $('#list_of_restaurant_partial').load('/Restaurant/listOfRestaurant');
+                },
+            });
+        });
+    });
+</script>

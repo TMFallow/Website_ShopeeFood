@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Website_ShopeeFood.Models.BrandModel>
+
+@foreach(var item in Model)
+{
+    <div class="list-item-restaurant1" style="float:left;">
+        <a class="item-content1" target="_blank" href="#">
+            <div class="row no-gutters">
+                <div class="col-auto">
+                    <div class="image-restaurant-tab">
+                        <img src="@item.image">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="name-rest options">
+                        <span title="@item.nameRestaurant>@item.nameRestaurant></span>
+                    </div>
+                    <div class="row txt">
+                        <div class="col">
+                            <div class="address-rest mb-1">
+                                @item.address
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+}

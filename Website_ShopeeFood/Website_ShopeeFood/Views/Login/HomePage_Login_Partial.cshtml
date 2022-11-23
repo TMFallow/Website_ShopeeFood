@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Website_ShopeeFood.Models.UsersModel>
+
+@if (@ViewBag.fullName == null)
+{
+    <a asp-area="" asp-controller="Login" asp-action="Login_Users"><button class="btn btn-none-bg btn-login">Đăng Nhập</button></a>
+}
+else
+{
+    <div class="dropdown">
+        <div class="use-account col-auto dropdown-toggle" id="dropdowwnInfoButton" data-toggle="dropdown" , aria-haspopup="true" aria-expanded="false">
+            <img src="@ViewBag.imageUser" style="height:30px; width:30px;">
+            <span class="name-user">
+                @ViewBag.fullName
+            </span>
+        </div>
+        <div class="dropdown-menu dropdown-language" aria-labelledby="dropdownInfoButon">
+            <div class="dropdown-item">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <span class="language-item">Lịch Sử Đơn Hàng</span>
+            </div>
+            <div class="dropdown-item">
+                <i class="fas fa-wallet"></i>
+                <span class="language-item">Ví Voucher</span>
+            </div>
+            <div class="dropdown-item">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <span class="language-item">Cập Nhật Tài Khoản</span>
+            </div>
+            <div class="dropdown-item">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+
+                <span class="language-item">
+                    <a asp-action="LogOut" asp-controller="Login">
+                        Đăng Xuất
+                   </a>
+                </span>
+
+            </div>
+        </div>
+    </div>
+}

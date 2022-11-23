@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Website_ShopeeFood.Models.DetailAreasModel>
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        <div class="custom-checkbox">
+            <input class="dist" name="selector[]" value="@item.IDDetailsArea" type="checkbox" />
+            <label id="number_districts" for="@item.IDDetailsArea">@item.NameofDetailsArea</label>
+        </div>
+    }
+}
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+<script>
+    $('#get_Save_Area').click(function () {
+        var value = [];
+        $('.dist:checked').each(function (i) {
+            value[i] = $(this).val();
+        });
+
+        var number = 0;
+
+        for (var j = 0; j < value.length; j++) {
+            number = number + 1;
+        }
+
+        if (number != 0) {
+            $('.keyword-districts').html("(" + number + ")");
+        }
+        else {
+            $('.keyword-districts').html("");
+        }
+        $.ajax({
+            type: "POST",
+            url: "/Restaurant/filterRestaurantByDistricts",
+            data: { "list_districts": value },
+            success: function (response) {
+                $('#list_of_restaurant_partial').load('/Restaurant/listOfRestaurant');
+            },
+        });
+    });
+</script>
+
+<script>
+    $(function () {
+        $('#checking-close-districts').click(function () {
+            $('.dist:checked').each(function (i) {
+                $('.dist:checked').prop('checked', false);
+            });
+            $('.keyword-districts').html("");
+        });
+    });
+</script>

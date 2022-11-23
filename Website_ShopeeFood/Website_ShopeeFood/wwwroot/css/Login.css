@@ -1,0 +1,163 @@
+﻿.now-login {
+    padding: 66px 240px;
+    clear: both;
+    background-color: #f2f2f2;
+}
+
+body {
+}
+
+.content {
+    padding: 0%;
+    text-align: inherit;
+    background-color: #fff;
+}
+
+.login-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    margin-top: -30px;
+    padding: 0;
+}
+
+.login-methods {
+    padding: 0;
+    margin: 0 50px;
+    margin-bottom: 15px;
+}
+
+    .login-methods .login-item-phone {
+        background-color: #329900;
+        color: #fff;
+        height: 40px;
+        padding: 7px 0;
+        margin-bottom: 15px;
+        border-radius: 6px;
+    }
+
+    .login-methods .login-item-facebook {
+        background-color: #2e67d1;
+        color: #fff;
+        height: 40px;
+        padding: 7px 0;
+        margin-bottom: 15px;
+        border-radius: 6px;
+    }
+
+    .login-methods .login-item-email {
+        background-color: #df4936;
+        color: #fff;
+        height: 40px;
+        padding: 7px 0;
+        margin-bottom: 15px;
+        border-radius: 6px;
+    }
+
+    .login-methods .login-item-phone i {
+        border-radius: 50%;
+        border: 1px solid white;
+        margin-left: -110px;
+    }
+
+    .login-methods .login-item-phone .fa {
+        position: absolute;
+        padding: 5px;
+    }
+
+    .login-methods .login-item-facebook i {
+        margin-left: -110px;
+    }
+
+    .login-methods .login-item-facebook .fab {
+        position: absolute;
+        padding: 5px;
+        margin-left: -126px;
+    }
+
+    .login-methods .login-item-email i {
+        border-radius: 50%;
+        border: 1px solid white;
+        margin-left: -141px;
+    }
+
+    .login-methods .login-item-email .fa {
+        position: absolute;
+        padding: 5px;
+    }
+
+.now-login p {
+    font-size: 13px;
+    color: #a5a5a5;
+    margin-bottom: 30px;
+}
+
+.field-groups {
+    border: 1px solid #979797;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+    .field-groups .login-group {
+        position: relative;
+        border-bottom: 1px solid #979797;
+        align-items: center;
+    }
+
+.login-group {
+    position: relative;
+}
+
+.field-groups .login-group i {
+    position: absolute;
+    padding: 15px 0 0 8px;
+    left: 0;
+}
+
+.field-groups .login-group input {
+    border: 0;
+    width: 100%;
+    border-radius: 0;
+    padding: 11px 20px 12px 33px;
+}
+
+.save-login {
+    margin-bottom: 0;
+    float: left;
+}
+
+    .save-login input[type=checkbox] {
+        color: #2e67d1;
+        padding: 0 10px 0 3px;
+    }
+
+    .save-login p {
+        display: inline-block;
+    }
+
+.frogot-password {
+    float: right;
+    margin-bottom: 15px;
+}
+
+    .frogot-password a {
+        color: #2e67d1;
+        font-size: 15px;
+    }
+
+        .frogot-password a:hover {
+            text-decoration: none;
+        }
+
+.btn {
+    width: 100%;
+    height: 35px;
+}
+
+.privacy {
+    padding: 20px 0;
+    font-size: 12px;
+    text-align: justify;
+    color: #979797;
+}

@@ -1,0 +1,110 @@
+﻿.now-container-coporation {
+    background-color: #fff;
+    color: black;
+    padding: 20px 150px 50px;
+    border-radius: 6px;
+    position: relative;
+    margin-top: 106px;
+}
+
+.now-container-coporation1 {
+    background-color: #fff;
+    color: black;
+    padding: 20px 150px 50px;
+    border-radius: 6px;
+    position: relative;
+    margin-top: 60px;
+}
+
+
+    .now-container-coporation1 .img-right {
+        padding: 50px 350px 50px 150px;
+    }
+
+    .now-container-coporation1 .img-coporation {
+        position: absolute;
+        width: 350px;
+        text-align: center;
+        bottom: -1px;
+        right: 0;
+        line-height: 0;
+    }
+
+.background-content {
+    background-color: #f2f2f2;
+    margin-top: -20px;
+}
+
+.fnt-15 {
+    font-size: 0.923rem;
+}
+
+.fnt-14 {
+    font-size: 15px;
+    padding-right: 216px;
+    padding-top: 10px;
+    left: 0;
+}
+
+.footer-link {
+    margin: 50px 0;
+    border-bottom: 1px solid #0000008a;
+}
+
+.footer-link-body {
+    columns: 4;
+}
+
+.footer-link .footer-link-head {
+    color: #0000008a;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.footer-link .footer-link-item {
+    padding-right: 10px;
+    break-inside: avoid;
+}
+
+    .footer-link .footer-link-item a {
+        text-decoration: none;
+    }
+
+.footer-link-subitem-wrapper {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    color: #0000008a;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+ul {
+    padding: 0;
+}
+
+.footer-link .footer-link-item .footer-link-subitem {
+    font-size: 13px;
+    color: #0000008a;
+    margin-bottom: 10px;
+    height: 16px;
+}
+
+    .footer-link .footer-link-item .footer-link-subitem::after {
+        content: "|";
+        padding: 0 5px;
+        color: #0000008a;
+    }
+
+    .footer-link .footer-link-item .footer-link-subitem:last-child::after {
+        content: "";
+    }
+
+.footer-link-subitem-wrapper-list {
+    list-style-type: none;
+    padding: 5px 0;
+    display: flex;
+    flex-wrap: wrap;
+}

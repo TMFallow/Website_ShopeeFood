@@ -1,0 +1,518 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+.now-banner {
+    height: 100vh;
+    background-image: url('https://shopeefood.vn/app/assets/img/main-banner.jpg?45bff8c9ec408a5ba51f9fdef662324e');
+    left: 0;
+    right: 0;
+    z-index: 0;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.now-search {
+    color: #fff;
+    width: 470px;
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    margin-top: -30px;
+    transform: translateY(-50%);
+    margin-left: 100px;
+}
+
+    .now-search .title {
+        font-weight: 700;
+        font-size: 24px;
+        margin-bottom: 5px;
+    }
+
+    .now-search .local {
+        font-size: 15px;
+        text-transform: capitalize;
+    }
+
+    .now-search .form-search {
+        padding: 27px 0 40px;
+        position: relative;
+    }
+
+.input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+}
+
+.now-search .form-search .input-group input {
+    width: 100%;
+    padding-right: 75px;
+    padding-left: 10px;
+    height: 50px;
+    border: 0;
+    border-radius: 6px;
+}
+
+.now-search .form-search button {
+    background-color: #0288d1;
+}
+
+.now-search .form-search .btn-search {
+    position: absolute;
+    width: 70px;
+    height: 50px;
+    top: 0;
+    right: 0;
+    border-radius: 0 6px 6px 0;
+}
+
+.now-search .icon-gg-play-big {
+    transform: scale(.75);
+    transform-origin: left;
+}
+
+.now-search .icon-app-store-big {
+    transform: scale(.75);
+    transform-origin: left;
+}
+
+.category-list-filters > a {
+    display: inline-block;
+}
+
+.category-list-filters a {
+    border: #fff;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    margin-right: 10px;
+}
+
+.category-list-filters .category-item {
+    color: white;
+    font-size: 16px;
+    white-space: nowrap;
+    border: 1px solid;
+    border-radius: 6px;
+    display: inline-block;
+    padding: 7px 21px;
+}
+
+.category-item:hover {
+    background-color: #fff;
+    color: black;
+    transition-duration: 0.5s;
+}
+
+.font18 {
+    font-size: 1.125rem;
+}
+
+.icon-app-store-big {
+    height: 68px;
+    width: 219px;
+    background-position: -422px -387px;
+}
+
+.icon-gg-play-big {
+    background-position: -367px -466px;
+    width: 219px;
+    height: 68px;
+}
+
+.clearfix {
+    display: block;
+    clear: both;
+    content: "";
+}
+
+.contain-main-home .main-right-home {
+    width: 680px;
+    float: right;
+    position: relative;
+    margin-top: 48px;
+    margin-bottom: 70px;
+    min-height: calc(100vh - 123px);
+    z-index: 0;
+}
+
+.main-right-home .user-get-local {
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 14px 7px 14px 7px;
+    border-radius: 6px;
+}
+
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.align-item-center {
+    align-items: center;
+}
+
+.txt-blue-blod {
+    color: #0288d1;
+    font-weight: 500;
+    padding-left: 50px;
+}
+
+.pl-2 {
+    padding-left: 0.5rem;
+}
+
+.pr-2 {
+    padding-right: 0.5rem;
+}
+
+.txt {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.main-right-home .now-list-restaurant {
+    background-color: #fff;
+    border: 1px solid #d7d7d7;
+    padding: 10px 35px 10px 35px;
+}
+
+    .main-right-home .now-list-restaurant .title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #5c5959;
+    }
+
+.main-right-home .view-all-deals {
+    color: #0288d1;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+    .main-right-home .view-all-deals:hover {
+        color: #0288d1;
+        font-size: 14px;
+        font-weight: 400;
+        text-decoration: none;
+    }
+
+    .main-right-home .view-all-deals .icon-list-deal {
+        margin-right: 4px;
+        top: -1;
+    }
+
+.icon-list-deal {
+    position: relative;
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+}
+
+.now-list-restaurant {
+    border-radius: 6px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.title-wraper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon-list-deal .square:first-child {
+    top: 0;
+    left: 0;
+}
+
+.icon-list-deal .square:nth-child(2) {
+    top: 0;
+    right: 0;
+}
+
+.icon-list-deal .square:nth-child(3) {
+    bottom: 0;
+    left: 0;
+}
+
+.icon-list-deal .square:nth-child(4) {
+    bottom: 0;
+    right: 0;
+}
+
+.icon-list-deal .square {
+    height: 3px;
+    width: 3px;
+    position: absolute;
+    background-color: #0288d1;
+}
+
+.main-right-home .now-list-restaurant .list-restaurant {
+    margin: 0 -8px;
+}
+
+
+.now-list-restaurant .list-restaurant {
+    position: relative;
+}
+
+.now-loading-restaurant {
+    background-color: #fff;
+    display: none;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.main-right-home .now-loading-restaurant .box-loading {
+    width: 33.333%;
+    height: 209px;
+    margin-bottom: 6px;
+}
+
+
+.now-loading-restaurant .box-loading {
+    padding: 8px;
+    float: left;
+    width: 20%;
+    margin-bottom: 6px;
+    height: 235px;
+    background-color: #fff;
+}
+
+.main-right-home .now-loading-restaurant .box-thumbnail {
+    height: 116px;
+}
+
+.now-loading-restaurant .box-thumbnail {
+    height: 137px;
+    width: 100%;
+    float: left;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.now-loading-restaurant .box-thumbnail, .now-loading-restaurant [class*=box-line] {
+    animation: b;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    background: linear-gradient(90deg,#eee 8%,#ddd 18%,#eee 33%);
+    background-size: 800px auto;
+}
+
+.main-right-home .now-loading-restaurant [class*=box-line] {
+    height: 8px;
+    margin-bottom: 10px;
+}
+
+.now-loading-restaurant .box-line-df {
+    width: 60%;
+}
+
+.now-loading-restaurant .box-line-lgx {
+    width: 80%;
+}
+
+.now-loading-restaurant .box-line-lg {
+    width: 50%;
+}
+
+.main-right-home .now-list-restaurant .list-item-restaurant {
+    padding: 8px;
+    width: 33.333%;
+}
+
+.now-list-restaurant .list-item-restaurant {
+    width: 20%;
+    padding: 10px;
+}
+
+.now-list-restaurant .item-content {
+    cursor: pointer;
+    border-radius: 6px;
+    background-color: #fff;
+    position: relative;
+    display: block;
+}
+
+.main-right-home .now-list-restaurant .image-restaurant {
+    height: 116px;
+}
+
+.now-list-restaurant .image-restaurant {
+    position: relative;
+    border-radius: 6px 6px 0 0;
+    background-color: #eaeaea;
+    overflow: hidden;
+}
+
+.main-right-home .now-list-restaurant .icon-prefered {
+    position: absolute;
+    background-color: red;
+    color: white;
+    white-space: nowrap;
+    bottom: 5px;
+    left: 7px;
+    text-transform: none;
+    z-index: 1;
+    padding: 3px 5px;
+}
+
+    .main-right-home .now-list-restaurant .icon-prefered i {
+        padding-left: 2px;
+        padding-right: 3px;
+    }
+
+.main-right-home .now-list-restaurant img {
+    width: 100%;
+}
+
+.now-list-restaurant .info-restaurant {
+    border: 1px solid #d7d7d7;
+    border-radius: 0 0 6px 6px;
+    height: 83px;
+}
+
+.now-list-restaurant .restaurant-info {
+    padding: 5px 8px;
+    border-bottom: 1px solid #d7d7d7;
+}
+
+.now-list-restaurant .sale-promotion {
+    padding: 2px 3px;
+    font-size: 13px;
+    margin-left: 7px;
+    font-weight: 500;
+    color: #0288d1;
+}
+
+    .now-list-restaurant .sale-promotion i {
+        color: red;
+        padding-right: 1px;
+    }
+
+.now-list-restaurant .restaurant-info .name-rest {
+    font-size: 14px;
+    font-weight: 700;
+    color: #252525;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-bottom: 1px;
+    padding-top: 5px;
+}
+
+.now-list-restaurant .restaurant-info .address-rest {
+    font-size: 14px;
+    font-weight: 300;
+    color: #575656;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-bottom: 1px;
+}
+
+.now-list-restaurant .home-tab .restaurant-info .address-rest {
+    margin-left: 10px;
+}
+
+.see-more-center {
+    text-align: center;
+}
+
+.btn-none {
+    background-color: transparent;
+    color: #0288d1;
+}
+
+.collection .info-restaurant {
+    border: 0;
+}
+
+.collection .restaurant-info {
+    border: 0;
+}
+
+.collection p {
+    color: #0288d1;
+    font-size: 12px;
+}
+
+.now-list-restaurant .item-button {
+    background-color: transparent;
+    width: 90px;
+    padding: 5px 5px;
+}
+
+.mt-2 {
+    margin-top: 0.5rem;
+}
+
+.tab-header select {
+    border: 1px solid #d7d7d7;
+    padding: 3px 5px;
+    border-radius: 6px;
+}
+
+.image-restaurant-tab {
+    height: 90px;
+    width: 100%;
+    display: flex;
+}
+
+.list-item-restaurant1 {
+    width: 620px;
+    padding: 8px 18px;
+}
+
+.item-content1 {
+    width: 620px;
+}
+
+.options {
+    padding: 10px;
+}
+
+.txt {
+    padding-left: 7px;
+    font-size: 13px;
+    color: #575656;
+}
+
+.mb-1 {
+    margin-bottom: 1px;
+}
+
+.list-item-restaurant .col {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+}
+
+@media screen and (max-width: 1366px) {
+    .now-search .form-search {
+        padding: 20px 0;
+    }
+}
+
+@media screen and (max-width:1366px) {
+    .category-list-filters {
+        margin-bottom: -15px;
+    }
+
+        .category-list-filters > a {
+            margin-bottom: 15px;
+            margin-right: 15px;
+        }
+
+        .category-list-filters .category-item {
+            font-size: 14px;
+        }
+}
