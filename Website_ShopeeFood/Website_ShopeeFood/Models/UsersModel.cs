@@ -7,8 +7,10 @@ namespace Website_ShopeeFood.Models
     {
         public int? UserId { get; set; }
 
+        [Required, Display(Name = "Username không được để trống")]
         public string Username { get; set; }
 
+        [Required, Display(Name = "Password không được để trống")]
         public string Password { get; set; }
 
         public string FullName { get; set; }

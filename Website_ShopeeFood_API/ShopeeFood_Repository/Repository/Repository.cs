@@ -100,5 +100,10 @@ namespace ShopeeFood_Repository.Repository
         {
             return entities.Where(entity).ToList();
         }
+
+        public IEnumerable<T> getByIdTypes(Func<T, bool> entity)
+        {
+            return entities.Where(entity).ToList();
+        }
     }
 }
