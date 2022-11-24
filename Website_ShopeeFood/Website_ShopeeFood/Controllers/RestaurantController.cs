@@ -271,38 +271,72 @@ namespace Website_ShopeeFood.Controllers
                 }
                 return PartialView("listOfRestaurant", listRestaurants);
             }
-            else //Sửa Lại
+            else
             {
-                List<RestaurantsModel> listRestaurants = new List<RestaurantsModel>();
+                List<FoodModel> listOfFoods = new List<FoodModel>();
 
-                string[] detailDistricts = listDistricts;
+                List<RestaurantsModel> listRestaurantsNotFiltered = new List<RestaurantsModel>();
 
-                foreach (string item in detailDistricts)
+                List<RestaurantsModel> listRestaurantsFiltered = new List<RestaurantsModel>();
+
+                string[] DetailTypes = listTypes;
+
+                foreach (string item in DetailTypes)
                 {
-                    int IdDistricts = int.Parse(item);
+                    int IdTypes = int.Parse(item);
 
                     using (var httpClient = new HttpClient())
                     {
                         configHttpClient(httpClient);
 
-                        HttpResponseMessage respone = await httpClient.GetAsync("api/restaurant/getListOfrestaurantByIdDistricts/" + IdDistricts + "");
+                        HttpResponseMessage respone = await httpClient.GetAsync("api/food/getListRestaurantBasedOnTypeId/" + IdTypes + "");
 
                         if (respone.IsSuccessStatusCode)
                         {
-                            var restaurantTask = respone.Content.ReadAsAsync<List<RestaurantsModel>>();
+                            var restaurantTask = respone.Content.ReadAsAsync<List<FoodModel>>();
 
                             restaurantTask.Wait();
 
                             var listRests = restaurantTask.Result;
 
-                            for (int i = 0; i < listRests.Count; i++)
+                            if (listRests.Count != 0)
                             {
-                                listRestaurants.Add(listRests[i]);
+                                listOfFoods.Add(listRests[0]);
+
+                                for (int i = 1; i < listRests.Count - 1; i++)
+                                {
+                                    if (listRests[i].RestaurantID != listRests[i++].RestaurantID)
+                                    {
+                                        listOfFoods.Add(listRests[i]);
+                                    }
+                                }
+                            }
+
+                            foreach (var listItem in listOfFoods)
+                            {
+                                listRestaurantsNotFiltered.Add(await getRestaurantByIdType(listItem.RestaurantID));
                             }
                         }
                     }
                 }
-                return PartialView("listOfRestaurant", listRestaurants);
+
+                if (listRestaurantsNotFiltered.Count != 0)
+                {
+                    int k = 0; 
+
+                    listRestaurantsFiltered.Add(listRestaurantsNotFiltered[k]);
+
+                    for (int i = 1; i < listRestaurantsNotFiltered.Count; i++)
+                    {
+                        if (listRestaurantsFiltered[k].RestaurantID != listRestaurantsNotFiltered[i].RestaurantID)
+                        {
+                            listRestaurantsFiltered.Add(listRestaurantsNotFiltered[i]);
+                            k++;
+                        }
+                    }
+                }
+
+                return PartialView("listOfRestaurant", listRestaurantsFiltered);
             }
             return BadRequest();
         }
