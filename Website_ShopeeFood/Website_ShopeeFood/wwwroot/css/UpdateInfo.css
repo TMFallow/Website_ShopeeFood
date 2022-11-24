@@ -1,0 +1,176 @@
+﻿.col-profile-right {
+    float: left;
+    padding: 18px 40px;
+    left: 0;
+    margin-left: -150px;
+    border: 1px solid lightgray;
+    box-shadow: 0 0 3px 0 rgb(50 50 50 / 30%);
+    border-radius: 6px;
+    height: 400px;
+}
+
+.font-15 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.item-nagivation {
+    clear: both;
+    padding: 10px 0;
+    position: relative;
+}
+
+.sub-item-nagivation {
+    clear: both;
+    align-items: center;
+    margin-top: 10px;
+    border-top: 1px solid lightgray;
+    float: left;
+    margin-left: 28px;
+}
+
+    .sub-item-nagivation .narrow {
+        float: right;
+    }
+
+.item-profile {
+    padding: 15px 0px;
+    margin-left: -13px;
+    text-align: left;
+}
+
+    .item-profile a {
+        color: black;
+        font-size: 15px;
+    }
+
+        .item-profile a:hover {
+            text-decoration: none;
+            color: #ee4d2d;
+        }
+
+.icon-item-profile {
+    float: left;
+    padding: 3px;
+}
+
+.title-item-profile {
+    float: left;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+}
+
+.narrow {
+    float: right;
+    margin-right: -15pxs;
+}
+
+.col-info-user {
+    float: left;
+    width: 827px;
+    min-height: 428px;
+    position: relative;
+    margin-left: 50px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 0 3px 0 rgb(50 50 50 / 30%);
+    margin-top: 0px;
+    margin-bottom: 80px;
+}
+
+.info-user-name {
+    font-size: 18px;
+    color: #000;
+    font-weight: 700;
+    padding: 16px 15px;
+    border-bottom: 1px solid #ebebeb;
+    position: relative;
+    background: #f5f5f5;
+}
+
+.info-user-update {
+    padding: 15px 35px;
+    position: relative;
+    border-bottom: 1px solid lightgray;
+}
+
+    .info-user-update .row {
+        margin-bottom: 0px;
+        margin-top: 10px;
+    }
+
+.title-user {
+    font-size: 18px;
+    color: #2b688b;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.info-user-content .imgae-user {
+    padding: 10px;
+}
+
+.btn {
+    background-color: rgb(11, 108, 219);
+    color: white;
+}
+
+.txt-bold {
+    font-weight: bold;
+}
+
+.align-item-center {
+    text-align: left;
+    align-items: center;
+}
+
+.info-user-update .form-group {
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.input-group .btn-none-bg {
+    width: 150px;
+    background-color: white;
+    color: #2b688b;
+    border: 1px solid #2b688b;
+}
+
+    .input-group .btn-none-bg:hover {
+        width: 150px;
+        background-color: #2b688b;
+        color: white;
+        border: 1px solid #2b688b;
+    }
+
+.password-chars {
+    float: left;
+    margin-top: 6px;
+}
+
+.changepassword {
+    float: left;
+}
+
+    .changepassword .change-pass {
+        border: none;
+        color: #2b688b;
+        background-color: white;
+        margin-left: 10px;
+        padding-bottom: 3px;
+    }
+
+        .changepassword .change-pass:hover {
+            border-bottom: 1px solid #2b688b;
+            transition: 0.5s ease;
+        }
+
+.save-changes {
+    width: 150px;
+    margin-left: -20px;
+}
+
+.number-user {
+    font-size: 15px;
+    font-weight: 500;
+}
