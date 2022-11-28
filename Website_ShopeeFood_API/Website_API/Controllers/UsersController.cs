@@ -28,5 +28,11 @@ namespace Website_API.Controllers
         {
             return users.GetAllUser().ToArray();
         }
+
+        [HttpGet("getUserByEmail/{email}")]
+        public User getUserByEmail(string email)
+        {
+            return users.getUserByEmail(email);
+        }
     }
 }

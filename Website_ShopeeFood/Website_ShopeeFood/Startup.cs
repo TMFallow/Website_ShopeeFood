@@ -16,6 +16,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Website_ShopeeFood.AppSetting;
 using Microsoft.AspNetCore.Session;
+using Website_ShopeeFood.Controllers;
 
 namespace Website_ShopeeFood
 {
@@ -44,37 +45,6 @@ namespace Website_ShopeeFood
                     x.LoginPath = "/Login/Login_Users";
                     x.Cookie.Name = "AshProgHelpCookie";
                 });
-
-            //services.AddTransient<App_Setting, App_Setting>();
-
-            //var appSettingsSection = Configuration.GetSection("App_Setting");
-
-            //services.Configure<App_Setting>(appSettingsSection);
-
-            //var appSettings = appSettingsSection.Get<App_Setting>();
-
-            //var key = Encoding.ASCII.GetBytes(appSettings.serectKey);
-
-            //services.AddAuthentication(x =>
-            //{
-            //    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //})
-            //    .AddJwtBearer(x =>
-            //    {
-            //        x.RequireHttpsMetadata = false;
-            //        x.SaveToken = true;
-            //        x.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            ClockSkew = TimeSpan.FromMinutes(30),
-            //            ValidateIssuerSigningKey = true,
-            //            IssuerSigningKey = new SymmetricSecurityKey(key),
-            //            ValidateIssuer = false,
-            //            ValidateAudience = false
-            //        };
-            //    });
-            //services.AddMvc();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -110,6 +80,13 @@ namespace Website_ShopeeFood
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                //endpoints.MapGet("/Login/SendMail", async (context) =>
+                //{
+                //    var message = await LoginController.SendMail("thanhbinh07102001@gmail.com", "thanhbinh07102001@gmail.com", "thanhbinh07102001@gmail.com", "hdaxpupfiarzaejx");
+
+                //    await context.Response.WriteAsync(message);
+                //});
             });
         }
     }

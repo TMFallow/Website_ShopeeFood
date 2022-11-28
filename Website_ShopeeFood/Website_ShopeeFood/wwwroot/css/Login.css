@@ -1,7 +1,7 @@
 ﻿.now-login {
     padding: 66px 240px;
     clear: both;
-    background-color: #f2f2f2;
+    background-color: white;
 }
 
 body {
@@ -17,6 +17,7 @@ body {
     font-size: 20px;
     font-weight: 700;
     margin-bottom: 20px;
+    text-align: center;
     margin-top: -30px;
     padding: 0;
 }

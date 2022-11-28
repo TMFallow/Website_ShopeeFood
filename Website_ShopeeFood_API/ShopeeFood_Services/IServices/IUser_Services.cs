@@ -22,5 +22,7 @@ namespace ShopeeFood_Services.IServices
         public void Remove(User entity);
 
         public void SaveChanges();
+
+        public User getUserByEmail(string email);
     }
 }

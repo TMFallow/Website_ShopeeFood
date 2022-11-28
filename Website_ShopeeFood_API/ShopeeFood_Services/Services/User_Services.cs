@@ -53,5 +53,9 @@ namespace ShopeeFood_Services.Services
             user.SaveChanges();
         }
 
+        public User getUserByEmail(string email)
+        {
+            return user.getUserByEmail(x=>x.Email == email);
+        }
     }
 }

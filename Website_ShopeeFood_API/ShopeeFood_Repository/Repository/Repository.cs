@@ -100,5 +100,10 @@ namespace ShopeeFood_Repository.Repository
         {
             return entities.Where(entity).ToList();
         }
+
+        public T getUserByEmail(Func<T, bool> func)
+        {
+            return entities.FirstOrDefault(func);
+        }
     }
 }
