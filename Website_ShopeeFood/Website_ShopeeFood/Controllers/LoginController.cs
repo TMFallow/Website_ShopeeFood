@@ -216,11 +216,13 @@ namespace Website_ShopeeFood.Controllers
             if (model != null)
             {
                 string check = await SendMail("thanhbinh07102001@gmail.com",email, "thanhbinh07102001@gmail.com", "hdaxpupfiarzaejx", model.FullName);
-                return Ok(check);
+                ViewBag.message = "<script>alert('Sent Email Succesfully - Đã Gửi Email Thành Công');</script>";
+                return View();
             }
             else
             {
-                return BadRequest();
+                ViewBag.message = null;
+                return View();
             }
         }
 
@@ -260,6 +262,68 @@ namespace Website_ShopeeFood.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult ConfirmPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ConfirmPassword(string username, string password, string confirmPassword)
+        {
+
+            UsersModel usersModel = new UsersModel();
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl);
+
+                client.DefaultRequestHeaders.Clear();
+
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage message = await client.GetAsync("api/users/getUserByUsername/" + username + "");
+
+                if (message.IsSuccessStatusCode)
+                {
+                    var userTask = message.Content.ReadAsAsync<UsersModel>();
+
+                    userTask.Wait();
+
+                    usersModel = userTask.Result;
+                }
+
+                if (usersModel != null)
+                {
+                    if (password == confirmPassword)
+                    {
+                        usersModel.Password = password;
+                    }
+                }
+
+                StringContent content = new StringContent(JsonConvert.SerializeObject(usersModel),
+                    Encoding.UTF8, "application/json");
+
+                HttpResponseMessage message2 = await client.PostAsync("api/users/UpdateUser", content);
+
+                if (message2.IsSuccessStatusCode)
+                {
+                    var userTask = message.Content.ReadAsAsync<UsersModel>();
+
+                    userTask.Wait();
+
+                    usersModel = userTask.Result;
+                }
+            }
+            return RedirectToAction("Login_Users", "Login");
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
 
         public IActionResult LogOut()
         {
@@ -268,16 +332,6 @@ namespace Website_ShopeeFood.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [AllowAnonymous, HttpGet]
-        public IActionResult ChangePassword()
-        {
-            return View();
-        }
-
-        [AllowAnonymous, HttpPost]
-        public IActionResult ChangePassword(UsersModel usersModel)
-        {
-            return View();
-        }
+        
     }
 }

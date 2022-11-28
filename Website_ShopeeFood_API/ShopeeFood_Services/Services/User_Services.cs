@@ -55,7 +55,13 @@ namespace ShopeeFood_Services.Services
 
         public User getUserByEmail(string email)
         {
-            return user.getUserByEmail(x=>x.Email == email);
+            return user.getUserByEmail(x => x.Email == email);
         }
+
+        public User getUserByUsername(string username)
+        {
+            return user.getUserByUsername(x => x.Username == username);
+        }
+
     }
 }

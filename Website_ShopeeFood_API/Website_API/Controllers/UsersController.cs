@@ -29,10 +29,22 @@ namespace Website_API.Controllers
             return users.GetAllUser().ToArray();
         }
 
+        [HttpPost("UpdateUser")]
+        public void UpdateUser(User userModel)
+        {
+            users.Update(userModel);
+        }
+
         [HttpGet("getUserByEmail/{email}")]
         public User getUserByEmail(string email)
         {
             return users.getUserByEmail(email);
+        }
+
+        [HttpGet("getUserByUsername/{username}")]
+        public User getUserByUsername(string username)
+        {
+            return users.getUserByUsername(username);
         }
     }
 }

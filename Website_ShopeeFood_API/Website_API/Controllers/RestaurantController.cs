@@ -82,10 +82,10 @@ namespace Website_API.Controllers
             return restaurant_Services.getListOfRestaurantByIdDistricts(IDDetailsArea);
         }
 
-        [HttpGet()]
+        [HttpGet("getListOfRestaurantByIdTypes/{IdTypes:int}")]
         public IEnumerable<Restaurant> getListOfRestaurantByIdTypes(int IdTypes)
         {
-            return restaurant_Services
+            return restaurant_Services.getListOfRestaurantByIdTypes(IdTypes);
         }
 
     }

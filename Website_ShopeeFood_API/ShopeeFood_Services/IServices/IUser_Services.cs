@@ -24,5 +24,7 @@ namespace ShopeeFood_Services.IServices
         public void SaveChanges();
 
         public User getUserByEmail(string email);
+
+        public User getUserByUsername(string username);
     }
 }

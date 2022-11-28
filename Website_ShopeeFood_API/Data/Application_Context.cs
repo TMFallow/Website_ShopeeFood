@@ -7,11 +7,6 @@ namespace ShopeeFood_Repository
     public class Application_Context : DbContext
     {
 
-        public Application_Context()
-        {
-
-        }
-
         public Application_Context(DbContextOptions<Application_Context> options) : base(options)
         {
 

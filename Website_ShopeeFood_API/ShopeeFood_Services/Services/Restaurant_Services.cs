@@ -64,5 +64,10 @@ namespace ShopeeFood_Services.Services
         {
             return restaurant.getByIdDistricts(x => x.IDDetailsArea == IDDetailsArea);
         }
+
+        public IEnumerable<Restaurant> getListOfRestaurantByIdTypes(int IdTypes)
+        {
+            return restaurant.getByIdType(x=>x.ID == IdTypes);
+        }
     }
 }

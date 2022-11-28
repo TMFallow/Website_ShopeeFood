@@ -19,7 +19,7 @@
             <div class="login-title">
                 Đăng Nhập
             </div>
-            <div class="login-methods">
+            @*<div class="login-methods">
                 <div class="login-item-phone">
                     <i class="fa fa-phone" aria-hidden="true"></i>
                     Số Điện Thoại
@@ -32,13 +32,13 @@
                     <i class="fa fa-file" aria-hidden="true"></i>
                     Email
                 </div>
-            </div>
+            </div>*@
             <p>Hoặc Đăng Nhập Bằng Tài Khoản Của Bạn</p>
             <div class="login-details">
                 <div class="field-groups">
                     <div class="login-group">
                         <i class="fa fa-envelope" aria-hidden="true"></i>
-                        <input name="userName" type="text" placeholder="Tên đăng nhập hoặc Email">
+                        <input name="userName" type="text" placeholder="Tên đăng nhập">
                     </div>
                     <div class="login-group">
                         <i class="fa fa-lock" aria-hidden="true"></i>
@@ -51,11 +51,8 @@
                         <p>Lưu thông tin đăng nhập</p>
                     </div>
                     <div class="frogot-password">
-<<<<<<< HEAD
+                        <a asp-action="Register" asp-controller="Login">Đăng Ký Tài Khoản</a> &nbsp;&nbsp;&nbsp;&nbsp;
                         <a asp-action="Change_Password" asp-controller="Login">Quên Mật Khẩu?</a>
-=======
-                        <a asp-action="ChangePassword" asp-controller="Login">Quên Mật Khẩu?</a>
->>>>>>> 9e422fae9355731d14a7053a24af458c3604b02f
                     </div>
                 </div>
                 <button type="submit" formmethod="post" name="submit" class="btn btn-primary" value="submit" style="color:black;">Đăng Nhập</button>

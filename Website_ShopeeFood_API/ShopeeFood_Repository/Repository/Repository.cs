@@ -74,10 +74,11 @@ namespace ShopeeFood_Repository.Repository
 
         public void Update(T entity)
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException("Entity");
-            }
+            //if (entity == null)
+            //{
+            //    throw new ArgumentNullException("Entity");
+            //}
+            context.Update(entity);
             context.SaveChanges();
         }
 
@@ -101,15 +102,14 @@ namespace ShopeeFood_Repository.Repository
             return entities.Where(entity).ToList();
         }
 
-<<<<<<< HEAD
         public T getUserByEmail(Func<T, bool> func)
         {
             return entities.FirstOrDefault(func);
-=======
-        public IEnumerable<T> getByIdTypes(Func<T, bool> entity)
+        }
+
+        public T getUserByUsername(Func<T, bool> func)
         {
-            return entities.Where(entity).ToList();
->>>>>>> 9e422fae9355731d14a7053a24af458c3604b02f
+            return entities.FirstOrDefault(func);
         }
     }
 }
