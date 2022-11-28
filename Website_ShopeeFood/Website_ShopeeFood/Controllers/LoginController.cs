@@ -83,46 +83,58 @@ namespace Website_ShopeeFood.Controllers
             var model = await GetListUser();
             UsersModel u = new UsersModel();
 
+            int check = 0;
+
+
             foreach (var item in model)
             {
-                if (item.Username == userName && item.Password == password) 
+                if (item.Username == userName && item.Password == password)
                 {
                     u = item;
+                    check = 1;
                 }
             }
 
-            using (var httpClient = new HttpClient())
+            if (check == 1)
             {
-                string baseURL = "https://localhost:5001/api/Token/";
 
-                StringContent content = new StringContent(JsonConvert.SerializeObject(u), Encoding.UTF8, "application/json");
+                using (var httpClient = new HttpClient())
+                {
+                    string baseURL = "https://localhost:5001/api/Token/";
 
-                using (var response = await httpClient.PostAsync(baseURL, content))
-                 {
-                    string token = await response.Content.ReadAsStringAsync();
-                    HttpContext.Session.SetString("JwToken", token);
+                    StringContent content = new StringContent(JsonConvert.SerializeObject(u), Encoding.UTF8, "application/json");
 
-                    var claims = new List<Claim>
+                    using (var response = await httpClient.PostAsync(baseURL, content))
+                    {
+                        string token = await response.Content.ReadAsStringAsync();
+                        HttpContext.Session.SetString("JwToken", token);
+
+                        var claims = new List<Claim>
                        {
                             new Claim(ClaimTypes.NameIdentifier, u.Username),
                        };
 
-                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                    var principal = new ClaimsPrincipal(identity);
+                        var principal = new ClaimsPrincipal(identity);
 
-                    var pros = new AuthenticationProperties();
+                        var pros = new AuthenticationProperties();
 
-                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, pros).Wait();
+                        HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, pros).Wait();
 
 
-                    HttpContext.Session.SetString("ImageUser", u.Image);
-                    HttpContext.Session.SetString("UserName", u.Username);
-                    HttpContext.Session.SetString("Password", u.Password);
-                    HttpContext.Session.SetString("FullName", u.FullName);
+                        HttpContext.Session.SetString("ImageUser", u.Image);
+                        HttpContext.Session.SetString("UserName", u.Username);
+                        HttpContext.Session.SetString("Password", u.Password);
+                        HttpContext.Session.SetString("FullName", u.FullName);
 
-                    return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
+            }
+            else
+            {
+                return BadRequest();
             }
         }
 
@@ -155,7 +167,7 @@ namespace Website_ShopeeFood.Controllers
         //}
 
         public IActionResult HomePage_Login_Partial()
-        {   
+        {
             ViewBag.fullName = HttpContext.Session.GetString("FullName");
             ViewBag.imageUser = HttpContext.Session.GetString("ImageUser");
 
@@ -254,6 +266,18 @@ namespace Website_ShopeeFood.Controllers
             HttpContext.SignOutAsync();
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
+        }
+
+        [AllowAnonymous, HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [AllowAnonymous, HttpPost]
+        public IActionResult ChangePassword(UsersModel usersModel)
+        {
+            return View();
         }
     }
 }

@@ -14,7 +14,7 @@
 
 @using (Html.BeginForm())
 {
-    <div class="now-login">
+    <div class="now-login" style="background-color:white;">
         <div class="content">
             <div class="login-title">
                 Đăng Nhập
@@ -51,7 +51,11 @@
                         <p>Lưu thông tin đăng nhập</p>
                     </div>
                     <div class="frogot-password">
+<<<<<<< HEAD
                         <a asp-action="Change_Password" asp-controller="Login">Quên Mật Khẩu?</a>
+=======
+                        <a asp-action="ChangePassword" asp-controller="Login">Quên Mật Khẩu?</a>
+>>>>>>> 9e422fae9355731d14a7053a24af458c3604b02f
                     </div>
                 </div>
                 <button type="submit" formmethod="post" name="submit" class="btn btn-primary" value="submit" style="color:black;">Đăng Nhập</button>

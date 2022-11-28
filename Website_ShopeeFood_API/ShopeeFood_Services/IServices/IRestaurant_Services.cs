@@ -27,5 +27,6 @@ namespace ShopeeFood_Services.IServices
         IEnumerable<Restaurant> GetListRestaurantsbyID(int Id);
 
         IEnumerable<Restaurant> getListOfRestaurantByIdDistricts(int IDDetailsArea);
+
     }
 }

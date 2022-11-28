@@ -1,7 +1,10 @@
 ﻿.now-login {
     padding: 66px 240px;
     clear: both;
+<<<<<<< HEAD
     background-color: white;
+=======
+>>>>>>> 9e422fae9355731d14a7053a24af458c3604b02f
 }
 
 body {
@@ -20,6 +23,7 @@ body {
     text-align: center;
     margin-top: -30px;
     padding: 0;
+    text-align: center;
 }
 
 .login-methods {
