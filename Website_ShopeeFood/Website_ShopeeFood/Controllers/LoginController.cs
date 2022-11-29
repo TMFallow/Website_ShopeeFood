@@ -41,8 +41,10 @@ namespace Website_ShopeeFood.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Login_Users()
+        public IActionResult Login_Users()
         {
+            ViewBag.message = TempData["message"] as string;
+            ViewBag.check_Login = ViewData["Check_Login"] as string;
             return PartialView();
         }
 
@@ -58,7 +60,7 @@ namespace Website_ShopeeFood.Controllers
 
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage message = await client.GetAsync("api/users");
+                HttpResponseMessage message = await client.GetAsync("api/users/GetUsers");
 
                 if (message.IsSuccessStatusCode)
                 {
@@ -134,7 +136,8 @@ namespace Website_ShopeeFood.Controllers
             }
             else
             {
-                return BadRequest();
+                ViewData["Check_Login"] = "Wrong Username or Password";
+                return View();
             }
         }
 
@@ -308,7 +311,7 @@ namespace Website_ShopeeFood.Controllers
 
                 if (message2.IsSuccessStatusCode)
                 {
-                    var userTask = message.Content.ReadAsAsync<UsersModel>();
+                    var userTask = message2.Content.ReadAsAsync<UsersModel>();
 
                     userTask.Wait();
 
@@ -321,7 +324,69 @@ namespace Website_ShopeeFood.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            ViewBag.checkUSer = ViewData["checkUser"];
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(string username, string password, string confirmPassword, string fullName, string sex, string email, string phoneNumber)
+        {
+            List<UsersModel> usersModel = new List<UsersModel>();
+
+            UsersModel model = new UsersModel();
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl);
+
+                client.DefaultRequestHeaders.Clear();
+
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage message = await client.GetAsync("api/users/GetUsers");
+
+                if (message.IsSuccessStatusCode)
+                {
+                    var userTask = message.Content.ReadAsAsync<List<UsersModel>>();
+
+                    userTask.Wait();
+
+                    usersModel = userTask.Result;
+                }
+
+                foreach (var item in usersModel)
+                {
+                    if (email == item.Email || username == item.Username)
+                    {
+                        ViewData["checkUser"] = "User Is Already Exisit";
+                        return View();
+                    }
+                }
+
+                if(password != confirmPassword)
+                {
+                    ViewData["checkUser"] = "Password Is Not Matched";
+                    return View();
+                }
+
+                model.Username = username;
+                model.Password = password;
+                model.FullName = fullName;
+                model.Sex = sex;
+                model.Email = email;
+                model.PhoneNumber = phoneNumber;
+                model.Image = "";
+                model.Token = "";
+
+                StringContent content = new StringContent(JsonConvert.SerializeObject(model),
+                    Encoding.UTF8, "application/json");
+
+                HttpResponseMessage message1 = await client.PostAsync("api/users/InsertUser", content);
+
+                TempData["message"] = "Đăng Ký Thành Công";
+
+                return RedirectToAction("Login_Users");
+            }
         }
 
 

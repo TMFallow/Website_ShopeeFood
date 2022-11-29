@@ -23,10 +23,17 @@ namespace Website_API.Controllers
             this.logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("GetUsers")]
         public IEnumerable<User> GetUsers()
         {
             return users.GetAllUser().ToArray();
+        }
+
+        [Route("InsertUser")]
+        [HttpPost("InsertUser")]
+        public void InsertUser(User user)
+        {
+            users.Insert(user);
         }
 
         [HttpPost("UpdateUser")]

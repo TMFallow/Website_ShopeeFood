@@ -1,0 +1,116 @@
+﻿@model Website_ShopeeFood.Models.UsersModel
+
+<div class="info-user-name">Thông Tin Người Dùng</div>
+<div class="info-user-content">
+    <div class="info-user-update">
+        <div class="title-user">Tải ảnh đại diện</div>
+        <div class="row">
+            <div class="col-3">
+                <div class="imgae-user">
+                    <img src="@Model.Image" style="height:100px; width:100px; border-radius: 50%;">
+                </div>
+            </div>
+            <div class="col-9">
+                <div>
+                    <div class="form-group">
+                        Tải lên từ Chấp nhận GIF, JPEG, PNG, BMP với kích thước tối đa 5.0 MB
+
+                    </div>
+                    <div style="width: 150px;">
+                        <button class="btn">Cập Nhật</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("UpdateUserInfo", "User", FormMethod.Post))
+    {
+        <div class="info-user-update">
+            <div class="title-user">Thay Đổi Thông Tin</div>
+            <div class="row form-group align-item-center">
+                <div class="col-3">
+                    <div class="txt-bold">
+                        Tên
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="input-group">
+                        <input type="text" name="fullName" placeholder="Họ Tên" value="@Model.FullName" class="group-controls">
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group align-item-center">
+                <div class="col-3">
+                    <div class="txt-bold">
+                        Giới Tính
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="input-group">
+                        <input type="text" name="sex" placeholder="Giới Tính" class="group-controls" value="@Model.Sex">
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group align-item-center">
+                <div class="col-3">
+                    <div class="txt-bold">
+                        Email
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="input-group">
+                        <input type="text" name="email" placeholder="Email" value="@Model.Email" />
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group align-item-center">
+                <div class="col-3">
+                    <div class="txt-bold">
+                        Mật Khẩu
+                    </div>
+                </div>
+                <div class="col-9">
+                    <div class="password">
+                        <div class="row align-item-center">
+                            <div class="txt-bold col-3">
+                                <input name="password" placeholder="Nhập Mật Khẩu Mới" type="password" />
+                            </div>
+                        </div>
+                        <div class="row align-item-center">
+                            <div class="txt-bold col-3">
+                                <input name="repassword" placeholder="Nhập Lại Mật Khẩu Mới" type="password" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row form-group align-item-center"></div>
+            <div class="col-9">
+                <button formmethod="post" class="save-changes btn" type="submit">Lưu Thay Đổi</button>
+            </div>
+        </div>
+    }
+
+</div>
+
+<div class="info-user-update">
+    <div class="title-user">Quản Lý Số Điện Thoại</div>
+    <div class="row">
+        <div class="col-3">
+            <div class="number-user">
+                032563259
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="form-group">
+                <span style="color:green;"><i class="fa fa-check" aria-hidden="true"></i></span>
+                Đã xác thực!
+            </div>
+        </div>
+        <div style="width: 150px;">
+            <button class="btn" style="width:250px;">Cập Nhật Số Điện Thoại</button>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Register";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -14,67 +13,86 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 <link rel="stylesheet" href="/CSS/Register.css">
 
-<div class="register-form">
-    <div class="header-text">
-        <span>Đăng Ký Thông Tin</span>
-    </div>
-    <div class="register-items">
-        <div class="item">
-            <div class="full-name">
-                <i class="fa fa-user" aria-hidden="true"></i>
-                <input type="text" placeholder="Họ Tên">
-            </div>
-        </div>
-        <div class="item">
-            <div class="email">
-                <i class="fa fa-envelope" aria-hidden="true"></i>
-                <input type="email" class="form-control" name="" id="" aria-describedby="emailHelpId" placeholder="Email">
-            </div>
-        </div>
-        <div class="item">
-            <div class="sex-name">
-                <select class="select-sex">
-                    <option>Nam</option>
-                    <option>Nữ</option>
-                    <option>Không Chọn</option>
-                </select>
-            </div>
-        </div>
-        <div class="item">
-            <div class="phone-number">
-                <i class="fa fa-phone" aria-hidden="true"></i>
-                <input type="text" placeholder="Số Điện Thoại">
-            </div>
-        </div>
-        <div class="item">
-            <div class="user-name">
-                <i class="fa fa-user" aria-hidden="true"></i>
-                <input type="text" placeholder="Tên User Name">
-            </div>
-        </div>
-        <div class="item">
-            <div class="password">
-                <i class="fa fa-lock" aria-hidden="true"></i>
-                <input type="password" class="form-control" name="" id="" placeholder="Mật Khẩu">
-            </div>
-        </div>
-        <div class="item">
-            <div class="full-name">
-                <i class="fa fa-lock" aria-hidden="true"></i>
-                <input type="password" class="form-control" name="" id="" placeholder="Xác Nhận Mật Khẩu">
-            </div>
-        </div>
 
-        <div class="button-register">
-            <button class="btn">Đăng Ký Thông Tin</button>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+
+
+@using (Html.BeginForm())
+{
+    <div class="register-form">
+        <div class="header-text">
+            <span>Đăng Ký Thông Tin</span>
+        </div>
+        <div class="register-items">
+            <div class="item">
+                <div class="full-name">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <input name="fullName" type="text" placeholder="Họ Tên">
+                </div>
+            </div>
+            <div class="item">
+                <div class="email">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <input type="email" class="form-control" name="email" id="" aria-describedby="emailHelpId" placeholder="Email">
+                </div>
+            </div>
+            <div class="item">
+                <div class="sex-name">
+                    <select name="sex" class="select-sex">
+                        <option>Nam</option>
+                        <option>Nữ</option>
+                        <option>Không Chọn</option>
+                    </select>
+                </div>
+            </div>
+            <div class="item">
+                <div class="phone-number">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    <input name="phoneNumber" type="text" placeholder="Số Điện Thoại">
+                </div>
+            </div>
+            <div class="item">
+                <div class="user-name">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <input name="username" type="text" placeholder="Tên User Name">
+                </div>
+            </div>
+            <div class="item">
+                <div class="password">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    <input type="password" class="form-control" name="password" id="" placeholder="Mật Khẩu">
+                </div>
+            </div>
+            <div class="item">
+                <div class="full-name">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    <input type="password" class="form-control" name="confirmPassword" id="" placeholder="Xác Nhận Mật Khẩu">
+                </div>
+            </div>
+
+            <div class="button-register">
+                <button formmethod="post" type="submit" class="btn">Đăng Ký Thông Tin</button>
+            </div>
         </div>
     </div>
-</div>
+}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script>
+    var msg = "@((string)ViewBag.checkUSer)";
+
+    if (msg != null && msg != "") {
+        swal({
+            title: "Thông Báo",
+            text: msg,
+            icon: "success",
+        });
+    }
+</script>

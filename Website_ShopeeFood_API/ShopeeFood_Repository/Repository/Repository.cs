@@ -74,10 +74,10 @@ namespace ShopeeFood_Repository.Repository
 
         public void Update(T entity)
         {
-            //if (entity == null)
-            //{
-            //    throw new ArgumentNullException("Entity");
-            //}
+            if (entity == null)
+            {
+                throw new ArgumentNullException("Entity");
+            }
             context.Update(entity);
             context.SaveChanges();
         }

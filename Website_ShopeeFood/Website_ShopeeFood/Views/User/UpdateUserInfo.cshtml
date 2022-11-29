@@ -3,16 +3,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+
 <div class="container info-user-area">
     <div class="col-profile-right">
         <div class="header-profile">
-            <div class="row align-item-center">
-                <div class="img-header">
-                    <img src="https://spng.pngfind.com/pngs/s/132-1321526_we-bare-bears-png-we-bare-bears-aesthetic.png" style="height:30px; width:30px;">
-                </div>
-                <div class="col font-15 ">
-                    Edward Phan
-                </div>
+            <div class="row align-item-center" id="header_partial">
+
+               <!------------------------------------------------------------->
+
             </div>
         </div>
         <div class="item-profile">
@@ -96,116 +96,28 @@
 </div>
 
 
-<div class="col-info-user">
-    <div class="info-user-name">Thông Tin Người Dùng</div>
-    <div class="info-user-content">
-        <div class="info-user-update">
-            <div class="title-user">Tải ảnh đại diện</div>
-            <div class="row">
-                <div class="col-3">
-                    <div class="imgae-user">
-                        <img src="https://spng.pngfind.com/pngs/s/132-1321526_we-bare-bears-png-we-bare-bears-aesthetic.png" style="height:100px; width:100px; border-radius: 50%;">
-                    </div>
-                </div>
-                <div class="col-9">
-                    <div>
-                        <div class="form-group">
-                            Tải lên từ Chấp nhận GIF, JPEG, PNG, BMP với kích thước tối đa 5.0 MB
-
-                        </div>
-                        <div style="width: 150px;">
-                            <button class="btn">Cập Nhật</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="info-user-update">
-            <form method="">
-                <div class="title-user">Thay Đổi Thông Tin</div>
-                <div class="row form-group align-item-center">
-                    <div class="col-3">
-                        <div class="txt-bold">
-                            Tên
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="input-group">
-                            <input type="text" name="name" placeholder="Tên" value="" class="group-controls">
-                        </div>
-                    </div>
-                </div>
-                <div class="row form-group align-item-center">
-                    <div class="col-3">
-                        <div class="txt-bold">
-                            Giới Tính
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="input-group">
-                            <input type="text" name="gender" placeholder="Giới Tính" value="" class="group-controls">
-                        </div>
-                    </div>
-                </div>
-                <div class="row form-group align-item-center">
-                    <div class="col-3">
-                        <div class="txt-bold">
-                            Email
-                        </div>
-                    </div>
-                    <div class="col-8">
-                        <div class="input-group">
-                            <button type="button" class="btn btn-none-bg">Cập Nhật Email</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row form-group align-item-center">
-                    <div class="col-3">
-                        <div class="txt-bold">
-                            Mật Khẩu
-                        </div>
-                    </div>
-                    <div class="col-9">
-                        <div class="password">
-                            <span class="password-chars">***********</span>
-                            <div class="changepassword">
-                                <button type="button" class="change-pass">Cập Nhật Email</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row form-group align-item-center"></div>
-                <div class="col-9">
-                    <button class="save-changes btn" type="submit">Lưu Thay Đổi</button>
-                </div>
-            </form>
-        </div>
-        
-    </div>
-
-    <div class="info-user-update">
-        <div class="title-user">Quản Lý Số Điện Thoại</div>
-        <div class="row">
-            <div class="col-3">
-                <div class="number-user">
-                    032563259
-                </div>
-            </div>
-            <div class="col-9">
-                <div class="form-group">
-                    <span style="color:green;"><i class="fa fa-check" aria-hidden="true"></i></span>
-                    Đã xác thực!
-                </div>
-            </div>
-            <div style="width: 150px;">
-                <button class="btn" style="width:250px;">Cập Nhật Số Điện Thoại</button>
-            </div>
-        </div>
-    </div>
-
-
+<div class="col-info-user" id="details_info_partial">
+    
 </div>
-            </div>
 
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+
+<script>
+    $('#header_partial').load("/User/UserInfo_Partial")
+    $('#details_info_partial').load("/User/DetailUserInfo_Partial")
+</script>
+
+<script>
+    var msg = "@((string)ViewBag.updatemsg)";
+
+    if (msg != null && msg != "") {
+        swal({
+            title: "Thông Báo",
+            text: msg,
+            icon: "success",
+        });
+    }
+</script>
