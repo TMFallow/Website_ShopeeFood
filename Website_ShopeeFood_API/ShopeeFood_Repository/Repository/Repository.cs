@@ -111,5 +111,10 @@ namespace ShopeeFood_Repository.Repository
         {
             return entities.FirstOrDefault(func);
         }
+
+        public IEnumerable<T> getListAddressById(Func<T, bool> entity)
+        {
+            return entities.Where(entity).ToList();
+        }
     }
 }

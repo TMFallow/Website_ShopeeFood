@@ -54,5 +54,10 @@ namespace ShopeeFood_Services.Services
         {
             addressToDelivery.SaveChanges();
         }
+
+        public IEnumerable<AddressToDelivery> getListAddressById(int userId)
+        {
+            return addressToDelivery.getListAddressById(x=>x.UserID == userId);
+        }
     }
 }

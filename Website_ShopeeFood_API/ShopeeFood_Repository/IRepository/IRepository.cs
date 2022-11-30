@@ -28,6 +28,8 @@ namespace ShopeeFood_Repository.IRepository
 
         IEnumerable<T> getByIdDistricts(Func<T, bool> entity);
 
+        IEnumerable<T> getListAddressById(Func<T, bool> func);
+
         T getUserByEmail(Func<T, bool> entity);
 
         T getUserByUsername(Func<T, bool> func);

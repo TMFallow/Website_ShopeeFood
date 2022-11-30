@@ -22,5 +22,7 @@ namespace ShopeeFood_Services.IServices
         public void Remove(AddressToDelivery entity);
 
         public void SaveChanges();
+
+        public IEnumerable<AddressToDelivery> getListAddressById(int userId);
     }
 }

@@ -127,7 +127,11 @@ namespace ShopeeFoodData.Migrations
                     UserID = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumbers = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PhoneNumbers = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    areas = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    detailAreas = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    nameUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -1,0 +1,72 @@
+﻿@model AddressUserModel
+
+<div class="modal fade modal-change-address show" id="modal-change-address1" tabindex="-1" role="dialog" style="display:none;">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <span class="close" data-dismiss="modal">X</span>
+            @using (Html.BeginForm("UpadteAddress", "User", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6 form-group col input-field">
+                            <input type="text" class="form-control" placeholder="Nhà" name="name" id="nameAddress" value="@Model.Name">
+                            <label for="name">
+                                Tên gợi nhớ
+                                <span class="txt-red font-weight-bold">*</span>
+                            </label>
+                        </div>
+                        <div class="col-6 form-group col input-field">
+                            <input type="text" class="form-control" placeholder="Họ Tên" name="nameUser" value="@Model.nameUser">
+                            <label for="name">
+                                Họ Tên
+                                <span class="txt-red font-weight-bold">*</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 form-group col input-field">
+                            <input type="text" class="form-control" placeholder="Email" name="email" value="@Model.Email">
+                            <label for="name">
+                                Email
+                                <span class="txt-red font-weight-bold">*</span>
+                            </label>
+                        </div>
+                        <div class="col-6 form-group col input-field">
+                            <input type="text" class="form-control" placeholder="Số Điện Thoại" name="phoneNumber" value="@Model.PhoneNumbers">
+                            <label for="name">
+                                Số Điện Thoại
+                                <span class="txt-red font-weight-bold">*</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 form-group col input-field">
+                            <input type="text" class="form-control" placeholder="Địa Chỉ" name="address" value="@Model.Address">
+                            <label for="name">
+                                Địa Chỉ
+                                <span class="txt-red font-weight-bold">*</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 form-group col input-field">
+                            <select class="custom-select" name="areas">
+                                <option>TP.HCM</option>
+                                <option>Hà Nội</option>
+                            </select>
+                        </div>
+                        <div class="col-6 form-group col input-field">
+                            <select class="custom-select" name="detailAreas">
+                                <option>Quận 1</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer content-right">
+                    <button type="button" class="btn btn-gray text-uppercase" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-red text-uppercase">OK</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

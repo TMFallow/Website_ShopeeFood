@@ -20,6 +20,10 @@
     position: relative;
 }
 
+.item-profile .nagivation-item-profile.active {
+    color: #ee4d2d;
+}
+
 .sub-item-nagivation {
     clear: both;
     align-items: center;

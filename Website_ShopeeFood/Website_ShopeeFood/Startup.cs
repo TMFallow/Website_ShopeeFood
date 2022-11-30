@@ -38,6 +38,8 @@ namespace Website_ShopeeFood
 
             services.AddSession();
 
+            services.AddMvc();
+
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(x =>

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using ShopeeFood_Services.IServices;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Website_API.Controllers
 {
@@ -26,6 +27,24 @@ namespace Website_API.Controllers
         public IEnumerable<AddressToDelivery> GetAddress()
         {
             return address.GetAllAddress().ToArray();
+        }
+
+        [HttpGet("GetAddressToDelivery/{Id:int}")]
+        public AddressToDelivery GetAddressToDelivery(int Id)
+        {
+            return address.GetAddressByID(Id);
+        }
+
+        [HttpGet("getListAddressByID/{userId:int}")]
+        public IEnumerable<AddressToDelivery> getListAddressByID(int userId)
+        {
+            return address.getListAddressById(userId);
+        }
+
+        [HttpPost("UpdateAddressUser")]
+        public void UpdateAddressUser(AddressToDelivery addressToDelivery)
+        {
+            address.Update(addressToDelivery);
         }
     }
 }

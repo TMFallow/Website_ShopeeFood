@@ -47,6 +47,22 @@ namespace ShopeeFoodData.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
+                    b.Property<string>("areas")
+                       .IsRequired()
+                       .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("detailAreas")
+                       .IsRequired()
+                       .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nameUser")
+                       .IsRequired()
+                       .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                       .IsRequired()
+                       .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ID");
 
                     b.HasIndex("UserID");

@@ -1,8 +1,13 @@
-﻿@{
-    ViewData["Title"] = "UpdateUserInfo";
+﻿
+@{
+    ViewData["Title"] = "UpdateUserAddress";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <link rel="stylesheet" href="~/css/UpdateInfo.css" />
+<link rel="stylesheet" href="~/css/usersAddress.css" />
+
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
@@ -11,14 +16,14 @@
         <div class="header-profile">
             <div class="row align-item-center" id="header_partial" style="display:none;">
 
-               <!------------------------------------------------------------->
+                <!------------------------------------------------------------->
 
             </div>
         </div>
         <div class="item-profile">
             <div class="item-nagivation">
                 <a asp-action="UpdateUserInfo" asp-controller="User" title="Cập Nhật Tài Khoản" class="item-nagivation">
-                    <div class="nagivation-item-profile active">
+                    <div class="nagivation-item-profile">
                         <div class="icon-item-profile">
                             <i class="fa fa-user" aria-hidden="true"></i>
                         </div>
@@ -32,8 +37,8 @@
                 </a>
             </div>
             <div class="item-nagivation">
-                <a asp-action="UpdateUserAddress" asp-controller="User" title="Cập Nhật Địa Chỉ" class="item-nagivation">
-                    <div class="nagivation-item-profile">
+                <a asp-action="UpdateUserAddress" asp-controller="User" title="Cập Nhật Tài Khoản" class="item-nagivation">
+                    <div class="nagivation-item-profile active">
                         <div class="icon-item-profile">
                             <i class="fa fa-location-arrow" aria-hidden="true"></i>
                         </div>
@@ -47,7 +52,7 @@
                 </a>
             </div>
             <div class="item-nagivation">
-                <a href="#" title="Thông Tin Đơn Hàng" class="item-nagivation">
+                <a href="#" title="Cập Nhật Tài Khoản" class="item-nagivation">
                     <div class="nagivation-item-profile">
                         <div class="icon-item-profile">
                             <i class="fa fa-cart-plus" aria-hidden="true"></i>
@@ -62,7 +67,7 @@
                 </a>
             </div>
             <div class="item-nagivation">
-                <a href="#" title="Phương Thức Thanh Toán" class="item-nagivation">
+                <a href="#" title="Cập Nhật Tài Khoản" class="item-nagivation">
                     <div class="nagivation-item-profile">
                         <div class="icon-item-profile">
                             <i class="fas fa-coins    "></i>
@@ -81,8 +86,8 @@
 </div>
 
 
-<div class="col-info-user" id="details_info_partial">
-    
+<div class="" id="address_info_partial">
+
 </div>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -91,31 +96,18 @@
 
 <script>
     $('#header_partial').load("/User/UserInfo_Partial")
-    $('#details_info_partial').load("/User/DetailUserInfo_Partial")
+    $('#address_info_partial').load("/User/AddressUserInfo_Partial")
 </script>
 
-<script>
-    var msg = "@((string)ViewBag.updatemsg)";
 
-    if (msg != null && msg != "") {
+<script>
+    var message = "@((string)ViewBag.checkUpdateAddress)";
+
+    if (message != null && message != "") {
         swal({
             title: "Thông Báo",
-            text: msg,
+            text: message,
             icon: "success",
-        });
-    }
-</script>
-
-<script>
-    var profile = document.getElementsByClassName("item-profile");
-
-    var items = document.getElementsByClassName("nagivation-item-profile");
-
-    for (var i = 0; i < items.length; i++) {
-        items[i].addEventListener("click", function () {
-            var current = document.getElementsByClassName("active");
-            current[0].className = current[0].className.replace(" active", "");
-            this.className += " active";
         });
     }
 </script>
