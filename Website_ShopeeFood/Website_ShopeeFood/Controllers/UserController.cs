@@ -24,6 +24,8 @@ namespace Website_ShopeeFood.Controllers
             return View();
         }
 
+        //Update User Info 
+
         [HttpPost]
         [ActionName("UpdateUserInfo")]
         public async Task<IActionResult> UpdateUserInfo(string fullName, string sex, string email, string password, string repassword)
@@ -83,13 +85,22 @@ namespace Website_ShopeeFood.Controllers
             return View();
         }
 
+
+        //Return View Update Address
+
         [HttpGet]
         public IActionResult UpdateUserAddress()
         {
             ViewBag.checkUpdateAddress = TempData["updateAddressUser"] as string;
+
+            ViewBag.checkInsertAddress = TempData["insertAddressUser"] as string;
+
+            ViewBag.checkDeleteAddress = TempData["DeleteAddressUser"] as string;
+
             return View();
         }
 
+        //Get Address By Id Based On Username
 
         [HttpGet]
         public async Task<IActionResult> AddressUserInfo_Partial()
@@ -148,6 +159,8 @@ namespace Website_ShopeeFood.Controllers
             return PartialView("AddressUserInfo_Partial", addressUser);
         }
 
+        //Return List Json
+
         [HttpGet]
         public async Task<JsonResult> EditUserAddress(int? Id)
         {
@@ -160,8 +173,9 @@ namespace Website_ShopeeFood.Controllers
 
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-
                 HttpResponseMessage message1 = await client.GetAsync("api/address/GetAddressToDelivery/" + Id + "");
+
+                HttpContext.Session.SetString("AddressIdForUser", Id.ToString());
 
                 if (message1.IsSuccessStatusCode)
                 {
@@ -172,7 +186,8 @@ namespace Website_ShopeeFood.Controllers
             }
             return Json(addressUser);
         }
-
+        
+        //Get Address Of User Filtered By Id
         public async Task<IActionResult> EditUserAddressByID(int Id)
         {
             AddressUserModel addressUser = new AddressUserModel();
@@ -197,46 +212,13 @@ namespace Website_ShopeeFood.Controllers
             return PartialView("_UpdateAddressInfo", addressUser);
         }
 
+
+        // Update The Address For User (Note Lại Để Sửa Sau)
         [HttpPost]
+        [Route("UpadteAddress")]
         public async Task<IActionResult> UpadteAddress(string name, string address, string email, string phoneNumber, string areas, string detailAreas, string nameUser)
         {
             AddressUserModel addressUserModel = new AddressUserModel();
-
-            if(name != null)
-            {
-                addressUserModel.Name = name;
-            }
-            if (address != null)
-            {
-                addressUserModel.Address = address;
-            }
-            if (email != null)
-            {
-                addressUserModel.Email = email;
-            }
-            if (phoneNumber != null)
-            {
-                addressUserModel.PhoneNumbers = phoneNumber;
-            }
-            if (areas != null)
-            {
-                addressUserModel.areas = areas;
-            }
-            if (detailAreas != null)
-            {
-                addressUserModel.detailAreas = detailAreas;
-            }
-            if (nameUser != null)
-            {
-                addressUserModel.nameUser = nameUser;
-            }
-            if(HttpContext.Session.GetString("UserAddressId") !=null)
-            {
-                addressUserModel.UserID = int.Parse(HttpContext.Session.GetString("UserAddressId"));
-            }    
-
-            StringContent content = new StringContent(JsonConvert.SerializeObject(addressUserModel),
-                    Encoding.UTF8, "application/json");
 
             using (var client = new HttpClient())
             {
@@ -246,24 +228,145 @@ namespace Website_ShopeeFood.Controllers
 
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
+                HttpResponseMessage addressMessage = await client.GetAsync("api/address/GetAddressToDelivery/" + HttpContext.Session.GetString("AddressIdForUser") + "");
 
-                HttpResponseMessage message1 = await client.PostAsync("api/Address/UpdateAddressUser/", content);
-
-                if (message1.IsSuccessStatusCode)
+                if (addressMessage.IsSuccessStatusCode)
                 {
-                    TempData["updateAddressUser"] = "Updated Succesfully";
+                    var addressUserMessage = addressMessage.Content.ReadAsStringAsync().Result;
+
+                    addressUserModel = JsonConvert.DeserializeObject<AddressUserModel>(addressUserMessage);
+                }
+
+
+                if (name != addressUserModel.Name)
+                {
+                    addressUserModel.Name = name;
+                }
+                if (address != addressUserModel.Address)
+                {
+                    addressUserModel.Address = address;
+                }
+                if (email != addressUserModel.Email)
+                {
+                    addressUserModel.Email = email;
+                }
+                if (phoneNumber != addressUserModel.PhoneNumbers)
+                {
+                    addressUserModel.PhoneNumbers = phoneNumber;
+                }
+                if (areas != addressUserModel.areas)
+                {
+                    addressUserModel.areas = areas;
+                }
+                if (detailAreas != addressUserModel.detailAreas)
+                {
+                    addressUserModel.detailAreas = detailAreas;
+                }
+                if (nameUser != addressUserModel.nameUser)
+                {
+                    addressUserModel.nameUser = nameUser;
+                }
+                if (int.Parse(HttpContext.Session.GetString("UserAddressId")) != addressUserModel.UserID)
+                {
+                    addressUserModel.UserID = int.Parse(HttpContext.Session.GetString("UserAddressId"));
+                }
+                if (int.Parse(HttpContext.Session.GetString("AddressIdForUser")) != addressUserModel.ID)
+                {
+                    addressUserModel.ID = int.Parse(HttpContext.Session.GetString("AddressIdForUser"));
                 }
             }
 
-            TempData["updateAddressUser"] = "Please Try Again";
+            using (var httpClient = new HttpClient())
+            {
+                httpClient.BaseAddress = new Uri(BaseUrl);
 
+                httpClient.DefaultRequestHeaders.Clear();
+
+                httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                StringContent contents = new StringContent(JsonConvert.SerializeObject(addressUserModel), Encoding.UTF8, "application/json");
+
+                using (var response = await httpClient.PostAsync("api/address/UpdateAddressUser/", contents))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        TempData["updateAddressUser"] = "Updated Succesfully";
+                    }
+                    else
+                    {
+                        TempData["updateAddressUser"] = "Please Try Again";
+                    }
+                }
+            }
+            return RedirectToAction("UpdateUserAddress");
+        }
+
+        //Insert Address for User
+        [HttpPost]
+        public async Task<IActionResult> InsertUserAddress(AddressUserModel model)
+        {
+            model.UserID = int.Parse(HttpContext.Session.GetString("UserAddressId"));
+
+            using (var client = new HttpClient())
+            {
+
+                StringContent content = new StringContent(JsonConvert.SerializeObject(model),
+                   Encoding.UTF8, "application/json");
+
+                HttpResponseMessage message1 = await client.PostAsync("https://localhost:5001/api/address/InsertAddress", content);
+
+                if (message1.IsSuccessStatusCode)
+                {
+                    TempData["insertAddressUser"] = "Updated Succesfully";
+                }
+                else
+                {
+                    TempData["insertAddressUser"] = "Please Try Again";
+                }
+            }
+
+            return RedirectToAction("UpdateUserAddress");
+
+        }
+
+        //Delete Address of Users 
+        [HttpPost]
+        public async Task<IActionResult> DeleteUserAddress(int Id)
+        {
+            AddressUserModel addressModel = new AddressUserModel();
+
+            using (var client = new HttpClient())
+            {
+                HttpResponseMessage getAddressMessage = await client.GetAsync("https://localhost:5001/api/address/GetAddressToDelivery/" + Id + "");
+                if(getAddressMessage.IsSuccessStatusCode)
+                {
+                    var addressUserMessage = getAddressMessage.Content.ReadAsStringAsync().Result;
+
+                    addressModel = JsonConvert.DeserializeObject<AddressUserModel>(addressUserMessage);
+                }
+
+                if(addressModel != null)
+                {
+                    StringContent content = new StringContent(JsonConvert.SerializeObject(addressModel),
+                  Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage deleteAddressMessage = await client.PostAsync("https://localhost:5001/api/address/DeleteAddress", content);
+
+                    if (deleteAddressMessage.IsSuccessStatusCode)
+                    {
+                        TempData["DeleteAddressUser"] = "Delete Address Succesfully";
+                    }
+                    else
+                    {
+                        TempData["DeleteAddressUser"] = "Please Try Again";
+                    }
+                }
+            }
             return RedirectToAction("UpdateUserAddress");
         }
 
 
-
-
-
+        // Get Info Of User
         [HttpGet]
         public async Task<IActionResult> UserInfo_Partial()
         {
@@ -288,6 +391,7 @@ namespace Website_ShopeeFood.Controllers
             }
             return PartialView("UserInfo_Partial", users);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> DetailUserInfo_Partial()

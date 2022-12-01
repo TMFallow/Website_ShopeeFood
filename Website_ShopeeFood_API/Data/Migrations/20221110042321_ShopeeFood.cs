@@ -124,10 +124,10 @@ namespace ShopeeFoodData.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumbers = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserID = table.Column<int>(type: "int", nullable: false),
                     areas = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     detailAreas = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     nameUser = table.Column<string>(type: "nvarchar(max)", nullable: false),

@@ -29,7 +29,6 @@ namespace Website_API.Controllers
             return users.GetAllUser().ToArray();
         }
 
-        [Route("InsertUser")]
         [HttpPost("InsertUser")]
         public void InsertUser(User user)
         {

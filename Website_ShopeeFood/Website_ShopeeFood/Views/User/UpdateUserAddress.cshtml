@@ -103,10 +103,30 @@
 <script>
     var message = "@((string)ViewBag.checkUpdateAddress)";
 
+    var messageInsert = "@((string)ViewBag.checkInsertAddress)";
+
+    var messageDelete = "@((string)ViewBag.checkDeleteAddress)";
+
     if (message != null && message != "") {
         swal({
             title: "Thông Báo",
             text: message,
+            icon: "success",
+        });
+    }
+
+    if (messageInsert != null && messageInsert != "") {
+        swal({
+            title: "Thông Báo",
+            text: messageInsert,
+            icon: "success",
+        });
+    }
+
+    if (messageDelete != null && messageDelete != "") {
+        swal({
+            title: "Thông Báo",
+            text: messageDelete,
             icon: "success",
         });
     }

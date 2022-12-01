@@ -23,7 +23,8 @@ namespace Website_API.Controllers
             this.logger = logger;
         }
 
-        [HttpGet]
+     
+        [HttpGet("GetAddress")]
         public IEnumerable<AddressToDelivery> GetAddress()
         {
             return address.GetAllAddress().ToArray();
@@ -41,10 +42,24 @@ namespace Website_API.Controllers
             return address.getListAddressById(userId);
         }
 
+
         [HttpPost("UpdateAddressUser")]
         public void UpdateAddressUser(AddressToDelivery addressToDelivery)
         {
             address.Update(addressToDelivery);
+        }
+
+        //string name, string addresss, string email, string phoneNumber, string areas, string detailAreas, string nameUser, int userId
+        [HttpPost("InsertAddress")]
+        public void InsertAddress([FromBody] AddressToDelivery addressToDelivery)
+        {
+            address.Insert(addressToDelivery);
+        }
+
+        [HttpPost("DeleteAddress")]
+        public void DeleteAddress(AddressToDelivery addressToDelivery)
+        {
+            address.Delete(addressToDelivery);
         }
     }
 }

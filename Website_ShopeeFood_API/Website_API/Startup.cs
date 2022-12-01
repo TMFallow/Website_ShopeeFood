@@ -36,8 +36,6 @@ namespace Website_API
         {
             services.AddControllers();
 
-            services.AddMvc();
-
             services.AddHttpClient();
 
             services.AddDbContext<Application_Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("ShopeeFood_Repository")));
@@ -76,11 +74,20 @@ namespace Website_API
                 });
 
             services.AddMvc();
+
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ShopeeFood API V1");
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

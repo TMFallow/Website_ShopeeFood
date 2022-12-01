@@ -14,13 +14,13 @@ namespace Data
         [Key]
         public int? ID { get; set; }
 
-        public int? UserID { get; set; }
-
         public string Name { get; set; }
 
         public string Address { get; set; }
 
         public string PhoneNumbers { get; set; }
+
+        public int? UserID { get; set; }
 
         public string areas { get; set; }
 
@@ -31,6 +31,6 @@ namespace Data
         public string Email { get; set; }
 
         [ForeignKey("UserID")]
-        public User User { get; set; }
+        public User? User { get; set; }
     }
 }
