@@ -94,6 +94,9 @@
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
 
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
 <script>
     $('#header_partial').load("/User/UserInfo_Partial")
     $('#address_info_partial').load("/User/AddressUserInfo_Partial")
@@ -114,7 +117,7 @@
             icon: "success",
         });
     }
-
+    else
     if (messageInsert != null && messageInsert != "") {
         swal({
             title: "Thông Báo",
@@ -122,7 +125,7 @@
             icon: "success",
         });
     }
-
+    else
     if (messageDelete != null && messageDelete != "") {
         swal({
             title: "Thông Báo",

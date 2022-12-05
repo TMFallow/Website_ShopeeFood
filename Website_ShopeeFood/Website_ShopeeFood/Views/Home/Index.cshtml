@@ -4,6 +4,7 @@
 
 <script src="/js/JSHomePage.js"></script>
 
+
 <div id="scroll" class="now-banner" style="position:fixed; top:70px;">
     <div class="container">
         <div class="now-search">
@@ -13,15 +14,8 @@
                     Có Khoảng 100000 Địa Điểm Ở TP. HCM
                 </div>
             </div>
-            <div class="form-search">
-                <div class="input-group">
-                    <input type="text" id="txtSearchHome" placeholder="Tìm Kiếm Shop" value="">
-                    <a>
-                        <button type="button" class="btn btn-search">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </a>
-                </div>
+            <div id="searchPartial" class="form-search">
+                
             </div>
 
             <div id="partial_ListTypeofFoods" class="category-list-filters">
@@ -134,14 +128,13 @@
                         </div>
                     </div>
                     <div id="Restaurant_Partial">
-
                     </div>
                 </div>
                 <div class="see-more-center">
-                    <button class="btn btn-none mt-2 link">
+                    <a asp-action="addNumberOfRestaurant" asp-controller="Restaurant" class="btn btn-none mt-2 link">
                         <span>Xem Thêm</span>
                         <i class="fas fa-redo"></i>
-                    </button>
+                    </a>
                 </div>
             </div>
             <div class="now-list-restaurant collection">
@@ -215,7 +208,6 @@
                         </div>
                     </div>
                     <div id="promotion_partial">
-                        
                     </div>
                 </div>
             </div>
@@ -292,7 +284,7 @@
                     </div>
                     <div>
                         <div class="list-item-restaurant1" style="float:left;">
-                            <a class="item-content1" target="_blank">
+                            <a class="item-content1" href="#" target="_blank">
                                 <div class="row no-gutters">
                                     <div class="col-auto">
                                         <div class="image-restaurant-tab">
@@ -334,10 +326,8 @@
             <h4 class="title">
                 <span>Đơn hàng của bạn sẽ được bảo quản như thế nào?</span>
             </h4>
-            <span>
-                <p class="fnt-15">
+            <span class="fnt-15">
                     ShopeeFood sẽ bảo quản đơn của bạn bằng túi & thùng để chống nắng mưa, giữ nhiệt... trên đường đi một cách tốt nhất.
-                </p>
             </span>
             <img src="https://shopeefood.vn/app/assets/img/Box-food-preservation-footer.png?82adfd2ec19091256d09a94dac77aaba" alt="Food Preservation">
         </div>
@@ -346,10 +336,8 @@
             <h4 class="title">
                 <span>Ứng Dụng Shopee Partner</span>
             </h4>
-            <span>
-                <p class="fnt-14">
+            <span class="fnt-14">
                     - <b>Ứng dụng Shopee Partner</b> là ứng dụng quản lý đơn hàng cho các nhà hàng đối tác của dịch vụ đặt món tận nơi
-                </p>
                 <p class="fnt-14">
                     - <b>ShopeeFood.vn </b> luôn sẵn sàng hợp tác với các nhà hàng, quán ăn, cafe... để mở rộng kinh doanh cũng như gia tăng khách hàng. Hãy kết nối vào hệ thống đặt và giao hàng để giảm bớt chi phí quản lý, vận hành, marketing, công nghệ...
                     Đăng ký tham gia:
@@ -537,17 +525,18 @@
                         <a href="#" class="footer-link-subitem">Sinh nhật</a>
                     </ul>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
+
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
 
 <script>
+    $('#searchPartial').load("/Restaurant/Search_Restaurant")
     $('#partial_ListTypeofFoods').load("/Types/TypesofFoods_Partial")
     $('#Restaurant_Partial').load("/Restaurant/Restaurant_Partial")
     $('#promotion_partial').load("/Promotion/Promotion_Partial")

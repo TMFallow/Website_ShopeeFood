@@ -217,7 +217,7 @@
     function DeleteItem(id) {
         $.ajax({
             url: "/User/DeleteUserAddress/" + id,
-            type: "POST",
+            type: "GET",
             dataType: "json",
             success: function (response) {
             }

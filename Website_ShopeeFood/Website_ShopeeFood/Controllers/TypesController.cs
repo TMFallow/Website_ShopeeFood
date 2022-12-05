@@ -6,13 +6,19 @@ using System;
 using Website_ShopeeFood.Models;
 using System.Threading.Tasks;
 using System.Linq;
+using Website_ShopeeFood.Services;
 
 namespace Website_ShopeeFood.Controllers
 {
     public class TypesController : Controller
     {
+        private readonly IAPIServices _APIServices;
 
-        string Baseurl = "https://localhost:5001/";
+        public TypesController(IAPIServices apiServicves)
+        {
+            this._APIServices = apiServicves;
+        }
+
 
         List<TypesModel> dsMenu = new List<TypesModel>();
 
@@ -22,7 +28,7 @@ namespace Website_ShopeeFood.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(Baseurl); //Chuyển URL
+                client.BaseAddress = new Uri(_APIServices.getIPAddress()); //Chuyển URL
 
                 client.DefaultRequestHeaders.Clear();
 
@@ -63,7 +69,7 @@ namespace Website_ShopeeFood.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(Baseurl); //Chuyển URL
+                client.BaseAddress = new Uri(_APIServices.getIPAddress()); //Chuyển URL
 
                 client.DefaultRequestHeaders.Clear();
 
@@ -112,7 +118,7 @@ namespace Website_ShopeeFood.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(Baseurl);
+                client.BaseAddress = new Uri(_APIServices.getIPAddress());
 
                 client.DefaultRequestHeaders.Clear();
 

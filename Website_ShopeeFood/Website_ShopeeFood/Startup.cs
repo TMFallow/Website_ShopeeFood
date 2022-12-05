@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using Website_ShopeeFood.AppSetting;
 using Microsoft.AspNetCore.Session;
 using Website_ShopeeFood.Controllers;
+using Website_ShopeeFood.Services;
 
 namespace Website_ShopeeFood
 {
@@ -40,6 +41,7 @@ namespace Website_ShopeeFood
 
             services.AddMvc();
 
+            services.AddScoped<IAPIServices, APIServices>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(x =>
@@ -82,13 +84,6 @@ namespace Website_ShopeeFood
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-                //endpoints.MapGet("/Login/SendMail", async (context) =>
-                //{
-                //    var message = await LoginController.SendMail("thanhbinh07102001@gmail.com", "thanhbinh07102001@gmail.com", "thanhbinh07102001@gmail.com", "hdaxpupfiarzaejx");
-
-                //    await context.Response.WriteAsync(message);
-                //});
             });
         }
     }

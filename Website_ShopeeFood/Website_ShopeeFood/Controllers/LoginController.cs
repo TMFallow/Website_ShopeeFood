@@ -23,22 +23,23 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.Hosting;
+using Website_ShopeeFood.Services;
 
 namespace Website_ShopeeFood.Controllers
 {
 
     public class LoginController : Controller
     {
-        string Baseurl = "https://localhost:5001/";
-
         private readonly IConfiguration configuration;
 
+        private readonly IAPIServices aPIServices;
 
-
-        public LoginController(IConfiguration configuration)
+        public LoginController(IConfiguration configuration, IAPIServices aPIServices)
         {
             this.configuration = configuration;
+            this.aPIServices = aPIServices;
         }
+
 
         [HttpGet]
         public IActionResult Login_Users()
@@ -48,41 +49,41 @@ namespace Website_ShopeeFood.Controllers
             return PartialView();
         }
 
-        public async Task<List<UsersModel>> GetListUser()
-        {
-            List<UsersModel> users = new List<UsersModel>();
+        //public async Task<List<UsersModel>> GetListUser()
+        //{
+        //    List<UsersModel> users = new List<UsersModel>();
 
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(Baseurl);
+        //    using (var client = new HttpClient())
+        //    {
+        //        client.BaseAddress = new Uri(Baseurl);
 
-                client.DefaultRequestHeaders.Clear();
+        //        client.DefaultRequestHeaders.Clear();
 
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+        //        client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage message = await client.GetAsync("api/users/GetUsers");
+        //        HttpResponseMessage message = await client.GetAsync("api/users/GetUsers");
 
-                if (message.IsSuccessStatusCode)
-                {
-                    var usersMessage = message.Content.ReadAsStringAsync().Result;
+        //        if (message.IsSuccessStatusCode)
+        //        {
+        //            var usersMessage = message.Content.ReadAsStringAsync().Result;
 
-                    var dsusers = JsonConvert.DeserializeObject<List<UsersModel>>(usersMessage);
+        //            var dsusers = JsonConvert.DeserializeObject<List<UsersModel>>(usersMessage);
 
-                    foreach (var item in dsusers)
-                    {
-                        users.Add(item);
-                    }
+        //            foreach (var item in dsusers)
+        //            {
+        //                users.Add(item);
+        //            }
 
-                    return users;
-                }
-            }
-            return null;
-        }
+        //            return users;
+        //        }
+        //    }
+        //    return null;
+        //}
 
         [HttpPost]
         public async Task<IActionResult> Login_Users(string userName, string password)
         {
-            var model = await GetListUser();
+            var model = await aPIServices.GetListUsers();
             UsersModel u = new UsersModel();
 
             int check = 0;
@@ -102,7 +103,7 @@ namespace Website_ShopeeFood.Controllers
 
                 using (var httpClient = new HttpClient())
                 {
-                    string baseURL = "https://localhost:5001/api/Token/";
+                    string baseURL = aPIServices.getIPAddress();
 
                     StringContent content = new StringContent(JsonConvert.SerializeObject(u), Encoding.UTF8, "application/json");
 
@@ -188,37 +189,16 @@ namespace Website_ShopeeFood.Controllers
         {
             UsersModel model = new UsersModel();
 
-            //string link = "http://localhost:44506/Login/ConfirmPassword/";
-
-
             if (email == "")
             {
                 return BadRequest();
             }
 
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(Baseurl);
-
-                client.DefaultRequestHeaders.Clear();
-
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage message = await client.GetAsync("api/users/getUserByEmail/" + email+"");
-
-                if (message.IsSuccessStatusCode)
-                {
-                    var userTask = message.Content.ReadAsAsync<UsersModel>();
-
-                    userTask.Wait();
-
-                    model = userTask.Result;
-                }
-            }
+            model = await aPIServices.GetUsersByEmail(email);
 
             if (model != null)
             {
-                string check = await SendMail("thanhbinh07102001@gmail.com",email, "thanhbinh07102001@gmail.com", "hdaxpupfiarzaejx", model.FullName);
+                string check = await SendMail("thanhbinh07102001@gmail.com", email, "thanhbinh07102001@gmail.com", "hdaxpupfiarzaejx", model.FullName);
                 ViewBag.message = "<script>alert('Sent Email Succesfully - Đã Gửi Email Thành Công');</script>";
                 return View();
             }
@@ -279,22 +259,7 @@ namespace Website_ShopeeFood.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(Baseurl);
-
-                client.DefaultRequestHeaders.Clear();
-
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage message = await client.GetAsync("api/users/getUserByUsername/" + username + "");
-
-                if (message.IsSuccessStatusCode)
-                {
-                    var userTask = message.Content.ReadAsAsync<UsersModel>();
-
-                    userTask.Wait();
-
-                    usersModel = userTask.Result;
-                }
+                usersModel = await aPIServices.getUsersByUsername(username);
 
                 if (usersModel != null)
                 {
@@ -337,22 +302,7 @@ namespace Website_ShopeeFood.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(Baseurl);
-
-                client.DefaultRequestHeaders.Clear();
-
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage message = await client.GetAsync("api/users/GetUsers");
-
-                if (message.IsSuccessStatusCode)
-                {
-                    var userTask = message.Content.ReadAsAsync<List<UsersModel>>();
-
-                    userTask.Wait();
-
-                    usersModel = userTask.Result;
-                }
+                usersModel = await aPIServices.GetListUsers();
 
                 foreach (var item in usersModel)
                 {

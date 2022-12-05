@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Website_ShopeeFood.Models.RestaurantsModel>
+
+<link rel="stylesheet" href="/css/searchRestaurant.css">
+
+<div class="input-group">
+    <input type="text" id="txtSearchHome" placeholder="Tìm Kiếm Shop" value="" onkeypress="getNameOfRestaurant()">
+    <button type="button" class="btn btn-search">
+        <i class="fa fa-search"></i>
+    </button>
+</div>
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        <div class="now-idea-searching">
+            <div class="now-list-restaurant-row">
+                <div class="item-restaurant">
+                    <a class="item-content">
+                        <div class="img-restaurant">
+                            <img src="@item.Image" alt="@item.NameofRestaurant" title="@item.NameofRestaurant" />
+                        </div>
+                        <div class="info-restaurant">
+                            <div class=name-res>
+                                @item.NameofRestaurant
+                            </div>
+                            <div class="address-res">
+                                @item.Address
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+
+}
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+
+<script>
+    function getNameOfRestaurant() {
+        var valueOfText = document.getElementById("txtSearchHome").value;
+
+        $.ajax({
+            type: "GET",
+            url: "/Restaurant/searchListOfRestaurant/" + valueOfText,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+        });
+    }
+</script>

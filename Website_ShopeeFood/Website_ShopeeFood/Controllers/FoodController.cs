@@ -6,12 +6,19 @@ using System.Threading.Tasks;
 using System;
 using Website_ShopeeFood.Models;
 using Microsoft.AspNetCore.Http;
+using Website_ShopeeFood.Services;
 
 namespace Website_ShopeeFood.Controllers
 {
     public class FoodController : Controller
     {
-        string Baseurl = "https://localhost:5001/";
+        private readonly IAPIServices aPIServices;
+
+        public FoodController(IAPIServices aPIServices)
+        {
+            this.aPIServices = aPIServices;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -24,46 +31,20 @@ namespace Website_ShopeeFood.Controllers
         [HttpGet]
         public async Task<ActionResult> TypesofFoods_Partial(int restaurantId)
         {
-            if(restaurantId == 0)
+            if (restaurantId == 0)
             {
                 restaurantId = int.Parse(HttpContext.Session.GetString("restaurantId"));
             }
 
             List<FoodModel> types = new List<FoodModel>();
 
-            using (var client = new HttpClient())
+            foods = await aPIServices.getAllFoodByIdRestaurant(restaurantId);
+
+            if (foods != null)
             {
-                client.BaseAddress = new Uri(Baseurl); //Chuyển URL
 
-                client.DefaultRequestHeaders.Clear();
+                return PartialView("TypesofFoods_Partial", foods);
 
-                //Định dạng format dữ liệu là JSon
-
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-                // Gửi yêu cầu tìm dịch vụ Web API bằng cách sử dụng HttpClient
-
-                HttpResponseMessage message = await client.GetAsync("api/food/getAllRestaurantUsingIDRestaurant/" + restaurantId + "");
-
-
-                //Kiểm tra xem có thành không ko
-
-                if (message.IsSuccessStatusCode)
-                {
-                    //Lưu trữ phản hồi sau ghi gọi api
-                    var foodMessage = message.Content.ReadAsAsync<IEnumerable<FoodModel>>();
-
-                    foodMessage.Wait();
-
-                    var dsFood = foodMessage.Result;
-
-                    foreach(var item in dsFood)
-                    {
-                        foods.Add(item);
-                    }
-
-                    return PartialView("TypesofFoods_Partial", foods);
-                }
             }
             return NotFound();
         }

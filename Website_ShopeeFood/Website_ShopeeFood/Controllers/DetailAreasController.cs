@@ -7,11 +7,19 @@ using System.Threading.Tasks;
 using Website_ShopeeFood.Models;
 using System.Collections.Generic;
 using NuGet.Packaging.Signing;
+using Website_ShopeeFood.Services;
 
 namespace Website_ShopeeFood.Controllers
 {
     public class DetailAreasController : Controller
     {
+        private readonly IAPIServices aPIServices;
+
+        public DetailAreasController(IAPIServices aPIServices)
+        {
+            this.aPIServices = aPIServices;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -23,9 +31,9 @@ namespace Website_ShopeeFood.Controllers
 
         public async Task<IActionResult> getDistrics_Partial(int AreaID)
         {
-            if(AreaID == 0)
+            if (AreaID == 0)
             {
-                if(int.Parse(HttpContext.Session.GetString("AreaIDofRestaurant")) == 0)
+                if (int.Parse(HttpContext.Session.GetString("AreaIDofRestaurant")) == 0)
                 {
                     AreaID = 1;
                 }
@@ -36,31 +44,11 @@ namespace Website_ShopeeFood.Controllers
             }
 
 
-            using (var client = new HttpClient())
+            model = await aPIServices.getDetailAreas(AreaID);
+
+            if (model != null)
             {
-                client.BaseAddress = new Uri(Baseurl);
-
-                client.DefaultRequestHeaders.Clear();
-
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage message = await client.GetAsync("api/Detailareas/getDetailAreasByID/" + AreaID + "");
-
-                if (message.IsSuccessStatusCode)
-                {
-                    var detailAreaMessage = message.Content.ReadAsAsync<IEnumerable<DetailAreasModel>>();
-
-                    detailAreaMessage.Wait();
-
-                    var listDistrict = detailAreaMessage.Result;
-
-                    foreach (var item in listDistrict)
-                    {
-                        model.Add(item);
-                    }
-
-                    return PartialView("getDistrics_Partial", model);
-                }
+                return PartialView("getDistrics_Partial", model);
             }
             return NotFound();
         }

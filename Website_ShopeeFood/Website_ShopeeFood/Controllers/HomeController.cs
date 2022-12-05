@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Website_ShopeeFood.Models;
+using Website_ShopeeFood.Services;
 
 namespace Website_ShopeeFood.Controllers
 {
@@ -16,13 +17,14 @@ namespace Website_ShopeeFood.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public string Baseurl = "https://localhost:5001/";
+        private readonly IAPIServices aPIService;
 
         public static string[] listDistricts = RestaurantController.listDistricts;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IAPIServices aPIServices)
         {
             _logger = logger;
+            this.aPIService = aPIServices;
         }
 
         //View Chưa Đăng Nhập Hien Thi DS San Pham
@@ -68,7 +70,7 @@ namespace Website_ShopeeFood.Controllers
 
         public void configHttpClient(HttpClient httpClient)
         {
-            string baseURL = "https://localhost:5001/";
+            string baseURL = aPIService.getIPAddress();
 
             httpClient.BaseAddress = new Uri(baseURL);
 
@@ -126,121 +128,3 @@ namespace Website_ShopeeFood.Controllers
 
     }
 }
-
-
-//int check = int.Parse(HttpContext.Session.GetString("CheckingList"));
-//if (check == 0)
-//{
-//    List<RestaurantsModel> restaurant = new List<RestaurantsModel>();
-
-//    using (var client = new HttpClient())
-//    {
-//        client.BaseAddress = new Uri(Baseurl);
-
-//        client.DefaultRequestHeaders.Clear();
-
-//        client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-//        HttpResponseMessage message = await client.GetAsync("api/restaurant/GetRestaurant");
-
-//        if (message.IsSuccessStatusCode)
-//        {
-//            var restaurantMessage = message.Content.ReadAsStringAsync().Result;
-
-//            restaurant = JsonConvert.DeserializeObject<List<RestaurantsModel>>(restaurantMessage).ToList();
-
-//            List<RestaurantsModel> listRes = new List<RestaurantsModel>();
-
-//            foreach (var item in restaurant)
-//            {
-//                if (item.AreaID == int.Parse(HttpContext.Session.GetString("AreaIDofRestaurant")))
-//                {
-//                    listRes.Add(item);
-//                }
-//            }
-
-//            return View("ListOfRestaurant", listRes);
-//        }
-//    }
-//}
-//else if(check == 1)
-//{
-//    List<FoodModel> listOfFoods = new List<FoodModel>();
-
-//    List<RestaurantsModel> listRestaurants = new List<RestaurantsModel>();
-
-//    int ID = int.Parse(HttpContext.Session.GetString("IdTypeOfFood"));
-
-//    using (var httpClient = new HttpClient())
-//    {
-//        configHttpClient(httpClient);
-
-//        HttpResponseMessage response = await httpClient.GetAsync("api/food/getListRestaurantBasedOnTypeId/" + ID + "");
-
-//        if (response.IsSuccessStatusCode)
-//        {
-//            var foodsTask = response.Content.ReadAsAsync<List<FoodModel>>();
-
-//            foodsTask.Wait();
-
-//            var dsfood = foodsTask.Result;
-
-//            if (dsfood.Count != 0)
-//            {
-//                listOfFoods.Add(dsfood[0]);
-
-//                for (int i = 1; i < dsfood.Count; i++)
-//                {
-//                    for (int j = i + 1; j < dsfood.Count - 1; j++)
-//                    {
-//                        if (dsfood[i].RestaurantID != dsfood[j].RestaurantID)
-//                        {
-//                            listOfFoods.Add(dsfood[i]);
-//                        }
-//                    }
-//                }
-//            }
-
-//            foreach (var item in listOfFoods)
-//            {
-//                listRestaurants.Add(await getRestaurantByIdType(item.RestaurantID));
-//            }
-
-//            return View("ListOfRestaurant", listRestaurants);
-//        }
-//    }
-//}
-//else
-//{
-//    List<RestaurantsModel> listRestaurants = new List<RestaurantsModel>();
-
-//    string[] detailDistricts = listDistricts;
-
-//    foreach(string item in detailDistricts)
-//    {
-//        int IdDistricts = int.Parse(item);
-
-//        using (var httpClient = new HttpClient())
-//        {
-//            configHttpClient(httpClient);
-
-//            HttpResponseMessage respone = await httpClient.GetAsync("api/restaurant/getListOfrestaurantByIdDistricts/" + IdDistricts +"");
-
-//            if(respone.IsSuccessStatusCode)
-//            {
-//                var restaurantTask = respone.Content.ReadAsAsync<List<RestaurantsModel>>();
-
-//                restaurantTask.Wait();
-
-//                var listRests = restaurantTask.Result;
-
-//                for(int i = 0; i<listRests.Count; i++)
-//                {
-//                    listRestaurants.Add(listRests[i]);
-//                }
-//            }
-//        }
-//    }
-//    return View("ListOfRestaurant", listRestaurants);
-//}
-//return BadRequest();

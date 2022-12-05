@@ -9,13 +9,18 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Website_ShopeeFood.Models;
-
+using Website_ShopeeFood.Services;
 
 namespace Website_ShopeeFood.Controllers
 {
     public class UserController : Controller
     {
-        string BaseUrl = "https://localhost:5001/";
+        private readonly IAPIServices IAPIServices;
+
+        public UserController(IAPIServices iAPIServices)
+        {
+            this.IAPIServices = iAPIServices;
+        }
 
         [HttpGet]
         public IActionResult UpdateUserInfo()
@@ -34,7 +39,7 @@ namespace Website_ShopeeFood.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(BaseUrl);
+                client.BaseAddress = new Uri(IAPIServices.getIPAddress());
 
                 client.DefaultRequestHeaders.Clear();
 
@@ -111,7 +116,7 @@ namespace Website_ShopeeFood.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(BaseUrl);
+                client.BaseAddress = new Uri(IAPIServices.getIPAddress());
 
                 client.DefaultRequestHeaders.Clear();
 
@@ -167,7 +172,7 @@ namespace Website_ShopeeFood.Controllers
             AddressUserModel addressUser = new AddressUserModel();
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(BaseUrl);
+                client.BaseAddress = new Uri(IAPIServices.getIPAddress());
 
                 client.DefaultRequestHeaders.Clear();
 
@@ -193,7 +198,7 @@ namespace Website_ShopeeFood.Controllers
             AddressUserModel addressUser = new AddressUserModel();
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(BaseUrl);
+                client.BaseAddress = new Uri(IAPIServices.getIPAddress());
 
                 client.DefaultRequestHeaders.Clear();
 
@@ -222,7 +227,7 @@ namespace Website_ShopeeFood.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(BaseUrl);
+                client.BaseAddress = new Uri(IAPIServices.getIPAddress());
 
                 client.DefaultRequestHeaders.Clear();
 
@@ -278,7 +283,7 @@ namespace Website_ShopeeFood.Controllers
 
             using (var httpClient = new HttpClient())
             {
-                httpClient.BaseAddress = new Uri(BaseUrl);
+                httpClient.BaseAddress = new Uri(IAPIServices.getIPAddress());
 
                 httpClient.DefaultRequestHeaders.Clear();
 
@@ -298,6 +303,9 @@ namespace Website_ShopeeFood.Controllers
                     }
                 }
             }
+            TempData["insertAddressUser"] = null;
+            TempData["DeleteAddressUser"] = null;
+
             return RedirectToAction("UpdateUserAddress");
         }
 
@@ -313,7 +321,7 @@ namespace Website_ShopeeFood.Controllers
                 StringContent content = new StringContent(JsonConvert.SerializeObject(model),
                    Encoding.UTF8, "application/json");
 
-                HttpResponseMessage message1 = await client.PostAsync("https://localhost:5001/api/address/InsertAddress", content);
+                HttpResponseMessage message1 = await client.PostAsync(IAPIServices.getIPAddress() + "api/address/InsertAddress", content);
 
                 if (message1.IsSuccessStatusCode)
                 {
@@ -324,20 +332,23 @@ namespace Website_ShopeeFood.Controllers
                     TempData["insertAddressUser"] = "Please Try Again";
                 }
             }
+            TempData["updateAddressUser"] = null;
+            TempData["DeleteAddressUser"] = null;
+
 
             return RedirectToAction("UpdateUserAddress");
 
         }
 
         //Delete Address of Users 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> DeleteUserAddress(int Id)
         {
             AddressUserModel addressModel = new AddressUserModel();
 
             using (var client = new HttpClient())
             {
-                HttpResponseMessage getAddressMessage = await client.GetAsync("https://localhost:5001/api/address/GetAddressToDelivery/" + Id + "");
+                HttpResponseMessage getAddressMessage = await client.GetAsync(IAPIServices.getIPAddress() + "api/address/GetAddressToDelivery/" + Id + "");
                 if(getAddressMessage.IsSuccessStatusCode)
                 {
                     var addressUserMessage = getAddressMessage.Content.ReadAsStringAsync().Result;
@@ -350,7 +361,7 @@ namespace Website_ShopeeFood.Controllers
                     StringContent content = new StringContent(JsonConvert.SerializeObject(addressModel),
                   Encoding.UTF8, "application/json");
 
-                    HttpResponseMessage deleteAddressMessage = await client.PostAsync("https://localhost:5001/api/address/DeleteAddress", content);
+                    HttpResponseMessage deleteAddressMessage = await client.PostAsync(IAPIServices.getIPAddress() + "api/address/DeleteAddress", content);
 
                     if (deleteAddressMessage.IsSuccessStatusCode)
                     {
@@ -362,7 +373,10 @@ namespace Website_ShopeeFood.Controllers
                     }
                 }
             }
-            return RedirectToAction("UpdateUserAddress");
+            TempData["updateAddressUser"] = null;
+            TempData["insertAddressUser"] = null;
+
+            return View("UpdateUserAddress");
         }
 
 
@@ -374,7 +388,7 @@ namespace Website_ShopeeFood.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(BaseUrl);
+                client.BaseAddress = new Uri(IAPIServices.getIPAddress());
 
                 client.DefaultRequestHeaders.Clear();
 
@@ -400,7 +414,7 @@ namespace Website_ShopeeFood.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(BaseUrl);
+                client.BaseAddress = new Uri(IAPIServices.getIPAddress());
 
                 client.DefaultRequestHeaders.Clear();
 

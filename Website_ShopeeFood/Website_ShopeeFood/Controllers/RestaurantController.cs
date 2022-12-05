@@ -15,24 +15,32 @@ using System.Text;
 using System.Linq;
 using Microsoft.IdentityModel.Tokens;
 using static System.Collections.Specialized.BitVector32;
+using Website_ShopeeFood.Services;
 
 namespace Website_ShopeeFood.Controllers
 {
     public class RestaurantController : Controller
     {
+        private readonly IAPIServices aPIServices;
 
-        string Baseurl = "https://localhost:5001/";
+        public RestaurantController(IAPIServices aPIServices)
+        {
+            this.aPIServices = aPIServices;
+        }
 
         List<RestaurantsModel> ListofRestaurant = new List<RestaurantsModel>();
 
         public static string[] listDistricts;
 
         public static string[] listTypes;
-             
+
+        public static int soLanThemQuan = 6;
+
         //Trả về partial view chứa các phương thức load danh sách quán ăn và lọc theo khu vực với phân loại
         [HttpGet]
         public async Task<IActionResult> Restaurant_Partial()
         {
+
             if (HttpContext.Session.GetString("CheckGetType").IsNullOrEmpty())
             {
                 if (HttpContext.Session.GetString("AreaIDofRestaurant") == null)
@@ -44,7 +52,7 @@ namespace Website_ShopeeFood.Controllers
 
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri(Baseurl);
+                    client.BaseAddress = new Uri(aPIServices.getIPAddress());
 
                     client.DefaultRequestHeaders.Clear();
 
@@ -60,11 +68,11 @@ namespace Website_ShopeeFood.Controllers
 
                         List<RestaurantsModel> listRes = new List<RestaurantsModel>();
 
-                        foreach (var item in restaurant)
-                        {
-                            if (item.AreaID == int.Parse(HttpContext.Session.GetString("AreaIDofRestaurant")))
+                        for(int i=0; i<soLanThemQuan; i++)
+                        { 
+                            if (restaurant[i].AreaID == int.Parse(HttpContext.Session.GetString("AreaIDofRestaurant")))
                             {
-                                listRes.Add(item);
+                                listRes.Add(restaurant[i]);
                             }
                         }
 
@@ -85,7 +93,7 @@ namespace Website_ShopeeFood.Controllers
 
                     using (var client = new HttpClient())
                     {
-                        client.BaseAddress = new Uri(Baseurl);
+                        client.BaseAddress = new Uri(aPIServices.getIPAddress());
 
                         client.DefaultRequestHeaders.Clear();
 
@@ -101,11 +109,11 @@ namespace Website_ShopeeFood.Controllers
 
                             List<RestaurantsModel> listRes = new List<RestaurantsModel>();
 
-                            foreach (var item in restaurant)
+                            for (int i = 0; i < soLanThemQuan; i++)
                             {
-                                if (item.AreaID == int.Parse(HttpContext.Session.GetString("AreaIDofRestaurant")))
+                                if (restaurant[i].AreaID == int.Parse(HttpContext.Session.GetString("AreaIDofRestaurant")))
                                 {
-                                    listRes.Add(item);
+                                    listRes.Add(restaurant[i]);
                                 }
                             }
 
@@ -124,7 +132,7 @@ namespace Website_ShopeeFood.Controllers
 
                     using (var client = new HttpClient())
                     {
-                        client.BaseAddress = new Uri(Baseurl);
+                        client.BaseAddress = new Uri(aPIServices.getIPAddress());
 
                         client.DefaultRequestHeaders.Clear();
 
@@ -140,11 +148,11 @@ namespace Website_ShopeeFood.Controllers
 
                             List<RestaurantsModel> listRes = new List<RestaurantsModel>();
 
-                            foreach (var item in restaurant_type)
+                            for (int i = 0; i < soLanThemQuan; i++)
                             {
-                                if (item.AreaID == int.Parse(HttpContext.Session.GetString("AreaIDofRestaurant")) && item.ID == int.Parse(HttpContext.Session.GetString("TypeIDofRestaurant")))
+                                if (restaurant_type[i].AreaID == int.Parse(HttpContext.Session.GetString("AreaIDofRestaurant")))
                                 {
-                                    listRes.Add(item);
+                                    listRes.Add(restaurant_type[i]);
                                 }
                             }
 
@@ -157,6 +165,33 @@ namespace Website_ShopeeFood.Controllers
             return NotFound();
         }
 
+        [HttpGet]
+        public IActionResult addNumberOfRestaurant()
+        {
+            soLanThemQuan = soLanThemQuan + 3;
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult Search_Restaurant()
+        {
+            return PartialView("Search_Restaurant");
+        }
+
+        [HttpGet("searchListOfRestaurant/{name}")]
+        public async Task<IActionResult> searchListOfRestaurant(string name)
+        {
+            List<RestaurantsModel> listRes = new List<RestaurantsModel>();
+
+            List<RestaurantsModel> listSearchedRes = new List<RestaurantsModel>();
+
+            listRes = await aPIServices.GetAllRestaurant();
+
+            listSearchedRes = await aPIServices.searchListRestaurantByName(name, listRes);
+
+            return RedirectToAction("Index", "Home");
+        }
+
         public async Task<IActionResult> listOfRestaurant()
         {
             int check = int.Parse(HttpContext.Session.GetString("CheckingList"));
@@ -166,7 +201,7 @@ namespace Website_ShopeeFood.Controllers
 
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri(Baseurl);
+                    client.BaseAddress = new Uri(aPIServices.getIPAddress());
 
                     client.DefaultRequestHeaders.Clear();
 
@@ -231,7 +266,7 @@ namespace Website_ShopeeFood.Controllers
 
                         foreach (var item in listOfFoods)
                         {
-                            listRestaurants.Add(await getRestaurantByIdType(item.RestaurantID));
+                            listRestaurants.Add(await aPIServices.getRestaurantsByIdRestaurant(item.RestaurantID));
                         }
 
                         return PartialView("listOfRestaurant", listRestaurants);
@@ -314,7 +349,7 @@ namespace Website_ShopeeFood.Controllers
 
                             foreach (var listItem in listOfFoods)
                             {
-                                listRestaurantsNotFiltered.Add(await getRestaurantByIdType(listItem.RestaurantID));
+                                listRestaurantsNotFiltered.Add(await aPIServices.getRestaurantsByIdRestaurant(listItem.RestaurantID));
                             }
                         }
                     }
@@ -389,36 +424,6 @@ namespace Website_ShopeeFood.Controllers
             return RedirectToAction("ListOfRestaurant", "Home");
         }
 
-        public async Task<List<RestaurantsModel>> GetAllRestaurant()
-        {
-            List<RestaurantsModel> restaurant = new List<RestaurantsModel>();
-
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(Baseurl);
-
-                client.DefaultRequestHeaders.Clear();
-
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage message = await client.GetAsync("api/restaurant/GetRestaurant");
-
-                if (message.IsSuccessStatusCode)
-                {
-                    var restaurantMessage = message.Content.ReadAsStringAsync().Result;
-
-                    var dsrestaurant = JsonConvert.DeserializeObject<List<RestaurantsModel>>(restaurantMessage);
-
-                    foreach (var item in dsrestaurant)
-                    {
-                        restaurant.Add(item);
-                    }
-
-                    return restaurant;
-                }
-                return null;
-            }
-        }    
 
         [HttpGet]
         public async Task<IActionResult> Brand_Partial()
@@ -427,7 +432,7 @@ namespace Website_ShopeeFood.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(Baseurl);
+                client.BaseAddress = new Uri(aPIServices.getIPAddress());
 
                 client.DefaultRequestHeaders.Clear();
 
@@ -447,7 +452,7 @@ namespace Website_ShopeeFood.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(Baseurl);
+                client.BaseAddress = new Uri(aPIServices.getIPAddress());
 
                 client.DefaultRequestHeaders.Clear();
 
@@ -504,7 +509,7 @@ namespace Website_ShopeeFood.Controllers
         public async Task<IActionResult> AreaID(int AreaID)
         {
 
-            var model = await GetAllRestaurant();
+            var model = await aPIServices.GetAllRestaurant();
             List<RestaurantsModel> u = new List<RestaurantsModel>();
 
             foreach (var item in model)
@@ -559,7 +564,7 @@ namespace Website_ShopeeFood.Controllers
         public async Task<IActionResult> TypeID(int ID)
         {
 
-            var model = await GetAllRestaurant();
+            var model = await aPIServices.GetAllRestaurant();
             List<RestaurantsModel> u = new List<RestaurantsModel>();
 
             foreach (var item in model)
@@ -693,7 +698,7 @@ namespace Website_ShopeeFood.Controllers
 
                     foreach (var item in listOfFoods)
                     {
-                        listRestaurants.Add(await getRestaurantByIdType(item.RestaurantID));
+                        listRestaurants.Add(await aPIServices.getRestaurantsByIdRestaurant(item.RestaurantID));
                     }
 
                     ViewData["restaurant"] = listRestaurants;
@@ -705,37 +710,9 @@ namespace Website_ShopeeFood.Controllers
             }
         }
 
-        //Lấy Id Get Thông tin quán ăn
-        public async Task<RestaurantsModel> getRestaurantByIdType(int RestaurantID)
-        {
-            RestaurantsModel restaurants = new RestaurantsModel();
-
-            using (var httpClient = new HttpClient())
-            {
-                configHttpClient(httpClient);
-
-                HttpResponseMessage response = await httpClient.GetAsync("api/restaurant/GetListRestaurant/" + RestaurantID + "");
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var foodsTask = response.Content.ReadAsAsync<RestaurantsModel>();
-
-                    foodsTask.Wait();
-
-                    var dsfood = foodsTask.Result;
-
-                    restaurants = dsfood;
-
-                    return restaurants;
-                }
-
-                return null;
-            }
-        }
-
         public void configHttpClient(HttpClient httpClient)
         {
-            string baseURL = "https://localhost:5001/";
+            string baseURL = aPIServices.getIPAddress();
 
             httpClient.BaseAddress = new Uri(baseURL);
 

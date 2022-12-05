@@ -8,6 +8,7 @@ using Website_ShopeeFood.Models;
 using Newtonsoft.Json;
 using System.Reflection;
 using Microsoft.AspNetCore.Http;
+using Website_ShopeeFood.Services;
 
 namespace Website_ShopeeFood.Controllers
 {
@@ -16,37 +17,25 @@ namespace Website_ShopeeFood.Controllers
 
         string Baseurl = "https://localhost:5001/";
 
+        private readonly IAPIServices IAPIServices;
+
+        public AreasController(IAPIServices iAPIServices)
+        {
+            this.IAPIServices = iAPIServices;
+        }
+
         [HttpGet]
         public async Task<ActionResult> Areas_Partial()
         {
             List<AreasModel> areas = new List<AreasModel>();
 
-            using (var client = new HttpClient())
+            areas = await IAPIServices.getArea();
+
+            if (areas != null)
             {
-                client.BaseAddress = new Uri(Baseurl); //Chuyển URL
-
-                client.DefaultRequestHeaders.Clear();
-
-                //Định dạng format dữ liệu là JSon
-
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-                // Gửi yêu cầu tìm dịch vụ Web API bằng cách sử dụng HttpClient
-
-                HttpResponseMessage message = await client.GetAsync("api/areas");
-
-                //Kiểm tra xem có thành không ko
-
-                if (message.IsSuccessStatusCode)
-                {
-                    //Lưu trữ phản hồi sau ghi gọi api
-                    var areaMessage = message.Content.ReadAsStringAsync().Result;
-
-                    areas = JsonConvert.DeserializeObject<List<AreasModel>>(areaMessage);
-
-                    return PartialView("Areas_Partial", areas);
-                }
+                return PartialView("Areas_Partial", areas);
             }
+
             return NotFound();
         }
 
@@ -58,24 +47,11 @@ namespace Website_ShopeeFood.Controllers
 
             AreasModel areas = new AreasModel();
 
-            using (var client = new HttpClient())
+            areas = await IAPIServices.getNameOfArea(AreaId);
+
+            if (areas != null)
             {
-                client.BaseAddress = new Uri(Baseurl);
-
-                client.DefaultRequestHeaders.Clear();
-
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage message = await client.GetAsync("areas/getNameAreas/"+AreaId+"");
-
-                if (message.IsSuccessStatusCode)
-                {
-                    var areaMessage = message.Content.ReadAsStringAsync().Result;
-
-                    areas = JsonConvert.DeserializeObject<AreasModel>(areaMessage);
-
-                    return PartialView("NameOfArea_Partial", areas);
-                }
+                return PartialView("NameOfArea_Partial", areas);
             }
             return NotFound();
         }
