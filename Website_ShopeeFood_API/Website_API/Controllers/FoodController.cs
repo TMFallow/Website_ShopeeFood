@@ -34,6 +34,12 @@ namespace Website_API.Controllers
             return food.GetAllFoods();
         }
 
+        [HttpGet("getFoodByID/{Id:int}")] 
+        public Foods getFoodByID(int Id)
+        {
+            return food.GetFoodByID(Id);
+        }
+
         [HttpGet("getAllRestaurantUsingIDRestaurant/{Id:int}")]
         public IEnumerable<Foods> getAllRestaurantUsingIDRestaurant(int Id)
         {
@@ -55,12 +61,6 @@ namespace Website_API.Controllers
         public IEnumerable<Foods> getListRestaurantBasedOnTypeId(int TypeofFood)
         {
             List<Foods> listFoods = new List<Foods>();
-
-            //List<Foods> data = application_Context.foods
-            //                  .AsEnumerable()
-            //                  .Where(x => x.TypeofFood == TypeofFood)
-            //                  .GroupBy(x => x.RestaurantID)
-            //                  .Cast<Foods>().ToList();
 
             var listFood = food.getByIdType(TypeofFood);
 

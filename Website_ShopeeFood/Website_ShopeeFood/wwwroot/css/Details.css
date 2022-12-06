@@ -200,7 +200,6 @@
     border: 1px solid #ebebeb;
     border-radius: 4px;
     background: #fff;
-    /*margin-top: -91px;*/
 }
 
 .promotions {
@@ -338,6 +337,7 @@
     height: 22px;
     color: white;
     background-color: #ee4d2d;
+    padding: 0px 4px;
 }
 
 .QRcode {

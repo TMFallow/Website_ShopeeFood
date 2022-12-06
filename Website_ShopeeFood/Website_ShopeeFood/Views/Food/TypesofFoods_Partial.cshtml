@@ -23,7 +23,7 @@
                             </div>
                         </div>
                         <div class="col-auto adding-food-cart txt-right">
-                            <div class="btn-adding">+</div>
+                            <a href="~/Restaurant/getFoodByID?foodId=@item.FoodId" class="btn-adding">+</a>
                         </div>
                     </div>
                 </div>
@@ -32,6 +32,8 @@
     }
 }
 
+
+    
 <script>
     var row = $('.item-restaurant-row');
 

@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Website_ShopeeFood.Models.FoodModel>
 @{
     ViewData["Title"] = "DetailOfRestaurant";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -14,13 +14,15 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
 
 
 <div class="now-details-restaurant">
     <div id="Detail_Restaurant" class="container">
         @*-----------------------------------*@
-        
+
     </div>
 </div>
 
@@ -84,7 +86,7 @@
                             </div>
                             <div id="Food_PartialView">
                                 @*-----------------------------------*@
-                            </div> 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -108,61 +110,50 @@
     </div>
     <div class="cart-info">
         <div class="img-user">
-            <img src="https://spng.pngfind.com/pngs/s/132-1321526_we-bare-bears-png-we-bare-bears-aesthetic.png">
+            <img src=@ViewBag.ImgaeUser>
             <div class="name-user">
-                Phan Thanh Bình
+                @ViewBag.NameUser
             </div>
             <div class="count-number">
                 4 Món
             </div>
         </div>
     </div>
+
     <div class="list-food">
-        <div class="list-food-item">
-            <button class="minusbtn" id="minus">-</button>
-            <span class="number-products" id="numberPlace">0</span>
-            <button class="plusbtn" id="plus">+</button>
-            <div class="name-of-products">
-                <span class="name">Trà sữa trân châu</span>
-                <span class="prices">39,000đ</span>
-            </div>
-        </div>
-        <div class="list-food-item">
-            <button class="minusbtn" id="minus1">-</button>
-            <span class="number-products" id="numberPlace1">0</span>
-            <button class="plusbtn" id="plus1">+</button>
-            <div class="name-of-products">
-                <span class="name">Milo dầm đá</span>
-                <span class="prices">25,000đ</span>
-            </div>
-        </div>
-        <div class="list-food-item">
-            <button class="minusbtn" id="minus1">-</button>
-            <span class="number-products" id="numberPlace1">0</span>
-            <button class="plusbtn" id="plus1">+</button>
-            <div class="name-of-products">
-                <span class="name">Bánh tráng trộn</span>
-                <span class="prices">20,000đ</span>
-            </div>
-        </div>
-        <div class="list-food-item">
-            <button class="minusbtn" id="minus1">-</button>
-            <span class="number-products" id="numberPlace1">0</span>
-            <button class="plusbtn" id="plus1">+</button>
-            <div class="name-of-products">
-                <span class="name">Chè Chang Hi</span>
-                <span class="prices">50,000đ</span>
-            </div>
-        </div>
+        @if (Model != null)
+        {
+
+            @foreach (var item in Model)
+            {
+                <div class="list-food-item">
+                    <button class="minusbtn" id="minus">-</button>
+                    <span class="number-products" id="numberPlace">1</span>
+                    <button class="plusbtn" id="plus">+</button>
+                    <div class="name-of-products">
+                        <span class="name" style="overflow-x:hidden;">@item.NameofFood</span>
+                        <span id="item-price" class="prices">@item.Price</span>
+                    </div>
+                </div>
+            }
+        }
     </div>
+
     <div class="total">
         <div class="total-price">
             <span class="text">
                 Cộng
             </span>
-            <span class="prices">
-                138,000đ
-            </span>
+            @if (Model != null)
+            {
+                double total = 0;
+                @foreach (var item2 in Model)
+                {
+                    total += @item2.Price;
+                }
+
+                <input type="text" value="@total"/>
+            }
         </div>
         <div class="total-price">
             <span class="text">
@@ -279,18 +270,29 @@
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
+@*<script src="~/js/site.js" asp-append-version="true"></script>*@
 
 <script>
     $('#Detail_Restaurant').load('/Restaurant/GetRestaurantByID')
     $('#Food_PartialView').load('/Food/TypesofFoods_Partial')
+</script>
+
+<script>
+    var totalPrice = 0;
+
+    for (var i = 0; i < document.getElementById("item-price").length; i++) {
+        totalPrice = totalPrice + document.getElementsByClassName("Price").value;
+    }
+
+    document.getElementById("sum-prices").innerHTML = totalPrice;
+
 </script>
 
 <script>

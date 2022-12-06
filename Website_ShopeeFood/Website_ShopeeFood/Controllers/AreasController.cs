@@ -14,9 +14,6 @@ namespace Website_ShopeeFood.Controllers
 {
     public class AreasController : Controller
     {
-
-        string Baseurl = "https://localhost:5001/";
-
         private readonly IAPIServices IAPIServices;
 
         public AreasController(IAPIServices iAPIServices)
@@ -64,7 +61,7 @@ namespace Website_ShopeeFood.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(Baseurl);
+                client.BaseAddress = new Uri(IAPIServices.getIPAddress());
 
                 client.DefaultRequestHeaders.Clear();
 

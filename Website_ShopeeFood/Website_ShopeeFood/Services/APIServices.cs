@@ -28,6 +28,13 @@ namespace Website_ShopeeFood.Services
             return IPAddress;
         }
 
+        public string getIPAddressMVC()
+        {
+            string IpMVC = "";
+            return IpMVC;
+        }
+
+
         public async Task<List<AreasModel>> getArea()
         {
             List<AreasModel> areas = new List<AreasModel>();
@@ -57,7 +64,7 @@ namespace Website_ShopeeFood.Services
                 }
             }
 
-            if(areas != null)
+            if (areas != null)
             {
                 return areas;
             }
@@ -89,7 +96,7 @@ namespace Website_ShopeeFood.Services
                 }
             }
 
-            if(areas != null)
+            if (areas != null)
             {
                 return areas;
             }
@@ -128,14 +135,14 @@ namespace Website_ShopeeFood.Services
                 }
             }
 
-            if(model != null)
+            if (model != null)
             {
                 return model;
-            }    
+            }
             else
             {
                 return null;
-            }   
+            }
         }
 
         public async Task<List<FoodModel>> getAllFoodByIdRestaurant(int restaurantId)
@@ -144,7 +151,7 @@ namespace Website_ShopeeFood.Services
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(getIPAddress()); 
+                client.BaseAddress = new Uri(getIPAddress());
 
                 client.DefaultRequestHeaders.Clear();
 
@@ -167,7 +174,7 @@ namespace Website_ShopeeFood.Services
                 }
             }
 
-            if(foods!=null)
+            if (foods != null)
             {
                 return foods;
             }
@@ -258,7 +265,7 @@ namespace Website_ShopeeFood.Services
                 }
             }
 
-            if(usersModel != null)
+            if (usersModel != null)
             {
                 return usersModel;
             }
@@ -295,7 +302,7 @@ namespace Website_ShopeeFood.Services
                 }
             }
 
-            if(promotions != null)
+            if (promotions != null)
             {
                 return promotions;
             }
@@ -374,6 +381,114 @@ namespace Website_ShopeeFood.Services
             restaurant = restaurantsModels.Where(nameRes => nameRes.NameofRestaurant.ToUpper().Contains(name.ToUpper())).ToList();
 
             return restaurant;
+        }
+
+        public async Task<List<FoodModel>> searchListRestaurantByTypeID(int IdTypes)
+        {
+            List<FoodModel> listRests = new List<FoodModel>();
+
+            using (var client = new HttpClient())
+            {
+
+                client.BaseAddress = new Uri(getIPAddress());
+
+                client.DefaultRequestHeaders.Clear();
+
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage respone = await client.GetAsync("api/food/getListRestaurantBasedOnTypeId/" + IdTypes + "");
+
+                if (respone.IsSuccessStatusCode)
+                {
+                    var restaurantTask = respone.Content.ReadAsAsync<List<FoodModel>>();
+
+                    restaurantTask.Wait();
+
+                    listRests = restaurantTask.Result;
+                }
+            }
+            return listRests;
+        }
+
+        public async Task<FoodModel> getFoodById(int Id)
+        {
+
+            FoodModel food = new FoodModel();
+
+            using (var client = new HttpClient())
+            {
+
+                client.BaseAddress = new Uri(getIPAddress());
+
+                client.DefaultRequestHeaders.Clear();
+
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage respone = await client.GetAsync("api/food/getFoodById/" + Id + "");
+
+                if (respone.IsSuccessStatusCode)
+                {
+                    var foodTask = respone.Content.ReadAsAsync<FoodModel>();
+
+                    foodTask.Wait();
+
+                    food = foodTask.Result;
+                }
+            }
+            return food;
+        }
+
+        public async Task<List<FoodModel>> getListRestaurantBasedOnTypeID(int Id)
+        {
+            List<FoodModel> listRestaurants = new List<FoodModel>();
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(getIPAddress());
+
+                client.DefaultRequestHeaders.Clear();
+
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = await client.GetAsync("api/food/getListRestaurantBasedOnTypeId/" + Id + "");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var foodsTask = response.Content.ReadAsAsync<List<FoodModel>>();
+
+                    foodsTask.Wait();
+
+                    listRestaurants = foodsTask.Result;
+                }
+
+                return listRestaurants;
+            }
+        }
+
+        public async Task<List<RestaurantsModel>> getListRestauranrByIdDistricts(int IdDistricts)
+        {
+            List<RestaurantsModel> listRestaurant = new List<RestaurantsModel>();
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(getIPAddress());
+
+                client.DefaultRequestHeaders.Clear();
+
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage respone = await client.GetAsync("api/restaurant/getListOfrestaurantByIdDistricts/" + IdDistricts + "");
+
+                if (respone.IsSuccessStatusCode)
+                {
+                    var restaurantTask = respone.Content.ReadAsAsync<List<RestaurantsModel>>();
+
+                    restaurantTask.Wait();
+
+                    listRestaurant = restaurantTask.Result;
+                }
+            }
+            return listRestaurant;
         }
     }
 }
