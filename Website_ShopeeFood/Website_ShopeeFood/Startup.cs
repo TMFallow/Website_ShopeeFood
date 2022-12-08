@@ -79,6 +79,8 @@ namespace Website_ShopeeFood
 
             app.UseCookiePolicy();
 
+            app.UseStaticFiles();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

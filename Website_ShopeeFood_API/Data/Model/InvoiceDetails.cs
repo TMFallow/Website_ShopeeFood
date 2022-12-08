@@ -21,12 +21,10 @@ namespace Data
 
         public int Numbers { get; set; }
 
-        public float Total => (Price * Numbers);
+        //[ForeignKey("InvoicesID")]
+        //public Invoices Invoices { get; set; }
 
-        [ForeignKey("InvoicesID")]
-        public Invoices Invoices { get; set; }
-
-        [ForeignKey("FoodId")]
-        public Foods Foods { get; set; }
+        //[ForeignKey("FoodId")]
+        //public Foods Foods { get; set; }
     }
 }

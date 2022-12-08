@@ -56,6 +56,8 @@ namespace Website_API
 
             services.AddTransient<IType_Services, Type_Services>();
 
+            services.AddTransient<IInvoices_Services, Invoices_Services>();
+
             services.AddTransient<IPromotion_Services, Promotion_Services>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

@@ -588,16 +588,18 @@
 }
 
     .invoices .button-exit {
-        width: 15px;
-        height: 15px;
+        width: 25px;
+        height: 25px;
         background-color: #fff;
         position: relative;
+        margin-left: 99%;
     }
 
         .invoices .button-exit .btn {
             background-color: #fff;
             text-align: center;
-            padding-left: 4px;
+            padding-left: 6px;
+            color: black;
         }
 
 
@@ -624,8 +626,8 @@
             }
 
 .content-left .google-maps iframe {
-    width: 400px;
-    height: 400px;
+    width: 350px;
+    height: 350px;
 }
 
 .invoices .form-invoices .content .content-right {
@@ -690,7 +692,7 @@
 
         .content-right .details-invoices .text {
             font-size: 19px;
-            margin-left: -550px;
+            margin-left: -20px;
             font-weight: 700;
         }
 
@@ -762,7 +764,7 @@
         font-weight: 700;
         float: left;
         margin-top: 15px;
-        margin-left: -55px;
+        margin-left: -25px;
     }
 
     .curent-prices .prices {
@@ -778,7 +780,7 @@
     .payment-method .text {
         font-weight: 700;
         font-size: 18px;
-        margin-left: -480px;
+        margin-left: -25px;
     }
 
 .complete-payment {

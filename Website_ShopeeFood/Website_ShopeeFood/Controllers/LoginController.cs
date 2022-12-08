@@ -130,6 +130,7 @@ namespace Website_ShopeeFood.Controllers
                         HttpContext.Session.SetString("UserName", u.Username);
                         HttpContext.Session.SetString("Password", u.Password);
                         HttpContext.Session.SetString("FullName", u.FullName);
+                        HttpContext.Session.SetString("UserIdToCheckInvoices", u.UserId.ToString());
 
                         return RedirectToAction("Index", "Home");
                     }

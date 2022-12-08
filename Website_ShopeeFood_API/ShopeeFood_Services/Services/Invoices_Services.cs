@@ -1,5 +1,6 @@
 ﻿using Data;
 using ShopeeFood_Repository.IRepository;
+using ShopeeFood_Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ShopeeFood_Services.Services
 {
-    public class Invoices_Services
+    public class Invoices_Services : IInvoices_Services
     {
         private readonly IRepository<Invoices> invoices;
 
@@ -50,6 +51,11 @@ namespace ShopeeFood_Services.Services
         public void SaveChanges()
         {
             invoices.SaveChanges();
+        }
+
+        public IEnumerable<Invoices> getListOfInvoicesByUserID(int? id)
+        {
+            return invoices.getByID(x => x.UserID == id);
         }
     }
 }

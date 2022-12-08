@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using static System.Collections.Specialized.BitVector32;
 using Website_ShopeeFood.Services;
 using System.Net.WebSockets;
+using Microsoft.Extensions.Logging;
 
 namespace Website_ShopeeFood.Controllers
 {
@@ -572,9 +573,16 @@ namespace Website_ShopeeFood.Controllers
             return BadRequest();
         }
 
+        static bool check = true;
+
         [HttpGet]
         public async Task<IActionResult> DetailOfRestaurant(int restaurantId, int areaId)
         {
+            if(restaurantId != 0)
+            {
+                HttpContext.Session.SetString("restaurantIdWhenClick", restaurantId.ToString());
+            }
+
             if (HttpContext.Session.GetString("ImageUser") != null)
             {
                 ViewBag.ImgaeUser = HttpContext.Session.GetString("ImageUser");
@@ -594,21 +602,24 @@ namespace Website_ShopeeFood.Controllers
             }
 
             //Get IdFood
-            if (HttpContext.Session.GetString("foodId") != null)
+            if (HttpContext.Session.GetString("foodId") != null && HttpContext.Session.GetString("restaurantId") == HttpContext.Session.GetString("restaurantIdWhenClick"))
             {
-                int foodId = int.Parse(HttpContext.Session.GetString("foodId"));
+                if (check == true)
+                {
+                    int foodId = int.Parse(HttpContext.Session.GetString("foodId"));
 
-                FoodModel food = new FoodModel();
+                    FoodModel food = new FoodModel();
 
-                food = await aPIServices.getFoodById(foodId);
+                    food = await aPIServices.getFoodById(foodId);
 
-                listFood.Add(food);
+                    listFood.Add(food);
 
+                    tongTien = tongTien + int.Parse(food.Price.ToString());
 
-                tongTien = tongTien + int.Parse(food.Price.ToString()); 
+                    ViewData["TotalPrice"] = tongTien;
 
-
-                ViewData["TotalPrice"] = tongTien;
+                    check = false;
+                }
 
                 return View("DetailOfRestaurant", listFood);
             }
@@ -630,35 +641,11 @@ namespace Website_ShopeeFood.Controllers
         [HttpGet]
         public async Task<IActionResult> getFoodByID(int foodId)
         {
-
-            HttpContext.Session.SetString("foodId", foodId + "");
-            //if (foodId == 0)
-            //{
-            //    foodId = 1;
-            //}
-
-            //if (HttpContext.Session.GetString("FullName") != null)
-            //{
-            //    FoodModel food = new FoodModel();
-
-            //    food = await aPIServices.getFoodById(foodId);
-
-            //    listFood.Add(food);
-
-            //    tongTien = tongTien + food.Price;
-
-
-
-            //    HttpContext.Session.SetString("Total", tongTien + "");
-
-            //    return RedirectToAction("DetailOfRestaurant");
-            //}
-            //else
-            //{
-            //    ViewData["AddToCart"] = "Not Login Already!";
-            //    return RedirectToAction("DetailOfRestaurant");
-            //}
-            //return RedirectToAction("DetailOfRestaurant", "Restaurant");
+            if (foodId != 0)
+            {
+                check =true;
+                HttpContext.Session.SetString("foodId", foodId + "");
+            }
             return RedirectToAction("DetailOfRestaurant");
         }
 

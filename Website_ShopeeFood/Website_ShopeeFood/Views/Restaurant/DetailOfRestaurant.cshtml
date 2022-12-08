@@ -15,9 +15,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+@*<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">*@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-
-
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+*@
 
 <div class="now-details-restaurant">
     <div id="Detail_Restaurant" class="container">
@@ -108,24 +110,27 @@
             </div>
         </div>
     </div>
-    <div class="cart-info">
-        <div class="img-user">
-            <img src=@ViewBag.ImgaeUser>
-            <div class="name-user">
-                @ViewBag.NameUser
-            </div>
-            <div class="count-number">
-                4 Món
+    @if (Model != null)
+    {
+        int i = 0;
+        <div class="cart-info">
+            <div class="img-user">
+                <img src=@ViewBag.ImgaeUser>
+                <div class="name-user">
+                    @ViewBag.NameUser
+                </div>
+                <div class="count-number">
+                    @i Món
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="list-food">
-        @if (Model != null)
-        {
+        <div class="list-food">
+
 
             @foreach (var item in Model)
             {
+                i++;
                 <div class="list-food-item">
                     <button class="minusbtn" id="minus">-</button>
                     <span class="number-products" id="numberPlace">1</span>
@@ -136,135 +141,166 @@
                     </div>
                 </div>
             }
-        }
-    </div>
 
-    <div class="total">
-        <div class="total-price">
-            <span class="text">
-                Cộng
-            </span>
-            @if (Model != null)
-            {
-                double total = 0;
+        </div>
+    }
+    @if (Model != null)
+    {
+        double total = 0;
+        double fees = 10000;
+        double ttInvoices = 0;
+
+        <div class="total">
+            <div class="total-price">
+                <span class="text">
+                    Cộng
+                </span>
+
+
                 @foreach (var item2 in Model)
                 {
                     total += @item2.Price;
                 }
 
-                <input type="text" value="@total"/>
-            }
+                <input type="text" value="@total" style="border:none; border-bottom:solid 1px black; text-align: center; margin-left: 70px; margin: 5px;" />
+
+            </div>
+            <div class="total-price">
+                <span class="text">
+                    Phí vận chuyển (Est.)
+                </span>
+                <span class="prices">
+                    10,000đ/km
+                </span>
+            </div>
         </div>
-        <div class="total-price">
-            <span class="text">
-                Phí vận chuyển (Est.)
-            </span>
-            <span class="prices">
-                10,000đ/km
-            </span>
+        <div class="prepare-to-order">
+            <div class="temporary-prices">
+                <span class="text">Tạm tính</span>
+                <span class="prices">
+                    @{
+                        ttInvoices = total + fees;
+                    }
+                    @ttInvoices
+                </span>
+            </div>
+            <div class="btn-Order">
+                <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">Đặt Trước</button>
+            </div>
         </div>
-    </div>
-    <div class="prepare-to-order">
-        <div class="temporary-prices">
-            <span class="text">Tạm tính</span>
-            <span class="prices">138,000đ</span>
-        </div>
-        <div class="btn-Order">
-            <button class="btn">Đặt Trước</button>
-        </div>
-    </div>
+    }
 </div>
 
-<div class="invoices">
-    <div class="button-exit">
-        <div class="control">
-            <button class="btn">X</button>
-        </div>
-    </div>
-    <div class="form-invoices">
-        <div class="header">
-            <span class="text">Xác nhận đơn hàng</span>
-        </div>
-        <div class="content">
-            <div class="content-left">
-                <div class="google-maps">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1959.6977493463517!2d106.70496832472143!3d10.780990321459603!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f492b78ffff%3A0xdf1209cdf8c48b63!2sShopeefood!5e0!3m2!1svi!2s!4v1667898560169!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-                <div class="address">
-                    <div class="gps">
-                        <div class="circle"></div>
-                        <div class="name">Phan Thanh Bình</div>
-                        <div class="address-user">TP.HCM</div>
-                    </div>
-                </div>
-                <div class="change-address">
-                    <div class="text">Thay đổi thông tin đơn hàng</div>
-                    <div class="pointer">&#8594;</div>
-                </div>
-            </div>
-            <div class="content-right">
-                <div class="details-invoices">
-                    <span class="text">Chi tiết đơn hàng</span>
-                    <span class="pointer">></span>
-                </div>
-
-
-                <div class="item-producs">
-                    <div class="number-products">
-                        1
-                    </div>
-                    <div class="name-products">
-                        Trà sữa trân châu
-                    </div>
-                    <div class="price-product">
-                        39,000 đ
-                    </div>
-                </div>
-
-                <div class="plus-prices">
-                    <div class="total-prices">
-                        <span class="text">
-                            Tổng <span class="numbers"></span> món
-                        </span>
-                        <span class="prices">39,000 đ</span>
-                    </div>
-
-                    <div class="fees">
-                        <span class="text">
-                            Phí vận chuyển:
-                        </span>
-                        <span class="prices">10,000 đ</span>
-                    </div>
-                </div>
-
-                <div class="curent-prices">
-                    <div class="text">
-                        Tạm tính
-                    </div>
-                    <div class="prices">
-                        15,000 đ
-                    </div>
-                </div>
-
-                <div class="payment-method">
-                    <div class="text">
-                        Thanh toán bằng tiền mặt
-                    </div>
-                </div>
-            </div>
-
-            <div class="complete-payment">
-                <div class="button-payment">
-                    <button class="btn">
-                        Hoàn tất đơn hàng &nbsp;
-                        <i class="fas fa-angle-right"></i> &nbsp;
-                        <span class="final-money">
-                            54,000 đ
-                        </span>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 1150px;">
+        @if (Model != null)
+        {
+            double total = 0;
+            double fees = 10000;
+            double ttInvoices = 0;
+            int i = 0;
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Xác nhận đơn hàng</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">X</span>
                     </button>
                 </div>
+                <div class="modal-body">
+                    <div class="content">
+                        <div class="content-left" style="float:left;">
+                            <div class="google-maps" style="width: 350px; height: 350px;">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1959.6977493463517!2d106.70496832472143!3d10.780990321459603!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f492b78ffff%3A0xdf1209cdf8c48b63!2sShopeefood!5e0!3m2!1svi!2s!4v1667898560169!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                            <div class="address">
+                                <div class="gps">
+                                    <div class="circle"></div>
+                                    <div class="name">@ViewBag.NameUser</div>
+                                    <div class="address-user">TP.HCM</div>
+                                </div>
+                            </div>
+                            <div class="change-address">
+                                <div class="text" style="font-size: 19px; font-weight: 700;">
+                                    Thay đổi thông tin đơn hàng
+                                </div>
+                                <div class="pointer">&#8594;</div>
+                            </div>
+                        </div>
+                        <div class="content-right">
+                            <div class="details-invoices">
+                                <span class="text" style="font-size: 19px; margin-left: -20px; font-weight: 700;">Chi tiết đơn hàng</span>
+                                <span class="pointer">></span>
+                            </div>
+
+                            @foreach (var item in Model)
+                            {
+                                i++;
+                                <div class="item-producs">
+                                    <div class="number-products">
+                                        @i
+                                    </div>
+                                    <div class="name-products">
+                                        @item.NameofFood
+                                    </div>
+                                    <div class="price-product">
+                                        @item.Price đ
+                                    </div>
+                                </div>
+                                total += @item.Price;
+                            }
+
+                            <div class="plus-prices">
+                                <div class="total-prices">
+                                    <span class="text" style="font-size: 19px; margin-left: -20px; font-weight: 700;">
+                                        Tổng <span class="numbers">@i</span> món
+                                    </span>
+                                    <span class="prices">@total đ</span>
+                                </div>
+
+                                <div class="fees">
+                                    <span class="text" style="margin-left: -20px;">
+                                        Phí vận chuyển:
+                                    </span>
+                                    <span class="prices">10,000 đ</span>
+                                </div>
+                            </div>
+
+                            <div class="curent-prices">
+                                <div class="text" style="font-size: 19px; margin-left: -20px; font-weight: 700;">
+                                    Tạm tính
+                                </div>
+                                <div class="prices">
+                                    @{
+                                        ttInvoices = total + fees;
+                                    }
+                                    @ttInvoices đ
+                                </div>
+                            </div>
+
+                            <div class="payment-method">
+                                <div class="text" style="font-size: 19px; margin-left: -20px; font-weight: 700;">
+                                    Thanh toán bằng tiền mặt
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="justify-content: center;">
+                    <div class="complete-payment" style="width: 100%;">
+                        <div class="button-payment">
+                            <button class="btn" >
+                                Hoàn tất đơn hàng &nbsp;
+                                <i class="fas fa-angle-right"></i> &nbsp;
+                                <span class="final-money">
+                                    @ttInvoices đ
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        }
     </div>
 </div>
 
@@ -294,6 +330,13 @@
     document.getElementById("sum-prices").innerHTML = totalPrice;
 
 </script>
+
+<script>
+    $('#closeModal').on('click', () => {
+        $('#modal-invoice').modal('hide');
+    });
+</script>
+
 
 <script>
     const element = document.getElementsByClassName('item-restaurant-row').lastChild;

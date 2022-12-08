@@ -1,5 +1,6 @@
 ﻿using Data;
 using ShopeeFood_Repository.IRepository;
+using ShopeeFood_Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,48 +9,48 @@ using System.Threading.Tasks;
 
 namespace ShopeeFood_Services.Services
 {
-    public class InvoiceDetails
+    public class InvoiceDetails_Services : IInvoiceDetails_Services
     {
-        private readonly IRepository<InvoiceDetails> invoiceDetails;
-
-        public InvoiceDetails(IRepository<InvoiceDetails> invoiceDetails)
+        private readonly IInvoiceDetails_Services _service;
+        
+        public InvoiceDetails_Services(IInvoiceDetails_Services _service)
         {
-            this.invoiceDetails = invoiceDetails;
-        }
-
-        public IEnumerable<InvoiceDetails> GetAllInvoiceDetails()
-        {
-            return invoiceDetails.GetAll().ToArray();
-        }
-
-        public InvoiceDetails GetInvoiceDetailsByID(int? id)
-        {
-            return invoiceDetails.Get(id);
-        }
-
-        public void Insert(InvoiceDetails entity)
-        {
-            invoiceDetails.Insert(entity);
-        }
-
-        public void Update(InvoiceDetails entity)
-        {
-            invoiceDetails.Update(entity);
-        }
-
-        public void Delete(InvoiceDetails entity)
-        {
-            invoiceDetails.Delete(entity);
-        }
-
-        public void Remove(InvoiceDetails entity)
-        {
-            invoiceDetails.Remove(entity);
+            this._service = _service;
         }
 
         public void SaveChanges()
         {
-            invoiceDetails.SaveChanges();
+            _service.SaveChanges();
+        }
+
+        public IEnumerable<InvoiceDetails> GetAllInvoiceDetails()
+        {
+            return _service.GetAllInvoiceDetails();
+        }
+
+        public InvoiceDetails GetInvoiceDetailsByID(int? id)
+        {
+            return _service.GetInvoiceDetailsByID(id);
+        }
+
+        public void Insert(InvoiceDetails invoiceDetails)
+        {
+            _service.Insert(invoiceDetails);
+        }
+
+        public void Update(InvoiceDetails invoiceDetails)
+        {
+            _service.Update(invoiceDetails);
+        }
+
+        public void Delete(InvoiceDetails invoiceDetails)
+        {
+            _service.Delete(invoiceDetails);
+        }
+
+        public void Remove(InvoiceDetails invoiceDetails)
+        {
+            _service.Remove(invoiceDetails);
         }
     }
 }

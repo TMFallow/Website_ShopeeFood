@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace ShopeeFood_Services.IServices
 {
-    public interface IInvoiceDetails_Services 
+    public interface IInvoiceDetails_Services
     {
-        public IEnumerable<InvoiceDetails> GetAllInvoiceDetails();
+        IEnumerable<InvoiceDetails> GetAllInvoiceDetails();
 
-        public InvoiceDetails GetInvoiceDetailsByID(int? id);
+        InvoiceDetails GetInvoiceDetailsByID(int? id);
 
-        public void Insert(InvoiceDetails entity);
+        void Insert(InvoiceDetails entity);
 
-        public void Update(InvoiceDetails entity);
+        void Update(InvoiceDetails entity);
 
-        public void Delete(InvoiceDetails entity);
+        void Delete(InvoiceDetails entity);
 
-        public void Remove(InvoiceDetails entity);
+        void Remove(InvoiceDetails entity);
 
-        public void SaveChanges();
+        void SaveChanges();
     }
 }

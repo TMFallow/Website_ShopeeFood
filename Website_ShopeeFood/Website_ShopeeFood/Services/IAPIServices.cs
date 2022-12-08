@@ -42,5 +42,9 @@ namespace Website_ShopeeFood.Services
 
         Task<List<RestaurantsModel>> getListRestauranrByIdDistricts(int IdDistricts);
 
+        Task<List<InvoicesModel>> getListInvoicesByUserID(int userId);
+
+        void insertInvoices(InvoicesModel invoicesModel);
+
     }
 }

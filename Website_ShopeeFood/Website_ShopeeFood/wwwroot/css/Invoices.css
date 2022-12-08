@@ -1,0 +1,20 @@
+﻿.invoice-details {
+    height: 100px;
+    text-align: center;
+    padding: 37px 10px;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.invoices-area {
+    padding: 20px 10px;
+    margin-bottom: 30px;
+}
+
+    .invoices-area .table {
+        border-bottom: 1px solid #e1dada;
+    }
+
+.btn-detail {
+    background-color: #ee4d2d;
+}

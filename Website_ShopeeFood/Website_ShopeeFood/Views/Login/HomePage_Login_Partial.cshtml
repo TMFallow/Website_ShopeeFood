@@ -16,7 +16,9 @@ else
         <div class="dropdown-menu dropdown-language" aria-labelledby="dropdownInfoButon">
             <div class="dropdown-item">
                 <i class="fa fa-calendar" aria-hidden="true"></i>
-                <span class="language-item">Lịch Sử Đơn Hàng</span>
+                <a asp-action="ListInvoices" asp-controller="Invoices">
+                    <span class="language-item">Lịch Sử Đơn Hàng</span>
+                </a>
             </div>
             <div class="dropdown-item">
                 <i class="fas fa-wallet"></i>

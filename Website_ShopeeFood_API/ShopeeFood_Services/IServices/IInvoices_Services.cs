@@ -13,6 +13,8 @@ namespace ShopeeFood_Services.IServices
 
         public Invoices GetInvoiceByID(int? id);
 
+        public IEnumerable<Invoices> getListOfInvoicesByUserID(int? id);
+
         public void Insert(Invoices entity);
 
         public void Update(Invoices entity);
