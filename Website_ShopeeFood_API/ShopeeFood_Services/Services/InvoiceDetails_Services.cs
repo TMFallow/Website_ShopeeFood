@@ -11,46 +11,51 @@ namespace ShopeeFood_Services.Services
 {
     public class InvoiceDetails_Services : IInvoiceDetails_Services
     {
-        private readonly IInvoiceDetails_Services _service;
+        private readonly IRepository<InvoiceDetails> repository;
         
-        public InvoiceDetails_Services(IInvoiceDetails_Services _service)
+        public InvoiceDetails_Services(IRepository<InvoiceDetails> repository)
         {
-            this._service = _service;
+            this.repository = repository;
         }
 
         public void SaveChanges()
         {
-            _service.SaveChanges();
+            repository.SaveChanges();
         }
 
         public IEnumerable<InvoiceDetails> GetAllInvoiceDetails()
         {
-            return _service.GetAllInvoiceDetails();
+            return repository.GetAll();
         }
 
         public InvoiceDetails GetInvoiceDetailsByID(int? id)
         {
-            return _service.GetInvoiceDetailsByID(id);
+            return repository.Get(id);
         }
 
         public void Insert(InvoiceDetails invoiceDetails)
         {
-            _service.Insert(invoiceDetails);
+            repository.Insert(invoiceDetails);
         }
 
         public void Update(InvoiceDetails invoiceDetails)
         {
-            _service.Update(invoiceDetails);
+            repository.Update(invoiceDetails);
         }
 
         public void Delete(InvoiceDetails invoiceDetails)
         {
-            _service.Delete(invoiceDetails);
+            repository.Delete(invoiceDetails);
         }
 
         public void Remove(InvoiceDetails invoiceDetails)
         {
-            _service.Remove(invoiceDetails);
+            repository.Remove(invoiceDetails);
+        }
+
+        public IEnumerable<InvoiceDetails> GetListInvoicesDetailByID(int id)
+        {
+            return repository.getByID(x => x.InvoicesID == id);
         }
     }
 }

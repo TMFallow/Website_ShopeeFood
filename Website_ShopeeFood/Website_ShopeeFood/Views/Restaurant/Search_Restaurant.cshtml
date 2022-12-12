@@ -41,13 +41,18 @@ else
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<script type="text/javascript">
+<script> //Sáng Mai Nhớ Coi Lại Cái Này 
     function getNameOfRestaurant() {
-        var valueOfText = document.getElementById("txtSearchHome").value;
+        var name = $("#txtSearchHome").val();
 
         $.ajax({
             type: "GET",
-            url: "/Restaurant/searchListOfRestaurant/" + valueOfText,
+            url: url: "@Url.Action("searchListOfRestaurant", "Restaurant")",
+            data: { 'name': name },
+            success: function()
+            {
+
+            }
         });
     }
 </script>

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Website_ShopeeFood.Models.InvoiceDetailsModel>
+
+<table class="table" style="text-align:center;">
+    <thead>
+        <tr>
+            <th>
+                Tên Món Ăn
+            </th>
+            <th>
+                Hình Ảnh
+            </th>
+            <th>
+                Giá
+            </th>
+            <th>
+                Số Lượng
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NameofFood)
+                    </td>
+                    <td>
+                        <img src="@Html.DisplayFor(modelItem => item.Images)" style="width:100px; height:100px;">
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Numbers)
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

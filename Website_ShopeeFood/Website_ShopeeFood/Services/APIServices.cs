@@ -519,11 +519,13 @@ namespace Website_ShopeeFood.Services
 
         public async void insertInvoices(InvoicesModel invoicesModel)
         {
+            InvoicesModel invoices = new InvoicesModel();
+
             if (invoicesModel != null)
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:5001/"); //getIPAddress()
+                    client.BaseAddress = new Uri(getIPAddress());
 
                     client.DefaultRequestHeaders.Clear();
 
@@ -533,8 +535,81 @@ namespace Website_ShopeeFood.Services
                     Encoding.UTF8, "application/json");
 
                     HttpResponseMessage respone = await client.PostAsync("api/Invoice/insertInvoice", content);
+
                 }
             }
+        }
+
+        public async void insertInvoiceDetails(InvoiceDetailsModel invoiceDetailsModel)
+        {
+            if (invoiceDetailsModel != null)
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(getIPAddress());
+
+                    client.DefaultRequestHeaders.Clear();
+
+                    client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                    StringContent content = new StringContent(JsonConvert.SerializeObject(invoiceDetailsModel),
+                    Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage respone = await client.PostAsync("api/InvoiceDetails/insertInvoicesDetails", content);
+                }
+            }
+        }
+
+        public async Task<List<InvoicesModel>> getAllInvoices()
+        {
+            List<InvoicesModel> listInvoiceByUserId = new List<InvoicesModel>();
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(getIPAddress());
+
+                client.DefaultRequestHeaders.Clear();
+
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage respone = await client.GetAsync("api/Invoice/getAllInvoice");
+
+                if (respone.IsSuccessStatusCode)
+                {
+                    var invoicesTask = respone.Content.ReadAsAsync<List<InvoicesModel>>();
+
+                    invoicesTask.Wait();
+
+                    listInvoiceByUserId = invoicesTask.Result;
+                }
+            }
+            return listInvoiceByUserId;
+        }
+
+        public async Task<List<InvoiceDetailsModel>> getListDetailsInvoiceByInvoices(int invoicesId)
+        {
+            List<InvoiceDetailsModel> listDetailInvoiceModel = new List<InvoiceDetailsModel>();
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(getIPAddress());
+
+                client.DefaultRequestHeaders.Clear();
+
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage respone = await client.GetAsync("api/InvoiceDetails/getListOfInvoicesDetailByIdInvoices/"+ invoicesId +"");
+
+                if (respone.IsSuccessStatusCode)
+                {
+                    var detailInvoicesTask = respone.Content.ReadAsAsync<List<InvoiceDetailsModel>>();
+
+                    detailInvoicesTask.Wait();
+
+                    listDetailInvoiceModel = detailInvoicesTask.Result;
+                }
+            }
+            return listDetailInvoiceModel;
         }
     }
 }

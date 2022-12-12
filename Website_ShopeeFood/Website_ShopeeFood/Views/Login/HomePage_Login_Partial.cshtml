@@ -7,42 +7,41 @@
 else
 {
     <div class="dropdown">
-        <div class="use-account col-auto dropdown-toggle" id="dropdowwnInfoButton" data-toggle="dropdown" , aria-haspopup="true" aria-expanded="false">
+        <button class="use-account col-auto dropdown-toggle" type="button" id="dropdowwnInfoButton" data-bs-toggle="dropdown" aria-expanded="false" style="border:none; background-color:white;">
             <img src="@ViewBag.imageUser" style="height:30px; width:30px;">
             <span class="name-user">
                 @ViewBag.fullName
             </span>
-        </div>
-        <div class="dropdown-menu dropdown-language" aria-labelledby="dropdownInfoButon">
-            <div class="dropdown-item">
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownInfoButon">
+            <li class="dropdown-item">
                 <i class="fa fa-calendar" aria-hidden="true"></i>
                 <a asp-action="ListInvoices" asp-controller="Invoices">
                     <span class="language-item">Lịch Sử Đơn Hàng</span>
                 </a>
-            </div>
-            <div class="dropdown-item">
+            </li>
+            <li class="dropdown-item">
                 <i class="fas fa-wallet"></i>
                 <span class="language-item">Ví Voucher</span>
-            </div>
-            <div class="dropdown-item">
+            </li>
+            <li class="dropdown-item">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <a asp-action="UpdateUserInfo" asp-controller="User">
                     <span class="language-item">Cập Nhật Tài Khoản</span>
                 </a>
-            </div>
-            <div class="dropdown-item">
+            </li>
+            <li class="dropdown-item">
                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
-
                 <span class="language-item">
                     <a asp-action="LogOut" asp-controller="Login">
                         Đăng Xuất
                     </a>
                 </span>
-
-            </div>
-        </div>
+            </li>
+        </ul>
     </div>
 }
+
 
 <style>
     .dropdown-item a{

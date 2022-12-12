@@ -44,7 +44,13 @@ namespace Website_ShopeeFood.Services
 
         Task<List<InvoicesModel>> getListInvoicesByUserID(int userId);
 
+        Task<List<InvoiceDetailsModel>> getListDetailsInvoiceByInvoices(int invoicesId);
+
         void insertInvoices(InvoicesModel invoicesModel);
+
+        void insertInvoiceDetails(InvoiceDetailsModel invoiceDetailsModel);
+
+        Task<List<InvoicesModel>> getAllInvoices();
 
     }
 }

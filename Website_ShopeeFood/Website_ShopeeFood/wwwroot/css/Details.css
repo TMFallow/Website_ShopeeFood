@@ -711,7 +711,7 @@
             background-color: #0288d1;
             color: white;
             width: 30px;
-            padding: 0 0;
+            padding: 0 11px;
             margin: 12px 12px;
             float: left;
         }
@@ -744,6 +744,8 @@
             .content-right .plus-prices .total-prices .prices {
                 float: right;
                 padding: 0 25px;
+                font-weight: 700;
+                font-size: 18px;
             }
 
         .content-right .plus-prices .fees .text {
@@ -771,6 +773,8 @@
         float: right;
         margin-top: 15px;
         padding: 0 25px;
+        font-size: 19px;
+        font-weight: 700;
     }
 
 .payment-method {

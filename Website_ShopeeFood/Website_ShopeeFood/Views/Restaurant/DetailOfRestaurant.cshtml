@@ -1,4 +1,4 @@
-﻿@model List<Website_ShopeeFood.Models.FoodModel>
+﻿@model List<Website_ShopeeFood.Models.ItemsModel>
 @{
     ViewData["Title"] = "DetailOfRestaurant";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -15,11 +15,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
-@*<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">*@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-*@
 
 <div class="now-details-restaurant">
     <div id="Detail_Restaurant" class="container">
@@ -44,16 +41,7 @@
                             @*-----------------------------------*@
 
                             <div class="item-content">
-                                Rau Má Xay Đá
-                            </div>
-                            <div class="item-content">
-                                Rau Má Sữa Xay Đá
-                            </div>
-                            <div class="item-content">
-                                Rau Má Đậu Xanh
-                            </div>
-                            <div class="item-content">
-                                Siêu Combo
+                                Món Chính
                             </div>
 
 
@@ -84,7 +72,7 @@
                     <div aria-label="grid" aria-readonly="true" role="grid" tabindex="0" style="box-sizing: border-box; direction: ltr; height: auto; position: relative; width: 558px; will-change: transform; overflow: auto; outline: none;">
                         <div class="ReactVirtualized__Grid__innerScrollContainer myheight" role="rowgroup" style="width: auto; height: 4509px; max-width: 558px; max-height: 4509px; overflow: hidden; position: relative;">
                             <div class="menu-group" id="section-group-menu-2648835" style="height: 56px; left: 0px; position: absolute; top: 0px; width: 100%;">
-                                <div class="title-menu">BÁNH TRÁNG TRỘN KHÔNG CAY</div>
+                                <div class="title-menu">MÓN CHÍNH</div>
                             </div>
                             <div id="Food_PartialView">
                                 @*-----------------------------------*@
@@ -106,7 +94,7 @@
                 <button class="btn">Nhóm cùng đặt</button>
             </div>
             <div class="reset">
-                <button class="btn btn-reset">Reset</button>
+                <button class="btn btn-reset" href="resetTheMenu">Reset</button>
             </div>
         </div>
     </div>
@@ -132,12 +120,12 @@
             {
                 i++;
                 <div class="list-food-item">
-                    <button class="minusbtn" id="minus">-</button>
-                    <span class="number-products" id="numberPlace">1</span>
-                    <button class="plusbtn" id="plus">+</button>
+                    <button class="minusbtn" id="minus" onclick="reduceNumber(@item.Food.FoodId)">-</button>
+                    <span class="number-products" id="numberPlace">@item.Quantity</span>
+                    <button class="plusbtn" id="plus" onclick="addNumber(@item.Food.FoodId)">+</button>
                     <div class="name-of-products">
-                        <span class="name" style="overflow-x:hidden;">@item.NameofFood</span>
-                        <span id="item-price" class="prices">@item.Price</span>
+                        <span class="name" style="overflow-x:hidden;">@item.Food.NameofFood</span>
+                        <span id="item-price" class="prices">@item.Food.Price</span>
                     </div>
                 </div>
             }
@@ -159,10 +147,10 @@
 
                 @foreach (var item2 in Model)
                 {
-                    total += @item2.Price;
+                    total = total + (item2.Food.Price * item2.Quantity);
                 }
 
-                <input type="text" value="@total" style="border:none; border-bottom:solid 1px black; text-align: center; margin-left: 70px; margin: 5px;" />
+                <input type="text" value="@total" style="border: none; text-align: center; margin-left: 70px; margin: 5px; margin-left: 49px; text-align: right;" />
 
             </div>
             <div class="total-price">
@@ -236,17 +224,17 @@
                             {
                                 i++;
                                 <div class="item-producs">
-                                    <div class="number-products">
-                                        @i
+                                    <div class="number-products" style="padding: 0 11px;">
+                                        @item.Quantity
                                     </div>
                                     <div class="name-products">
-                                        @item.NameofFood
+                                        @item.Food.NameofFood
                                     </div>
                                     <div class="price-product">
-                                        @item.Price đ
+                                        @item.Food.Price đ
                                     </div>
                                 </div>
-                                total += @item.Price;
+                                total = total + (item.Food.Price * item.Quantity);
                             }
 
                             <div class="plus-prices">
@@ -254,10 +242,10 @@
                                     <span class="text" style="font-size: 19px; margin-left: -20px; font-weight: 700;">
                                         Tổng <span class="numbers">@i</span> món
                                     </span>
-                                    <span class="prices">@total đ</span>
+                                    <span class="prices" style="font-weight: 700; font-size: 18px;">@total đ</span>
                                 </div>
 
-                                <div class="fees">
+                                <div class="fees" style="padding: 17px 0;">
                                     <span class="text" style="margin-left: -20px;">
                                         Phí vận chuyển:
                                     </span>
@@ -265,16 +253,18 @@
                                 </div>
                             </div>
 
-                            <div class="curent-prices">
+                            <div class="curent-prices" style="padding: 11px 0px;">
                                 <div class="text" style="font-size: 19px; margin-left: -20px; font-weight: 700;">
                                     Tạm tính
                                 </div>
-                                <div class="prices">
+
+                                <div class="price" style="font-size: 19px; margin-left: -20px; font-weight: 700; margin-right: 22px; text-align: right; padding: 15px 0px;">
                                     @{
                                         ttInvoices = total + fees;
                                     }
                                     @ttInvoices đ
                                 </div>
+
                             </div>
 
                             <div class="payment-method">
@@ -289,13 +279,13 @@
                 <div class="modal-footer" style="justify-content: center;">
                     <div class="complete-payment" style="width: 100%;">
                         <div class="button-payment">
-                            <button class="btn" >
+                            <a class="btn" href="~/Invoices/addNewInvoices?totalPrice=@ttInvoices">
                                 Hoàn tất đơn hàng &nbsp;
                                 <i class="fas fa-angle-right"></i> &nbsp;
                                 <span class="final-money">
                                     @ttInvoices đ
                                 </span>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -304,16 +294,8 @@
     </div>
 </div>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-@*<script src="~/js/site.js" asp-append-version="true"></script>*@
 
 <script>
     $('#Detail_Restaurant').load('/Restaurant/GetRestaurantByID')
@@ -321,22 +303,29 @@
 </script>
 
 <script>
-    var totalPrice = 0;
-
-    for (var i = 0; i < document.getElementById("item-price").length; i++) {
-        totalPrice = totalPrice + document.getElementsByClassName("Price").value;
+    function reduceNumber(foodId)
+    {
+        $.ajax({
+            type: "GET",
+            url: "reduceNumberOfIdFood?foodId="+ foodId +"",
+            success: function () {
+                window.location = "@Url.Action("DetailOfRestaurant","Restaurant")";
+            }
+        });
     }
 
-    document.getElementById("sum-prices").innerHTML = totalPrice;
-
+    function addNumber(foodId)
+    {
+        $.ajax({
+            type: "GET",
+            url: "addNumberOfIdFood?foodId=" + foodId + "",
+            success: function()
+            {
+                window.location = "@Url.Action("DetailOfRestaurant","Restaurant")";
+            }
+        });
+    }
 </script>
-
-<script>
-    $('#closeModal').on('click', () => {
-        $('#modal-invoice').modal('hide');
-    });
-</script>
-
 
 <script>
     const element = document.getElementsByClassName('item-restaurant-row').lastChild;
@@ -347,4 +336,16 @@
     heightInList(function (heightMax) {
         $(this).css({ height: (heightMax) + 'px' });
     });
+</script>
+
+<script>
+    var messageCheckingAccount = "@((string)ViewBag.CheckAccountAddToCart)";
+
+    if (messageCheckingAccount != null && messageCheckingAccount != "") {
+        swal({
+            title: "Thông Báo",
+            text: messageCheckingAccount,
+            icon: "success",
+        });
+    }
 </script>

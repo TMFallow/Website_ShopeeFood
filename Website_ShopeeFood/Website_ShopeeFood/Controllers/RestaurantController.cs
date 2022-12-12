@@ -25,10 +25,12 @@ namespace Website_ShopeeFood.Controllers
     {
         private readonly IAPIServices aPIServices;
 
-                    //Return A Food filtered By Id
+        //Return A Food filtered By Id
         public static List<FoodModel> listFood = new List<FoodModel>();
 
-         static int tongTien = 0;
+        public static List<ItemsModel> listCart = new List<ItemsModel>();
+
+        static int tongTien = 0;
 
         public RestaurantController(IAPIServices aPIServices)
         {
@@ -142,7 +144,6 @@ namespace Website_ShopeeFood.Controllers
         }
 
         //The Action When Search Name Of Restaurant
-        [HttpGet("searchListOfRestaurant/{name}")]
         public async Task<IActionResult> searchListOfRestaurant(string name)
         {
             List<RestaurantsModel> listRes = new List<RestaurantsModel>();
@@ -578,7 +579,7 @@ namespace Website_ShopeeFood.Controllers
         [HttpGet]
         public async Task<IActionResult> DetailOfRestaurant(int restaurantId, int areaId)
         {
-            if(restaurantId != 0)
+            if (restaurantId != 0)
             {
                 HttpContext.Session.SetString("restaurantIdWhenClick", restaurantId.ToString());
             }
@@ -601,39 +602,135 @@ namespace Website_ShopeeFood.Controllers
                 ViewBag.NameUser = null;
             }
 
-            //Get IdFood
-            if (HttpContext.Session.GetString("foodId") != null && HttpContext.Session.GetString("restaurantId") == HttpContext.Session.GetString("restaurantIdWhenClick"))
+            if (HttpContext.Session.GetString("FullName") != null)
             {
-                if (check == true)
+                //Get IdFood
+                if (HttpContext.Session.GetString("foodId") != null && HttpContext.Session.GetString("restaurantId") == HttpContext.Session.GetString("restaurantIdWhenClick"))
                 {
-                    int foodId = int.Parse(HttpContext.Session.GetString("foodId"));
+                    if (check == true)
+                    {
 
-                    FoodModel food = new FoodModel();
+                        if (listCart.Count == 0)
+                        {
+                            List<ItemsModel> cart = new List<ItemsModel>();
 
-                    food = await aPIServices.getFoodById(foodId);
+                            int foodId = int.Parse(HttpContext.Session.GetString("foodId"));
 
-                    listFood.Add(food);
+                            FoodModel food = new FoodModel();
 
-                    tongTien = tongTien + int.Parse(food.Price.ToString());
+                            food = await aPIServices.getFoodById(foodId);
 
-                    ViewData["TotalPrice"] = tongTien;
+                            listFood.Add(food);
 
-                    check = false;
+                            cart.Add(new ItemsModel { Food = food, Quantity = 1 });
+
+                            listCart = cart;
+                        }
+                        else
+                        {
+                            List<ItemsModel> cart = listCart;
+
+                            int foodId = int.Parse(HttpContext.Session.GetString("foodId"));
+
+                            int j = 0;
+
+                            for (int i = 0; i < cart.Count; i++)
+                            {
+                                if (cart[i].Food.FoodId.Equals(foodId))
+                                {
+                                    j = i;
+                                    break;
+                                }
+                                else
+                                {
+                                    j = -1;
+                                }
+                            }
+
+                            FoodModel food = new FoodModel();
+
+                            food = await aPIServices.getFoodById(foodId);
+
+                            if (j != -1)
+                            {
+                                cart[j].Quantity++;
+                            }else
+                            {
+                                cart.Add(new ItemsModel { Food = food, Quantity = 1 });
+                            }
+
+                            listCart = cart;
+                        }
+
+                        check = false;
+                    }
+
+                    return View("DetailOfRestaurant", listCart);
                 }
-
-                return View("DetailOfRestaurant", listFood);
+                else
+                {
+                    listFood.Clear();
+                    listCart.Clear();
+                    tongTien = 0;
+                    HttpContext.Session.SetString("restaurantId", restaurantId.ToString());
+                    HttpContext.Session.SetString("AreaID", areaId.ToString());
+                    ViewData["TotalPrice"] = 12;
+                    return View();
+                }
             }
             else
             {
-                listFood.Clear();
-                tongTien = 0;
-                HttpContext.Session.SetString("restaurantId", restaurantId.ToString());
-                HttpContext.Session.SetString("AreaID", areaId.ToString());
-                ViewData["TotalPrice"] = 12;
+                if (HttpContext.Session.GetString("restaurantId") != HttpContext.Session.GetString("restaurantIdWhenClick") && int.Parse(HttpContext.Session.GetString("restaurantIdWhenClick")) != 0)
+                {
+                    HttpContext.Session.SetString("restaurantId", restaurantId.ToString());
+                    HttpContext.Session.SetString("AreaID", areaId.ToString());
+                }
+                TempData["checkAccountLogin"] = "You Need To Login First!";
+                ViewBag.CheckAccountAddToCart = TempData["checkAccountLogin"] as string;
                 return View();
             }
+        }
 
+        public IActionResult resetTheMenu()
+        {
+            listCart.Clear();
+            listFood.Clear();
+            return RedirectToAction("DetailOfRestaurant");
+        }
+
+        public async Task<IActionResult> reduceNumberOfIdFood(int foodId)
+        {
+            for (int i = 0; i < listCart.Count; i++)
+            {
+                if (listCart[i].Food.FoodId.Equals(foodId))
+                {
+                    if (listCart[i].Quantity > 1)
+                    {
+                        listCart[i].Quantity--;
+                    }
+                    else
+                    {
+                        listCart.RemoveAt(i);
+                    }
+                    break;
+                }
+            }
             
+            return RedirectToAction("DetailOfRestaurant", listCart);
+        }
+
+        public IActionResult addNumberOfIdFood(int foodId)
+        {
+            for (int i = 0; i < listCart.Count; i++)
+            {
+                if (listCart[i].Food.FoodId.Equals(foodId))
+                {
+                    listCart[i].Quantity++;
+                    break;
+                }
+            }
+
+            return RedirectToAction("DetailOfRestaurant", listCart);
         }
 
 
@@ -643,7 +740,7 @@ namespace Website_ShopeeFood.Controllers
         {
             if (foodId != 0)
             {
-                check =true;
+                check = true;
                 HttpContext.Session.SetString("foodId", foodId + "");
             }
             return RedirectToAction("DetailOfRestaurant");

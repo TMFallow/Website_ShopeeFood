@@ -1,11 +1,17 @@
-﻿@model IEnumerable<Website_ShopeeFood.Models.InvoicesModel>
+﻿@using Website_ShopeeFood.Models;
+
+@model IEnumerable<Website_ShopeeFood.Models.InvoicesModel>
+
 
 @{
     ViewData["Title"] = "ListInvoices";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var listInvoiceDetails = ViewData["ViewDataInvoiceDetails"] as List<InvoiceDetailsModel>;
 }
 
 <link rel="stylesheet" href="/css/Invoices.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
 <div class="invoice-details">
     <p>Thông Tin Lịch Sử Đơn Hàng</p>
@@ -29,7 +35,7 @@
                     Trạng Thái
                 </th>
                 <th>
-                    Chi Tiết
+                    Thông Tin
                 </th>
                 <th></th>
             </tr>
@@ -54,10 +60,58 @@
                         @Html.DisplayFor(modelItem => item.Details)
                     </td>
                     <td>
-                        <button class="btn btn-detail" asp-action="" asp-controller="Invoices">Chi Tiết</button>
+                        <button class="dtinvoice btn btn-detail" data-id="@item.InvoicesID" data-toggle="modal" data-target="#modalDetails" style="color:white;">Chi Tiết</button>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
+<div class="modal fade" id="modalDetails" tabindex="-1" role="dialog" aria-labelledby="modalInvoicesDetails" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 1150px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Chi Tiết Hóa Đơn</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">X</span>
+                </button>
+            </div>
+            <div id="listDetails" class="modal-body">
+                
+            </div>
+            <div class="modal-footer" style="justify-content: center;">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script>
+    var messageAddingInvoice = "@((string)ViewBag.AddingInvoices)";
+
+    if (messageAddingInvoice != null && messageAddingInvoice != "") {
+        swal({
+            title: "Thông Báo",
+            text: messageAddingInvoice,
+            icon: "success",
+        });
+    }
+</script>
+
+<script>
+    $(document).on("click", ".dtinvoice", function () {
+        var invoicesId = $(this).data("id");
+
+        $.ajax({
+            url: "@Url.Action("getListOfInvoicesDetailByInvoiceId", "Invoices")",
+            type: "GET",
+            data: { 'invoicesId': invoicesId },
+            success: function (response) {
+                $("#listDetails").load("_listDetailInvoices");
+            }
+        });
+    });
+</script>

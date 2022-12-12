@@ -22,5 +22,7 @@ namespace ShopeeFood_Services.IServices
         void Remove(InvoiceDetails entity);
 
         void SaveChanges();
+
+        IEnumerable<InvoiceDetails> GetListInvoicesDetailByID(int id);
     }
 }
