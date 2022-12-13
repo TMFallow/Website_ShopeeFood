@@ -14,8 +14,16 @@
                     Có Khoảng 100000 Địa Điểm Ở TP. HCM
                 </div>
             </div>
-            <div id="searchPartial" class="form-search">
-                
+            <div  class="form-search">
+                <div class="input-group">
+                    <input type="text" id="txtSearchHome" placeholder="Tìm Kiếm Shop" value="">
+                    <button type="button" class="btn btn-search">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+                <div id="searchPartial">
+
+                </div>
             </div>
 
             <div id="partial_ListTypeofFoods" class="category-list-filters">
@@ -536,12 +544,42 @@
 <script src="~/js/site.js" asp-append-version="true"></script>
 
 <script>
-    $('#searchPartial').load("/Restaurant/Search_Restaurant")
+
     $('#partial_ListTypeofFoods').load("/Types/TypesofFoods_Partial")
     $('#Restaurant_Partial').load("/Restaurant/Restaurant_Partial")
     $('#promotion_partial').load("/Promotion/Promotion_Partial")
     $('#brand_partial').load("/Restaurant/Brand_Partial")
 </script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#txtSearchHome").keyup(function () {
+            var name = $("#txtSearchHome").val();
+            if (name.length>0) {
+                $.ajax({
+                    url: "@Url.Action("searchListOfRestaurant", "Restaurant")",
+                    type: "GET",
+                    data: { 'name': name },
+                    success: function (response) {
+                        $('#searchPartial').load("/Restaurant/Search_Restaurant")
+                    }
+                });
+            }
+            else
+            {
+                $.ajax({
+                    url: "@Url.Action("searchListOfRestaurant", "Restaurant")",
+                    type: "GET",
+                    data: { 'name': name },
+                    success: function (response) {
+                        $('#searchPartial').load("/Restaurant/Search_Restaurant")
+                    }
+                });
+            }
+        });
+    });
+</script>
+
 <script src="/js/JSHomePage.js"></script>
-<script src="/js/Ajax.js"></script>

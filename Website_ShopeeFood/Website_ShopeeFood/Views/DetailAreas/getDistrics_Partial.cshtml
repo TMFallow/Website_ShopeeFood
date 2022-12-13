@@ -4,9 +4,9 @@
 {
     @foreach (var item in Model)
     {
-        <div class="custom-checkbox">
-            <input class="dist" name="selector[]" value="@item.IDDetailsArea" type="checkbox" />
-            <label id="number_districts" for="@item.IDDetailsArea">@item.NameofDetailsArea</label>
+        <div class="custom-checkbox form-check">
+            <input class="dist form-check-input" name="selector[]" value="@item.IDDetailsArea" type="checkbox" />
+            <label id="number_districts form-check-label" for="@item.IDDetailsArea">@item.NameofDetailsArea</label>
         </div>
     }
 }

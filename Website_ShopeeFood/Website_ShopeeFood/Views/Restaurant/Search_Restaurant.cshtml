@@ -2,21 +2,14 @@
 
 <link rel="stylesheet" href="/css/searchRestaurant.css">
 
-<div class="input-group">
-    <input type="text" id="txtSearchHome" placeholder="Tìm Kiếm Shop" value="" onkeypress="getNameOfRestaurant()">
-    <button type="button" class="btn btn-search">
-        <i class="fa fa-search"></i>
-    </button>
-</div>
-
 @if (Model != null)
 {
-    @foreach (var item in Model)
-    {
-        <div class="now-idea-searching">
-            <div class="now-list-restaurant-row">
-                <div class="item-restaurant">
-                    <a class="item-content">
+    <div class="now-idea-searching" style="overflow-y:scroll; height:323px; margin-top: -40px; background-color: white;">
+        <div class="now-list-restaurant-row">
+            @foreach (var item in Model)
+            {
+                <div class="item-restaurant" >
+                    <a class="item-content" target="_blank" href="/Restaurant/DetailOfRestaurant?restaurantId=@item.RestaurantID">
                         <div class="img-restaurant">
                             <img src="@item.Image" alt="@item.NameofRestaurant" title="@item.NameofRestaurant" />
                         </div>
@@ -30,29 +23,9 @@
                         </div>
                     </a>
                 </div>
-            </div>
-        </div>
-    }
-}
-else
-{
-
-}
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<script> //Sáng Mai Nhớ Coi Lại Cái Này 
-    function getNameOfRestaurant() {
-        var name = $("#txtSearchHome").val();
-
-        $.ajax({
-            type: "GET",
-            url: url: "@Url.Action("searchListOfRestaurant", "Restaurant")",
-            data: { 'name': name },
-            success: function()
-            {
-
             }
-        });
-    }
-</script>
+        </div>
+    </div>
+}
+
+

@@ -140,21 +140,30 @@ namespace Website_ShopeeFood.Controllers
         [HttpGet]
         public IActionResult Search_Restaurant()
         {
-            return PartialView("Search_Restaurant");
+            return PartialView("Search_Restaurant", listSearchedRes);
         }
+
+        public static List<RestaurantsModel> listSearchedRes = new List<RestaurantsModel>();
 
         //The Action When Search Name Of Restaurant
         public async Task<IActionResult> searchListOfRestaurant(string name)
         {
-            List<RestaurantsModel> listRes = new List<RestaurantsModel>();
+            if (name != null)
+            {
+                List<RestaurantsModel> listRes = new List<RestaurantsModel>();
 
-            List<RestaurantsModel> listSearchedRes = new List<RestaurantsModel>();
+                listRes = await aPIServices.GetAllRestaurant();
 
-            listRes = await aPIServices.GetAllRestaurant();
+                listSearchedRes = await aPIServices.searchListRestaurantByName(name, listRes);
 
-            listSearchedRes = await aPIServices.searchListRestaurantByName(name, listRes);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                listSearchedRes.Clear();
 
-            return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public async Task<IActionResult> listOfRestaurant()
@@ -300,6 +309,26 @@ namespace Website_ShopeeFood.Controllers
             return BadRequest();
         }
 
+        public async Task<IActionResult> returnListOfRestaurant()
+        {
+            List<RestaurantsModel> restaurant = new List<RestaurantsModel>();
+
+            restaurant = await aPIServices.GetAllRestaurant();
+
+            List<RestaurantsModel> listRes = new List<RestaurantsModel>();
+
+            foreach (var item in restaurant)
+            {
+                if (item.AreaID == int.Parse(HttpContext.Session.GetString("AreaIDofRestaurant")))
+                {
+                    listRes.Add(item);
+                }
+            }
+
+            return PartialView("listOfRestaurant", listRes);
+        }
+
+
         [HttpGet]
         public IActionResult getAllList()
         {
@@ -327,6 +356,18 @@ namespace Website_ShopeeFood.Controllers
             else
             {
                 HttpContext.Session.SetString("CheckingList", "2");
+            }
+
+            return RedirectToAction("ListOfRestaurant", "Home");
+        }
+
+        [HttpPost]
+        public IActionResult returnListRestaurantByDistricts(int result)
+        {
+
+            if (result == 0)
+            {
+                HttpContext.Session.SetString("CheckingList", "0");
             }
 
             return RedirectToAction("ListOfRestaurant", "Home");

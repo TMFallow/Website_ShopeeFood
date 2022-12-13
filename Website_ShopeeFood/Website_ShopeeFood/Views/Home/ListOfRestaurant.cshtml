@@ -57,15 +57,15 @@
         </div>
         <!--------------------------------------------->
         <div class="tag-filter">
-            <div class="widget-tag" style="margin-left: 14px;">
+            <div id="checking-close-districts" class="widget-tag" style="margin-left: 14px;">
                 Khu Vực:
                 <span class="keyword-districts" style="font-weight: 700; font-size: 13px;"></span>
-                <span id="restaurant-districts checking-close-districts" style="cursor: pointer; font-size: 15px; font-weight: 700;">x</span>
+                <span id="restaurant-districts" style="cursor: pointer; font-size: 15px; font-weight: 700;">x</span>
             </div>
-            <div class="widget-tag" style="margin-left: 14px;">
+            <div id="checking-close-types" class="widget-tag" style="margin-left: 14px;">
                 Phân Loại:
                 <span class="keyword-types" style="font-weight: 700; font-size: 13px;"></span>
-                <span id="restaurant-districts checking-close-types" style="cursor: pointer; font-size: 15px; font-weight: 700;">x</span>
+                <span id="restaurant-districts" style="cursor: pointer; font-size: 15px; font-weight: 700;">x</span>
             </div>
         </div>
         <!--------------------------------------------->
@@ -168,20 +168,14 @@
 
 
 
-
-<!--Hiển Thị Khu Vực-->
+@*Hiển Thị Quán Theo Khu Vực*@
 <script>
-    //Lấy ID khu vực
     var modalArea = document.getElementById("myArea");
 
-    // lấy ID của nút button
     var btn = document.getElementById("myBtn");
 
-    // Lấy Classname của span
     var span = document.getElementsByClassName("closeArea");
 
-
-    // nhấn vào button thì mở lên
     btn.onclick = function () {
         modalArea.style.display = "block";
     }
@@ -191,19 +185,12 @@
         modalArea.style.display = "none";
     }
 
-    //// nhập ngoài phạm vi cũng sẽ bị tự động tắt
-    //window.onclick = function (event) {
-    //    if (event.target != modalArea) {
-    //        modalArea.style.display = "none";
-    //    }
-    //}
-
     function closeForm() {
         modalArea.style.display = "none";
     }
 </script>
 
-<!--Hiển Thị Loại Món Ăn-->
+@*Hiển Thị Món Ăn Theo Loại *@
 <script>
     var modalType = document.getElementById("myTypes");
 
@@ -219,14 +206,38 @@
         modalType.style.display = "none";
     }
 
-    //window.onclick = function (event) {
-    //    if (event.target == modalType) {
-    //        modalType.style.display = "none";
-    //    }
-    //}
-
     function closeFormType() {
         modalType.style.display = "none";
     }
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#checking-close-districts").click(function () {
+            $.ajax({
+                url: "@Url.Action("returnListRestaurantByDistricts", "Restaurant")",
+                type: "POST",
+                data: { "result": 0 },
+                success: function (response) {
+                    $('#list_of_restaurant_partial').load('/Restaurant/listOfRestaurant');
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $("#checking-close-types").click(function () {
+            $.ajax({
+                url: "@Url.Action("returnListRestaurantByDistricts", "Restaurant")",
+                type: "POST",
+                data: { "result": 0 },
+                success: function (response) {
+                    $('#list_of_restaurant_partial').load('/Restaurant/listOfRestaurant');
+                }
+            });
+        });
+    });
 </script>
 

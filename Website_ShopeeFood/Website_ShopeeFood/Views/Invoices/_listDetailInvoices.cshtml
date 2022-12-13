@@ -1,42 +1,80 @@
 ﻿@model IEnumerable<Website_ShopeeFood.Models.InvoiceDetailsModel>
 
-<table class="table" style="text-align:center;">
-    <thead>
-        <tr>
-            <th>
-                Tên Món Ăn
-            </th>
-            <th>
-                Hình Ảnh
-            </th>
-            <th>
-                Giá
-            </th>
-            <th>
-                Số Lượng
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null)
-        {
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NameofFood)
-                    </td>
-                    <td>
-                        <img src="@Html.DisplayFor(modelItem => item.Images)" style="width:100px; height:100px;">
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Numbers)
-                    </td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
+<section class="h-100 h-custom" style="background-color: #eee;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-8 col-xl-6">
+                <div class="card border-top border-bottom border-3" style="border-color: #eee; !important;">
+                    <div class="card-body p-5">
+                        <p class="lead fw-bold mb-5" style="color: #ee4d2d;">Hóa Đơn Đặt hàng</p>
+                        @if (Model != null)
+                        {
+                            float tongTien = 0;
+
+                                <div class="mx-n5 px-5 py-4" style="background-color: #f2f2f2;">
+                                    @foreach (var item in Model)
+                                    {
+                                         <div class="row">
+                                        <div class="col-md-5 col-lg-6">
+                                            <p>@item.NameofFood</p>
+                                        </div>
+                                        <div class="col-md-4 col-lg-3">
+                                            <p>@item.Price VNĐ</p>
+                                        </div>
+                                        <div class="col-md-2 col-lg-3">
+                                            <p>@item.Numbers</p>
+                                        </div>
+                                        @{tongTien = tongTien + (item.Price * item.Numbers);}
+                                    </div>
+                                    }
+                           
+                                </div>
+
+                                <div class="row my-4">
+                                    <div class="col-md-4 offset-md-8 col-lg-3 offset-lg-9">
+                                        <p class="lead fw-bold mb-0" style="color: #ee4d2d;">@tongTien VNĐ</p>
+                                    </div>
+                                </div>
+                            
+                            <p class="lead fw-bold mb-4 pb-2" style="color: #ee4d2d;">Trạng Thái Đơn Đặt Hàng</p>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+
+                                        <div class="horizontal-timeline">
+
+                                            <ul class="list-inline items d-flex justify-content-between">
+                                                <li class="list-inline-item items-list">
+                                                    <p class="py-1 px-2 rounded text-white" style="background-color: #ee4d2d;">Đã Đặt Hàng</p class="py-1 px-2 rounded text-white" style="background-color: #f37a27;">
+                                                </li>
+                                                <li class="list-inline-item items-list">
+                                                    <p class="py-1 px-2 rounded text-white" style="background-color: #ee4d2d;">Đã Lấy Hàng</p class="py-1 px-2 rounded text-white" style="background-color: #f37a27;">
+                                                </li>
+                                                <li class="list-inline-item items-list">
+                                                    <p class="py-1 px-2 rounded text-white" style="background-color: #ee4d2d;">Trên Đường Đi
+                                                    </p>
+                                                </li>
+                                                <li class="list-inline-item items-list text-end" style="margin-right: 8px;">
+                                                    <p style="margin-right: -8px;">Đã Giao Hàng</p>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            
+                        }
+                        <p class="mt-4 pt-2 mb-0">
+                            Cần Thông Tin Chi Tiết? <a href="#!" style="color: #ee4d2d;">
+                                Liên Hệ Với Chúng Tôi
+                                us
+                            </a>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
