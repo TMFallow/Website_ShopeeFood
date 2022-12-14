@@ -1,6 +1,6 @@
 ﻿@model Website_ShopeeFood.Models.UsersModel
 
-<div class="info-user-name">Thông Tin Người Dùng</div>
+<div class="info-user-name" style="color: #ee4d2d;">Thông Tin Người Dùng</div>
 <div class="info-user-content">
     <div class="info-user-update">
         <div class="title-user">Tải ảnh đại diện</div>
@@ -12,13 +12,18 @@
             </div>
             <div class="col-9">
                 <div>
+                    @using (Html.BeginForm("uploadImageURL", "User", FormMethod.Post))
+                    {
+
                     <div class="form-group">
-                        Tải lên từ Chấp nhận GIF, JPEG, PNG, BMP với kích thước tối đa 5.0 MB
+                       Cập nhật hình ảnh chỉ Chấp nhận GIF, JPEG, PNG, BMP với kích thước tối đa 5.0 MB
+                        <input name="filename" type="file" value="Chọn tệp" />
 
                     </div>
                     <div style="width: 150px;">
-                        <button class="btn">Cập Nhật</button>
+                        <input type="submit" class="btn">
                     </div>
+                    }
                 </div>
             </div>
         </div>
@@ -34,9 +39,9 @@
                         Tên
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     <div class="input-group">
-                        <input type="text" name="fullName" placeholder="Họ Tên" value="@Model.FullName" class="group-controls">
+                        <input type="text" name="fullName" placeholder="Họ Tên" value="@Model.FullName" class="group-controls" style="width:100%;">
                     </div>
                 </div>
             </div>
@@ -46,9 +51,9 @@
                         Giới Tính
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     <div class="input-group">
-                        <input type="text" name="sex" placeholder="Giới Tính" class="group-controls" value="@Model.Sex">
+                        <input type="text" name="sex" placeholder="Giới Tính" class="group-controls" value="@Model.Sex" style="width:100%;">
                     </div>
                 </div>
             </div>
@@ -58,9 +63,9 @@
                         Email
                     </div>
                 </div>
-                <div class="col-8">
+                <div class="col-6">
                     <div class="input-group">
-                        <input type="text" name="email" placeholder="Email" value="@Model.Email" />
+                        <input type="text" name="email" placeholder="Email" value="@Model.Email" style="width:100%;" />
                     </div>
                 </div>
             </div>
@@ -70,16 +75,16 @@
                         Mật Khẩu
                     </div>
                 </div>
-                <div class="col-9">
+                <div class="col-12">
                     <div class="password">
-                        <div class="row align-item-center">
-                            <div class="txt-bold col-3">
-                                <input name="password" placeholder="Nhập Mật Khẩu Mới" type="password" />
+                        <div class="row align-item-center" style=" padding: 6px 30px; margin-left: -10px;">
+                            <div class="txt-bold col-5">
+                                <input name="password" placeholder="Nhập Mật Khẩu Mới" type="password" style="width:100%;" />
                             </div>
                         </div>
-                        <div class="row align-item-center">
-                            <div class="txt-bold col-3">
-                                <input name="repassword" placeholder="Nhập Lại Mật Khẩu Mới" type="password" />
+                        <div class="row align-item-center" style=" padding: 6px 30px; margin-left: -10px;">
+                            <div class="txt-bold col-5">
+                                <input name="repassword" placeholder="Nhập Lại Mật Khẩu Mới" type="password" style="width:100%;" />
                             </div>
                         </div>
                     </div>

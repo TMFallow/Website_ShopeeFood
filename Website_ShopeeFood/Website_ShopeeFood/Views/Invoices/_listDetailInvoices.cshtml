@@ -2,7 +2,7 @@
 
 <section class="h-100 h-custom" style="background-color: #eee;">
     <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100 width-invoices">
             <div class="col-lg-8 col-xl-6">
                 <div class="card border-top border-bottom border-3" style="border-color: #eee; !important;">
                     <div class="card-body p-5">
@@ -21,7 +21,7 @@
                                         <div class="col-md-4 col-lg-3">
                                             <p>@item.Price VNĐ</p>
                                         </div>
-                                        <div class="col-md-2 col-lg-3">
+                                        <div class="col-md-2 col-lg-3 text-center">
                                             <p>@item.Numbers</p>
                                         </div>
                                         @{tongTien = tongTien + (item.Price * item.Numbers);}
@@ -51,7 +51,7 @@
                                                     <p class="py-1 px-2 rounded text-white" style="background-color: #ee4d2d;">Đã Lấy Hàng</p class="py-1 px-2 rounded text-white" style="background-color: #f37a27;">
                                                 </li>
                                                 <li class="list-inline-item items-list">
-                                                    <p class="py-1 px-2 rounded text-white" style="background-color: #ee4d2d;">Trên Đường Đi
+                                                    <p class="py-1 px-2 rounded text-white" style="background-color: #ee4d2d;">Đang Giao Hàng
                                                     </p>
                                                 </li>
                                                 <li class="list-inline-item items-list text-end" style="margin-right: 8px;">
@@ -68,7 +68,6 @@
                         <p class="mt-4 pt-2 mb-0">
                             Cần Thông Tin Chi Tiết? <a href="#!" style="color: #ee4d2d;">
                                 Liên Hệ Với Chúng Tôi
-                                us
                             </a>
                         </p>
 

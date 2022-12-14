@@ -52,5 +52,9 @@ namespace Website_ShopeeFood.Services
 
         Task<List<InvoicesModel>> getAllInvoices();
 
+        Task<UsersModel> getUserById(int id);
+
+        void updateUsersInfo(UsersModel usersModel);
+
     }
 }

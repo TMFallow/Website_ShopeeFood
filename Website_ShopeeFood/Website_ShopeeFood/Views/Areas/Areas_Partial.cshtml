@@ -7,7 +7,7 @@
     @foreach (var item in Model)
     {
         <div class="dropdown-item">
-            <span id="item-area" onclick="getItem(@item.AreaID)" class="name col"><a style="color:black;" href="~/Restaurant/AreaID?AreaID=@item.AreaID">@item.NameofArea</a></span>
+            <span id="item-area" onclick="getItem(@item.AreaID)" class="name col"><a style="color:black;" href="~/Restaurant/filteredListOfRestaurantByID?AreaID=@item.AreaID">@item.NameofArea</a></span>
         </div>
     }
 }

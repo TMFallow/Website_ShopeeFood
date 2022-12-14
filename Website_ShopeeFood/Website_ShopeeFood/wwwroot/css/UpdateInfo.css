@@ -84,7 +84,7 @@
 
 .info-user-name {
     font-size: 18px;
-    color: #000;
+    color: #ee4d2d;
     font-weight: 700;
     padding: 16px 15px;
     border-bottom: 1px solid #ebebeb;
@@ -177,4 +177,8 @@
 .number-user {
     font-size: 15px;
     font-weight: 500;
+}
+
+.input-group input{
+    width:100%
 }

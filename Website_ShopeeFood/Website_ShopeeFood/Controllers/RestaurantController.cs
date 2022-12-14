@@ -43,7 +43,10 @@ namespace Website_ShopeeFood.Controllers
 
         public static string[] listTypes;
 
-        public static int soLanThemQuan = 6;
+        public static int soLanThemQuan = 9;
+
+        public static bool checkingNumberofRestaurant = false;
+
 
         //Trả về partial view chứa các phương thức load danh sách quán ăn và lọc theo khu vực với phân loại
         [HttpGet]
@@ -63,22 +66,45 @@ namespace Website_ShopeeFood.Controllers
 
                 List<RestaurantsModel> listRes = new List<RestaurantsModel>();
 
-                for (int i = 0; i < soLanThemQuan; i++)
+                if (checkingNumberofRestaurant == true)
                 {
-                    if (restaurant[i].AreaID == int.Parse(HttpContext.Session.GetString("AreaIDofRestaurant")))
-                    {
-                        listRes.Add(restaurant[i]);
-                    }
-                }
+                    int soLan = 9;
 
-                return PartialView("Restaurant_Partial", listRes);
+                    for (int i = 0; i < soLan; i++)
+                    {
+                        if (restaurant[i].AreaID == int.Parse(HttpContext.Session.GetString("AreaIDofRestaurant")))
+                        {
+                            listRes.Add(restaurant[i]);
+                        }
+                        else
+                        {
+                            if(i >= soLanThemQuan-1)
+                            {
+                                soLan++;
+                            }
+                        }
+                    }
+                    return PartialView("Restaurant_Partial", listRes);
+                }
+                else
+                {
+                    for (int i = 0; i < soLanThemQuan; i++)
+                    {
+                        if (restaurant[i].AreaID == int.Parse(HttpContext.Session.GetString("AreaIDofRestaurant")))
+                        {
+                            listRes.Add(restaurant[i]);
+                        }
+                    }
+                    return PartialView("Restaurant_Partial", listRes);
+                }  
+                
 
             }
             else
             {
                 if (bool.Parse(HttpContext.Session.GetString("CheckGetType")) == false)
                 {
-                    if (HttpContext.Session.GetString("AreaIDofRestaurant") == null)
+                    if (HttpContext.Session.GetString("AreaIDofRestaurant") == null)  
                     {
                         HttpContext.Session.SetString("AreaIDofRestaurant", "1");
                     }
@@ -125,6 +151,13 @@ namespace Website_ShopeeFood.Controllers
                 }
             }
             return NotFound();
+        }
+
+        public IActionResult filteredListOfRestaurantByID(int areaID)
+        {
+            HttpContext.Session.SetString("AreaIDofRestaurant", areaID.ToString());
+            checkingNumberofRestaurant = true;
+            return RedirectToAction("Index", "Home");
         }
 
         //Pressing Loadmore Button Then Adding Three New Of Restaurant

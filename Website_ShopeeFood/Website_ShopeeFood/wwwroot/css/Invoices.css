@@ -79,3 +79,12 @@
     .horizontal-timeline .items .items-list {
         padding-top: 15px;
     }
+
+.width-invoices {
+    width: 130%;
+    margin-left: -140px;
+}
+
+.text-center {
+    text-align: center;
+}

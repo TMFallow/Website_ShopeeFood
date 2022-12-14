@@ -1,0 +1,59 @@
+﻿@model Website_ShopeeFood.Models.AddressUserModel
+
+@if(Model!=null)
+{
+    <div class="row">
+        <div class="col-6 form-group col input-field">
+            <input type="text" class="form-control" placeholder="Nhà" name="name" id="nameAddressUser" value="@Model.Name">
+            <label for="name">
+                Tên gợi nhớ
+                <span class="txt-red font-weight-bold">*</span>
+            </label>
+        </div>
+        <div class="col-6 form-group col input-field">
+            <input type="text" class="form-control" placeholder="Họ Tên" name="nameUser" value="@Model.nameUser">
+            <label for="name">
+                Họ Tên
+                <span class="txt-red font-weight-bold">*</span>
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 form-group col input-field">
+            <input type="text" class="form-control" placeholder="Email" name="email" value="@Model.Email"> 
+            <label for="name">
+                Email
+                <span class="txt-red font-weight-bold">*</span>
+            </label>
+        </div>
+        <div class="col-6 form-group col input-field">
+            <input type="text" class="form-control" placeholder="Số Điện Thoại" name="phoneNumber" value="@Model.PhoneNumbers">
+            <label for="name">
+                Số Điện Thoại
+                <span class="txt-red font-weight-bold">*</span>
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 form-group col input-field">
+            <input type="text" class="form-control" placeholder="Địa Chỉ" name="address" value="@Model.Address">
+            <label for="name">
+                Địa Chỉ
+                <span class="txt-red font-weight-bold">*</span>
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 form-group col input-field">
+            <select class="custom-select" name="areas">
+                <option>TP.HCM</option>
+                <option>Hà Nội</option>
+            </select>
+        </div>
+        <div class="col-6 form-group col input-field">
+            <select class="custom-select" name="detailAreas">
+                <option>Quận 1</option>
+            </select>
+        </div>
+    </div>
+}

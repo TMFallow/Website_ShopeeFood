@@ -29,6 +29,12 @@ namespace Website_API.Controllers
             return users.GetAllUser().ToArray();
         }
 
+        [HttpGet("GetUserById/{Id:int}")]
+        public User GetUserById(int Id)
+        {
+            return users.GetUserByID(Id);
+        }
+
         [HttpPost("InsertUser")]
         public void InsertUser(User user)
         {

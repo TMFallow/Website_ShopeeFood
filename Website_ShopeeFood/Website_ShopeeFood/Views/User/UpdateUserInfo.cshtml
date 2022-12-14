@@ -104,7 +104,18 @@
             icon: "success",
         });
     }
+
+    var msg = "@((string)ViewBag.updateMessage)";
+
+    if (msg != null && msg != "") {
+        swal({
+            title: "Thông Báo",
+            text: msg,
+            icon: "success",
+        });
+    }
 </script>
+
 
 <script>
     var profile = document.getElementsByClassName("item-profile");

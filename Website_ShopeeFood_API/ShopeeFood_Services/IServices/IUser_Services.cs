@@ -11,7 +11,7 @@ namespace ShopeeFood_Services.IServices
     {
         public IEnumerable<User> GetAllUser();
 
-        public User GetFoodByID(int? id);
+        public User GetUserByID(int? id);
 
         public void Insert(User entity);
 

@@ -23,7 +23,7 @@ namespace ShopeeFood_Services.Services
             return user.GetAll().ToArray();
         }
 
-        public User GetFoodByID(int? id)
+        public User GetUserByID(int? id)
         {
             return user.Get(id);
         }

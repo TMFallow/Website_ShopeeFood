@@ -611,5 +611,51 @@ namespace Website_ShopeeFood.Services
             }
             return listDetailInvoiceModel;
         }
+
+        public async Task<UsersModel> getUserById(int Id)
+        {
+            UsersModel userModel = new UsersModel();
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(getIPAddress());
+
+                client.DefaultRequestHeaders.Clear();
+
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage respone = await client.GetAsync("api/Users/GetUserById/" + Id + "");
+
+                if (respone.IsSuccessStatusCode)
+                {
+                    var usersTask = respone.Content.ReadAsAsync<UsersModel>();
+
+                    usersTask.Wait();
+
+                    userModel = usersTask.Result;
+                }
+            }
+            return userModel;
+        }
+
+        public async void updateUsersInfo(UsersModel usersModel) //
+        {
+            if (usersModel != null)
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(getIPAddress());
+
+                    client.DefaultRequestHeaders.Clear();
+
+                    client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                    StringContent content = new StringContent(JsonConvert.SerializeObject(usersModel),
+                    Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage respone = await client.PostAsync("api/Users/UpdateUser", content);
+                }
+            }
+        }
     }
 }

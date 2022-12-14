@@ -31,7 +31,15 @@ namespace Website_ShopeeFood.Controllers
         public IActionResult Index()
         {
             var token = HttpContext.Session.GetString("JwToken");
+            
             return View();
+        }
+
+        public IActionResult ReturnHomePage()
+        {
+            RestaurantController.soLanThemQuan = 9;
+            RestaurantController.checkingNumberofRestaurant = false;
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]

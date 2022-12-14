@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
@@ -17,15 +21,20 @@ namespace Website_ShopeeFood.Controllers
     {
         private readonly IAPIServices IAPIServices;
 
-        public UserController(IAPIServices iAPIServices)
+        private readonly string directoryImagePath;
+
+        private readonly IWebHostEnvironment webHostEnvironment;
+
+        public UserController(IAPIServices iAPIServices, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
+            this.webHostEnvironment = webHostEnvironment;
+            directoryImagePath = configuration["App_Setting:ImageDir"];
             this.IAPIServices = iAPIServices;
         }
 
         [HttpGet]
         public IActionResult UpdateUserInfo()
         {
-            ViewBag.updatemsg = ViewData["updateMessage"] as string;
             return View();
         }
 
@@ -77,7 +86,8 @@ namespace Website_ShopeeFood.Controllers
                     }
                     else
                     {
-                        ViewData["updateMessage"] = "Password Is Not Matched";
+                        TempData["updateMessage"] = "Password Is Not Matched";
+                        ViewBag.updateMessage = TempData["updateMessage"] as string;
                         return View();
                     }
                 }
@@ -86,7 +96,8 @@ namespace Website_ShopeeFood.Controllers
 
                 HttpResponseMessage message1 = await client.PostAsync("api/users/UpdateUser", content);
             }
-            ViewData["updateMessage"] = "Updated Successfully";
+            TempData["updateMessage"] = "Updated Successfully";
+            ViewBag.updatemsg = TempData["updateMessage"] as string;
             return View();
         }
 
@@ -164,12 +175,13 @@ namespace Website_ShopeeFood.Controllers
             return PartialView("AddressUserInfo_Partial", addressUser);
         }
 
-        //Return List Json
+        //Return The Details Of Address
+
+        static AddressUserModel addressUser = new AddressUserModel();
 
         [HttpGet]
-        public async Task<JsonResult> EditUserAddress(int? Id)
+        public async Task<IActionResult> EditUserAddress(int? Id)
         {
-            AddressUserModel addressUser = new AddressUserModel();
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(IAPIServices.getIPAddress());
@@ -189,7 +201,7 @@ namespace Website_ShopeeFood.Controllers
                     addressUser = JsonConvert.DeserializeObject<AddressUserModel>(addressUserMessage);
                 }
             }
-            return Json(addressUser);
+            return RedirectToAction("UpdateUserAddress", addressUser);
         }
         
         //Get Address Of User Filtered By Id
@@ -432,6 +444,39 @@ namespace Website_ShopeeFood.Controllers
             return PartialView("DetailUserInfo_Partial", users);
         }
 
+        public IActionResult _UserAddressInfo()
+        {
+            return PartialView("_UserAddressInfo", addressUser);
+        }
 
+        public async Task<IActionResult> uploadImageURL(string filename)
+        {
+            int userID = 0;
+
+            userID = int.Parse(HttpContext.Session.GetString("UserIdToCheckInvoices"));
+
+            if(userID == 0)
+            {
+                userID = 1;
+            }
+
+            UsersModel usersModel = new UsersModel();
+
+            usersModel = await IAPIServices.getUserById(userID);
+
+            if(usersModel != null)
+            {
+                string wwwRootPath = webHostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(filename);
+                string extension = Path.GetExtension(filename);
+                fileName = fileName + extension;
+                string path = Path.Combine(wwwRootPath + "/image", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    usersModel.Image = fileStream.Name.ToString();
+                }
+            }
+            return RedirectToAction("UpdateUserInfo");
+        }
     }
 }
