@@ -14,6 +14,8 @@ namespace Website_ShopeeFood.Controllers
     {
         private readonly IAPIServices aPIServices;
 
+        static bool checkingSearchFood = false;
+
         public FoodController(IAPIServices aPIServices)
         {
             this.aPIServices = aPIServices;
@@ -24,7 +26,7 @@ namespace Website_ShopeeFood.Controllers
             return View();
         }
 
-        List<FoodModel> foods = new List<FoodModel>();
+        static List<FoodModel> foods = new List<FoodModel>();
 
 
         //Hiển Thị Danh Mục Sản Phẩm Có Trong Quán
@@ -36,9 +38,10 @@ namespace Website_ShopeeFood.Controllers
                 restaurantId = int.Parse(HttpContext.Session.GetString("restaurantId"));
             }
 
-            List<FoodModel> types = new List<FoodModel>();
-
-            foods = await aPIServices.getAllFoodByIdRestaurant(restaurantId);
+            if (checkingSearchFood == false)
+            {
+                foods = await aPIServices.getAllFoodByIdRestaurant(restaurantId);
+            }
 
             if (foods != null)
             {
@@ -48,6 +51,38 @@ namespace Website_ShopeeFood.Controllers
             }
             return NotFound();
         }
-       
+
+        [HttpGet]
+        public async Task<IActionResult> searchingOfFood(string nameOfFood)
+        {
+            int restaurantId = 0;
+
+            checkingSearchFood = true;
+
+            if (nameOfFood == null)
+            {
+                return BadRequest();
+            }
+
+            if (int.Parse(HttpContext.Session.GetString("restaurantId")) != 0)
+            {
+                restaurantId = int.Parse(HttpContext.Session.GetString("restaurantId"));
+            }
+
+            List<FoodModel> foodModels = new List<FoodModel>();
+
+            foodModels = await aPIServices.getAllFoodByIdRestaurant(restaurantId);
+
+            foods = await aPIServices.searchListFoodByEachRestaurant(nameOfFood, foodModels);
+
+            return RedirectToAction("DetailOfRestaurant", "Restaurant");
+        }
+
+        [HttpGet]
+        public IActionResult resetTheListFood()
+        {
+            checkingSearchFood = false;
+            return RedirectToAction("DetailOfRestaurant", "Restaurant");
+        }
     }
 }

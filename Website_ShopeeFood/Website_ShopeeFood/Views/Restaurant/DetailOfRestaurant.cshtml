@@ -65,12 +65,12 @@
                         <div class="search-item">
                             <p class="input-group">
                                 <i class="fa fa-search" aria-hidden="true"></i>
-                                <input type="text" placeholder="tìm món">
+                                <input id="find-food" type="text" placeholder="tìm món">
                             </p>
                         </div>
                     </div>
                     <div aria-label="grid" aria-readonly="true" role="grid" tabindex="0" style="box-sizing: border-box; direction: ltr; height: auto; position: relative; width: 558px; will-change: transform; overflow: auto; outline: none;">
-                        <div class="ReactVirtualized__Grid__innerScrollContainer myheight" role="rowgroup" style="width: auto; height: 4509px; max-width: 558px; max-height: 4509px; overflow: hidden; position: relative;">
+                        <div class="ReactVirtualized__Grid__innerScrollContainer myheight" role="rowgroup" style="width: auto; height: 4509px; max-width: 558px; max-height: 723px; overflow-x: hidden; overflow-y: scroll; position: relative;">
                             <div class="menu-group" id="section-group-menu-2648835" style="height: 56px; left: 0px; position: absolute; top: 0px; width: 100%;">
                                 <div class="title-menu">MÓN CHÍNH</div>
                             </div>
@@ -296,7 +296,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-
 <script>
     $('#Detail_Restaurant').load('/Restaurant/GetRestaurantByID')
     $('#Food_PartialView').load('/Food/TypesofFoods_Partial')
@@ -325,6 +324,35 @@
             }
         });
     }
+</script>
+
+<script>
+    $(document).ready(function(){
+        $("#find-food").keyup(function(){
+            var nameOfFood = $("#find-food").val();
+            if(nameOfFood.length > 0)
+            {
+                $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("searchingOfFood", "Food")",
+                    data: {"nameOfFood": nameOfFood},
+                    success: function(respone){
+                        $('#Food_PartialView').load('/Food/TypesofFoods_Partial')
+                    }
+                });
+            }
+            else
+            {
+                $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("resetTheListFood", "Food")",
+                    success: function(respone){
+                        $('#Food_PartialView').load('/Food/TypesofFoods_Partial')
+                    }
+                });
+            }
+        });
+    });
 </script>
 
 <script>

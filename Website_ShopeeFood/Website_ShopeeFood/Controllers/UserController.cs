@@ -98,6 +98,8 @@ namespace Website_ShopeeFood.Controllers
             }
             TempData["updateMessage"] = "Updated Successfully";
             ViewBag.updatemsg = TempData["updateMessage"] as string;
+
+            ViewBag.updateImage = TempData["UpdateHinhUser"] as string;
             return View();
         }
 
@@ -449,34 +451,51 @@ namespace Website_ShopeeFood.Controllers
             return PartialView("_UserAddressInfo", addressUser);
         }
 
-        public async Task<IActionResult> uploadImageURL(string filename)
+        public IActionResult _uploadImage()
         {
-            int userID = 0;
+            return PartialView("_uploadImage");
+        }
 
-            userID = int.Parse(HttpContext.Session.GetString("UserIdToCheckInvoices"));
-
-            if(userID == 0)
+        public async Task<IActionResult> uploadImageURL([Bind("Image")] ImageModel imagemodel)
+        {
+            if (imagemodel != null)
             {
-                userID = 1;
-            }
+                int userID = 0;
 
-            UsersModel usersModel = new UsersModel();
+                userID = int.Parse(HttpContext.Session.GetString("UserIdToCheckInvoices"));
 
-            usersModel = await IAPIServices.getUserById(userID);
-
-            if(usersModel != null)
-            {
-                string wwwRootPath = webHostEnvironment.WebRootPath;
-                string fileName = Path.GetFileNameWithoutExtension(filename);
-                string extension = Path.GetExtension(filename);
-                fileName = fileName + extension;
-                string path = Path.Combine(wwwRootPath + "/image", fileName);
-                using (var fileStream = new FileStream(path, FileMode.Create))
+                if (userID == 0)
                 {
-                    usersModel.Image = fileStream.Name.ToString();
+                    userID = 1;
                 }
+
+                UsersModel usersModel = new UsersModel();
+
+                usersModel = await IAPIServices.getUserById(userID);
+
+                if (usersModel != null)
+                {
+                    string imageName = "";
+                    string wwwRootPath = webHostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(imagemodel.Image.FileName);
+                    string extension = Path.GetExtension(imagemodel.Image.FileName);
+                    imageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    string path = Path.Combine(wwwRootPath + @"\image\", fileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await imagemodel.Image.CopyToAsync(fileStream);
+                    }
+
+                    usersModel.Image = @"../image/" + imageName;
+                }
+
+                IAPIServices.updateUsersInfo(usersModel);
+
+                TempData["UpdateHinhUser"] = "Update Image Successfully";
             }
             return RedirectToAction("UpdateUserInfo");
         }
+
+
     }
 }

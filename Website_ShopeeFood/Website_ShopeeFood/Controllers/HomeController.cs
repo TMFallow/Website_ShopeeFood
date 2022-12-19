@@ -35,10 +35,11 @@ namespace Website_ShopeeFood.Controllers
             return View();
         }
 
-        public IActionResult ReturnHomePage()
+        public IActionResult ReturnHomePage() 
         {
             RestaurantController.soLanThemQuan = 9;
             RestaurantController.checkingNumberofRestaurant = false;
+            HttpContext.Session.SetString("CheckGetType", "");
             return RedirectToAction("Index", "Home");
         }
 

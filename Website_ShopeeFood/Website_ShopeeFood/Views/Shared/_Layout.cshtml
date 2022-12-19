@@ -72,14 +72,18 @@
                     </div>
                 </div>
 
-                <div class="modal modal-search fade" id="modal-search" tabindex="-1" role="dialog" style="display:none; background-color: rgba(0,0,0,0.60)" aria-hidden="true">
+                <div class="modal modal-search fade" id="modal-search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role=document>
-                        <div class="model-content">
+                        <div class="modal-content">
                             <span class="close" data-dismiss="modal">x</span>
                             <div class="modal-search-form">
                                 <span class="sub-title">Đặt Thực Phẩm, Giao Hàng Từ 20'... Có Đến 13000 Địa Điểm Tại TP. HCM</span>
-                                @*<input class="search-input" name="search-input" type="text" autocomplete="off" value="">*@
-                                <input type="text" placeholder="" class="search-input" />
+                                <div class="form-group mx-2 mb-3">
+                                    <input type="text" class="search-input" id="SearchNameOfRestaurant" placeholder="" />
+                                </div> 
+                                <div id="result" style="position: relative; margin-top: 45px; margin-left: 223px; width: 517px;">
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -191,11 +195,42 @@
         $('#parital_menu').load('/Types/Types_Partial');
         $('#partial_zone').load('/Areas/Areas_Partial');
         $('#partial_login').load('/Login/HomePage_Login_Partial');
+
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#SearchNameOfRestaurant").keyup(function () {
+                var name = $("#SearchNameOfRestaurant").val();
+                if (name.length > 0) {
+                    $.ajax({
+                        url: "@Url.Action("searchListOfRestaurant", "Restaurant")",
+                        type: "GET",
+                        data: { 'name': name },
+                        success: function (response) {
+                            $('#result').load('/Restaurant/Search_Restaurant')
+                        }
+                    });
+                }
+                else {
+                    $.ajax({
+                        url: "@Url.Action("searchListOfRestaurant", "Restaurant")",
+                        type: "GET",
+                        data: { 'name': name },
+                        success: function (response) {
+                            $('#result').load('/Restaurant/Search_Restaurant')
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 
 </body>
 

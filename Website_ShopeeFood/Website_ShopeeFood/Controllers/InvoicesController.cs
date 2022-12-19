@@ -72,11 +72,11 @@ namespace Website_ShopeeFood.Controllers
 
                 listInvoicesModel = await aPIServices.getAllInvoices();
 
-                if(listInvoicesModel !=null)
+                if(listInvoicesModel !=null) 
                 {
-                    for (int i = 0; i < listInvoicesModel.Count; i++)
+                    for (int i = 1; i < listInvoicesModel.Count; i++)
                     {
-                        invoicesId = listInvoicesModel[i].InvoicesID;
+                        invoicesId = listInvoicesModel[i].InvoicesID + 1;
                     }
                 }
 

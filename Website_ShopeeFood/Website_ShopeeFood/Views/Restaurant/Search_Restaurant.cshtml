@@ -4,28 +4,35 @@
 
 @if (Model != null)
 {
-    <div class="now-idea-searching" style="overflow-y:scroll; height:323px; margin-top: -40px; background-color: white;">
-        <div class="now-list-restaurant-row">
-            @foreach (var item in Model)
-            {
-                <div class="item-restaurant" >
-                    <a class="item-content" target="_blank" href="/Restaurant/DetailOfRestaurant?restaurantId=@item.RestaurantID">
-                        <div class="img-restaurant">
-                            <img src="@item.Image" alt="@item.NameofRestaurant" title="@item.NameofRestaurant" />
-                        </div>
-                        <div class="info-restaurant">
-                            <div class=name-res>
-                                @item.NameofRestaurant
+    @if (Model.Count() > 0)
+    {
+        <div class="now-idea-searching" style="overflow-y:scroll; height:323px; margin-top: -40px; background-color: white;">
+            <div class="now-list-restaurant-row">
+                @foreach (var item in Model)
+                {
+                    <div class="item-restaurant" >
+                        <a class="item-content" target="_blank" href="/Restaurant/DetailOfRestaurant?restaurantId=@item.RestaurantID">
+                            <div class="img-restaurant">
+                                <img src="@item.Image" alt="@item.NameofRestaurant" title="@item.NameofRestaurant" />
                             </div>
-                            <div class="address-res">
-                                @item.Address
+                            <div class="info-restaurant">
+                                <div class=name-res>
+                                    @item.NameofRestaurant
+                                </div>
+                                <div class="address-res">
+                                    @item.Address
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-            }
+                        </a>
+                    </div>
+                }
+            </div>
         </div>
-    </div>
+    }
+    else
+    {
+
+    }
 }
 
 

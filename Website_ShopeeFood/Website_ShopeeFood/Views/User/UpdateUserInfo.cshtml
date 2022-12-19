@@ -114,6 +114,16 @@
             icon: "success",
         });
     }
+
+    var updateImage = "@((string)ViewBag.updateImage)";
+    if (updateImage != null && updateImage != "") {
+        swal({
+            title: "Thông Báo",
+            text: updateImage,
+            icon: "success",
+        });
+    }
+
 </script>
 
 

@@ -91,7 +91,7 @@ namespace Website_ShopeeFood.Controllers
 
             foreach (var item in model)
             {
-                if (item.Username == userName && item.Password == password)
+                if (item.Email == userName && item.Password == password)
                 {
                     u = item;
                     check = 1;
@@ -200,12 +200,16 @@ namespace Website_ShopeeFood.Controllers
             if (model != null)
             {
                 string check = await SendMail("thanhbinh07102001@gmail.com", email, "thanhbinh07102001@gmail.com", "hdaxpupfiarzaejx", model.FullName);
-                ViewBag.message = "<script>alert('Sent Email Succesfully - Đã Gửi Email Thành Công');</script>";
+
+                TempData["Email"] = "Sent Email Successfully";
+
+                ViewBag.emailUser = TempData["Email"] as string;
+
                 return View();
             }
             else
             {
-                ViewBag.message = null;
+                ViewBag.emailUser = null;
                 return View();
             }
         }
@@ -258,9 +262,11 @@ namespace Website_ShopeeFood.Controllers
 
             UsersModel usersModel = new UsersModel();
 
+            string baseURL = aPIServices.getIPAddress();
+
             using (var client = new HttpClient())
             {
-                usersModel = await aPIServices.getUsersByUsername(username);
+                usersModel = await aPIServices.GetUsersByEmail(username);
 
                 if (usersModel != null)
                 {
@@ -269,6 +275,11 @@ namespace Website_ShopeeFood.Controllers
                         usersModel.Password = password;
                     }
                 }
+                client.BaseAddress = new Uri(baseURL);
+
+                client.DefaultRequestHeaders.Clear();
+
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
                 StringContent content = new StringContent(JsonConvert.SerializeObject(usersModel),
                     Encoding.UTF8, "application/json");

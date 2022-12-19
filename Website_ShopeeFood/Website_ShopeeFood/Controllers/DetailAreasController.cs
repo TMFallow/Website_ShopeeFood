@@ -25,8 +25,6 @@ namespace Website_ShopeeFood.Controllers
             return View();
         }
 
-        string Baseurl = "https://localhost:5001/";
-
         List<DetailAreasModel> model = new List<DetailAreasModel>();
 
         public async Task<IActionResult> getDistrics_Partial(int AreaID)

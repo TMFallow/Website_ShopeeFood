@@ -290,31 +290,7 @@
                             <div class="box-line-lg"></div>
                         </div>
                     </div>
-                    <div>
-                        <div class="list-item-restaurant1" style="float:left;">
-                            <a class="item-content1" href="#" target="_blank">
-                                <div class="row no-gutters">
-                                    <div class="col-auto">
-                                        <div class="image-restaurant-tab">
-                                            <img src="https://images.foody.vn/res/g69/680874/prof/s280x175/image-ceaf8f37-221101143210.jpg">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="name-rest options">
-                                            <span title="Trà Dâu Đà Lạt - Nguyễn Thượng Hiền">Trà Dâu Đà Lạt - Nguyễn Thượng Hiền</span>
-                                        </div>
-                                        <div class="row txt">
-                                            <div class="col">
-                                                <div class="address-rest mb-1">
-                                                    73 Nguyễn Thượng Hiền, P. 5, Quận 3, TP. HCM
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                    
                     <div id="brand_partial">
                     </div>
                     <div class="see-more-center">
@@ -582,4 +558,22 @@
     });
 </script>
 
-<script src="/js/JSHomePage.js"></script>
+<script>
+    window.onscroll = function () { scrolling() };
+
+    function scrolling() {
+        var elementId = document.getElementById('scroll');
+        var element = document.getElementsByClassName('clearfix');
+        var height = element.offsetHeight;
+
+        if (document.documentElement.scrollTop >= 1452) {
+            elementId.style.position = "absolute";
+            elementId.style.top = "1600px";
+            elementId.style.marginTop = "-100px";
+        }
+        else {
+            elementId.style.position = "fixed";
+            elementId.style.top = "90px";
+        }
+    }
+</script>

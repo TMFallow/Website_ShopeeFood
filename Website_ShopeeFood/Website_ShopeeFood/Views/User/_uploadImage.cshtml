@@ -1,0 +1,14 @@
+﻿@model Website_ShopeeFood.Models.ImageModel
+
+<form asp-action="uploadImageURL" enctype="multipart/form-data">
+    <div class="form-group">
+        Cập nhật hình ảnh chỉ Chấp nhận GIF, JPEG, PNG, BMP với kích thước tối đa 5.0 MB
+        <div class="form-group">
+            <input asp-for="Image" accept="image/*" value="Chọn File"/>
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
+    </div>
+    <div style="width: 150px;">
+        <input type="submit" class="btn" value="Xác Nhận">
+    </div>
+</form>

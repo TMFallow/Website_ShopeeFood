@@ -38,6 +38,8 @@ namespace Website_ShopeeFood.Services
 
         Task<FoodModel> getFoodById(int id);
 
+        Task<List<FoodModel>> getAllFood();
+
         Task<List<FoodModel>> getListRestaurantBasedOnTypeID(int Id);
 
         Task<List<RestaurantsModel>> getListRestauranrByIdDistricts(int IdDistricts);
@@ -55,6 +57,8 @@ namespace Website_ShopeeFood.Services
         Task<UsersModel> getUserById(int id);
 
         void updateUsersInfo(UsersModel usersModel);
+
+        Task<List<FoodModel>> searchListFoodByEachRestaurant(string name, List<FoodModel> foodModels);
 
     }
 }

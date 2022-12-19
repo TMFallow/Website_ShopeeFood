@@ -23,7 +23,7 @@ namespace Website_ShopeeFood.Services
 
         public string getIPAddress()
         {
-            string IPAddress = "http://10.100.0.62:9999/";
+            string IPAddress = configuration["Website_ShopeeFood_API:Base_URL"];
 
             return IPAddress;
         }
@@ -638,7 +638,7 @@ namespace Website_ShopeeFood.Services
             return userModel;
         }
 
-        public async void updateUsersInfo(UsersModel usersModel) //
+        public async void updateUsersInfo(UsersModel usersModel)
         {
             if (usersModel != null)
             {
@@ -656,6 +656,41 @@ namespace Website_ShopeeFood.Services
                     HttpResponseMessage respone = await client.PostAsync("api/Users/UpdateUser", content);
                 }
             }
+        }
+
+        public async Task<List<FoodModel>> getAllFood()
+        {
+            List<FoodModel> listFoodModel = new List<FoodModel>();
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(getIPAddress());
+
+                client.DefaultRequestHeaders.Clear();
+
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage respone = await client.GetAsync("/api/Food");
+
+                if (respone.IsSuccessStatusCode)
+                {
+                    var usersTask = respone.Content.ReadAsAsync<List<FoodModel>>();
+
+                    usersTask.Wait();
+
+                    listFoodModel = usersTask.Result;
+                }
+            }
+            return listFoodModel;
+        }
+
+        public async Task<List<FoodModel>> searchListFoodByEachRestaurant(string name, List<FoodModel> foodModels)
+        {
+            List<FoodModel> food = new List<FoodModel>();
+
+            food = foodModels.Where(nameFood => nameFood.NameofFood.ToUpper().Contains(name.ToUpper())).ToList();
+
+            return food;
         }
     }
 }

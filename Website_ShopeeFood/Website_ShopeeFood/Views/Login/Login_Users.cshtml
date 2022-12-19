@@ -22,26 +22,26 @@
             <div class="login-title">
                 Đăng Nhập
             </div>
-            @*<div class="login-methods">
-        <div class="login-item-phone">
-        <i class="fa fa-phone" aria-hidden="true"></i>
-        Số Điện Thoại
-        </div>
-        <div class="login-item-facebook">
-        <i class="fab fa-facebook    "></i>
-        Facebook
-        </div>
-        <div class="login-item-email">
-        <i class="fa fa-file" aria-hidden="true"></i>
-        Email
-        </div>
-        </div>*@
+            <div class="login-methods">
+                <div class="login-item-phone" style="padding: 7px 50px;">
+                    <i class="fa fa-phone" aria-hidden="true" style="margin-left: -40px; margin-top: -1px;"></i>
+                    Số Điện Thoại
+                </div>
+                <div class="login-item-facebook" style="padding: 7px 50px;">
+                    <i class="fab fa-facebook"   style=" margin-left: -40px; margin-top: -1px;" ></i>
+                    Facebook
+                </div>
+                <div class="login-item-email" style="padding: 7px 50px;">
+                <i class="fa fa-file" aria-hidden="true" style="margin-left: -40px; margin-top: -1px;"></i>
+                    Email
+                </div>
+            </div>
             <p>Hoặc Đăng Nhập Bằng Tài Khoản Của Bạn</p>
             <div class="login-details">
                 <div class="field-groups">
                     <div class="login-group">
                         <i class="fa fa-envelope" aria-hidden="true"></i>
-                        <input name="userName" type="text" placeholder="Tên đăng nhập">
+                        <input name="userName" type="text" placeholder="Email">
                     </div>
                     <div class="login-group">
                         <i class="fa fa-lock" aria-hidden="true"></i>
@@ -73,8 +73,7 @@
 <script>
     var msg = "@((string)ViewBag.message)";
 
-    if(msg != null && msg != "")
-    {
+    if (msg != null && msg != "") {
         swal({
             title: "Thông Báo",
             text: "Register Successfully",

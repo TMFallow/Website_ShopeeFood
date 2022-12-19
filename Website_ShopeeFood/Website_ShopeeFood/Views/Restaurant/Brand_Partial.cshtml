@@ -7,17 +7,17 @@
             <div class="row no-gutters">
                 <div class="col-auto">
                     <div class="image-restaurant-tab">
-                        <img src="@item.image">
+                        <img src="@item.Restaurants.Image" style="height:90px; width:143px;">
                     </div>
                 </div>
                 <div class="col">
-                    <div class="name-rest options">
-                        <span title="@item.nameRestaurant>@item.nameRestaurant></span>
+                    <div class="name-rest options" style="color:black; font-weight: 700;">
+                            <span title="@item.Restaurants.NameofRestaurant">@item.Restaurants.NameofRestaurant></span>
                     </div>
                     <div class="row txt">
                         <div class="col">
                             <div class="address-rest mb-1">
-                                @item.address
+                                @item.Restaurants.Address
                             </div>
                         </div>
                     </div>
