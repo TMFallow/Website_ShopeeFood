@@ -338,3 +338,44 @@ button, input, optgroup, select, textarea {
     height: 20px;
     background-position: -54px -40px;
 }
+
+.search-local{
+    height:50px;
+}
+
+    .search-local .primary-local {
+        padding: 4px 0px;
+        border: solid 1px #7d7d7d;
+        border-radius: 4px;
+    }
+
+        .search-local .primary-local .icon-search-gray {
+            height: 32px;
+            width: 32px;
+        }
+
+        .search-local .primary-local #diachi {
+            width: 92%;
+            border: none;
+            outline: none;
+            margin-left: 20px;
+            color: black;
+            padding: 4px 0px;
+        }
+
+.list-address {
+    max-height: 283px;
+    overflow-y: scroll;
+}
+
+    .list-address .location-item .item-local .icon {
+        position: absolute;
+        height: 23px;
+        width: 23px;
+        padding: 3px 15px;
+    }
+
+.address-user {
+    margin-left: 30px;
+    font-size: 16px;
+}

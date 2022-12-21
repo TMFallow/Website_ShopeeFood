@@ -162,9 +162,9 @@
     function DeleteItem(id) {
         $.ajax({
             url: "/User/DeleteUserAddress/" + id,
-            type: "GET",
-            dataType: "json",
+            type: "POST",
             success: function (response) {
+                document.location.reload(true);
             }
         });
         return false;

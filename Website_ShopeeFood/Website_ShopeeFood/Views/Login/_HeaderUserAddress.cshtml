@@ -1,0 +1,14 @@
+﻿@model Website_ShopeeFood.Models.AddressUserModel
+
+@if(Model.ID != null)
+{
+    <div class="col pl-2 pr-2 txt">
+        @Model.Address
+    </div>
+}
+else
+{
+    <div class="col pl-2 pr-2 txt">
+        Chọn địa chỉ giao hàng
+    </div>
+}

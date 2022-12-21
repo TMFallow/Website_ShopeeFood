@@ -37,10 +37,12 @@ namespace Website_ShopeeFood.Controllers
             {
                 restaurantId = int.Parse(HttpContext.Session.GetString("restaurantId"));
             }
+       
+            foods = await aPIServices.getAllFoodByIdRestaurant(restaurantId);
 
-            if (checkingSearchFood == false)
+            if (HttpContext.Session.GetString("namefood") != null)
             {
-                foods = await aPIServices.getAllFoodByIdRestaurant(restaurantId);
+                foods = aPIServices.searchListFoodByEachRestaurant(HttpContext.Session.GetString("namefood"), foods);
             }
 
             if (foods != null)
@@ -52,30 +54,42 @@ namespace Website_ShopeeFood.Controllers
             return NotFound();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> searchingOfFood(string nameOfFood)
+        //[HttpGet]
+        //public async Task<IActionResult> searchingOfFood(string nameOfFood)
+        //{
+        //    int restaurantId = 0;
+
+        //    checkingSearchFood = true;
+
+        //    if (nameOfFood == null)
+        //    {
+        //        nameOfFood = "";
+        //    }
+
+        //    if (int.Parse(HttpContext.Session.GetString("restaurantId")) != 0)
+        //    {
+        //        restaurantId = int.Parse(HttpContext.Session.GetString("restaurantId"));
+        //    }
+
+        //    List<FoodModel> foodModels = new List<FoodModel>();
+
+        //    foodModels = await aPIServices.getAllFoodByIdRestaurant(restaurantId);
+
+        //    foods = await aPIServices.searchListFoodByEachRestaurant(nameOfFood, foodModels);
+
+        //    return RedirectToAction("DetailOfRestaurant", "Restaurant");
+        //}
+
+        public void searchingOfFood(string nameOfFood)
         {
-            int restaurantId = 0;
-
-            checkingSearchFood = true;
-
-            if (nameOfFood == null)
+            if(nameOfFood != null)
             {
-                return BadRequest();
+                HttpContext.Session.SetString("namefood", nameOfFood);
             }
-
-            if (int.Parse(HttpContext.Session.GetString("restaurantId")) != 0)
+            else
             {
-                restaurantId = int.Parse(HttpContext.Session.GetString("restaurantId"));
+                HttpContext.Session.Remove("namefood");
             }
-
-            List<FoodModel> foodModels = new List<FoodModel>();
-
-            foodModels = await aPIServices.getAllFoodByIdRestaurant(restaurantId);
-
-            foods = await aPIServices.searchListFoodByEachRestaurant(nameOfFood, foodModels);
-
-            return RedirectToAction("DetailOfRestaurant", "Restaurant");
         }
 
         [HttpGet]

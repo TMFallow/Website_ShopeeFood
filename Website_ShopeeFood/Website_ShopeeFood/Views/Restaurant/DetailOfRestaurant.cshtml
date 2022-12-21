@@ -345,7 +345,8 @@
             {
                 $.ajax({
                     type: "GET",
-                    url: "@Url.Action("resetTheListFood", "Food")",
+                    url: "@Url.Action("searchingOfFood", "Food")",
+                    data: { "nameOfFood": nameOfFood },
                     success: function(respone){
                         $('#Food_PartialView').load('/Food/TypesofFoods_Partial')
                     }

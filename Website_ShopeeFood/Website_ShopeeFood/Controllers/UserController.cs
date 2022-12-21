@@ -355,7 +355,7 @@ namespace Website_ShopeeFood.Controllers
         }
 
         //Delete Address of Users 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> DeleteUserAddress(int Id)
         {
             AddressUserModel addressModel = new AddressUserModel();
@@ -390,7 +390,7 @@ namespace Website_ShopeeFood.Controllers
             TempData["updateAddressUser"] = null;
             TempData["insertAddressUser"] = null;
 
-            return View("UpdateUserAddress");
+            return RedirectToAction("UpdateUserAddress");
         }
 
 

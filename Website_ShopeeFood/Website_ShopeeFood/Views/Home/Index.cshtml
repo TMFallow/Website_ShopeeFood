@@ -2,8 +2,9 @@
     ViewData["Title"] = "Home Page";
 }
 
+<link rel="stylesheet" href="/css//StyleForHomePage.css" />
 
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <div id="scroll" class="now-banner" style="position:fixed; top:70px;">
     <div class="container">
@@ -14,7 +15,7 @@
                     Có Khoảng 100000 Địa Điểm Ở TP. HCM
                 </div>
             </div>
-            <div  class="form-search">
+            <div class="form-search">
                 <div class="input-group">
                     <input type="text" id="txtSearchHome" placeholder="Tìm Kiếm Shop" value="">
                     <button type="button" class="btn btn-search">
@@ -22,7 +23,6 @@
                     </button>
                 </div>
                 <div id="searchPartial">
-
                 </div>
             </div>
 
@@ -50,15 +50,15 @@
     <div class="container">
         <div class="main-right-home">
             <div class="user-get-local">
-                <div class="row align-item-center no-gutters pointer">
-                    <div class="col-auto">
+                <div class="row align-item-center no-gutters pointer" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <div class="col-auto" style="position:absolute;">
                         <span class="txt-blue-blod">Thực Phẩm</span>
                         <i class="fa fa-long-arrow-alt-right" aria-hidden="true"></i>
                     </div>
-                    <div class="col pl-2 pr-2 txt">
-                        Chọn địa chỉ giao hàng
+                    <div id="header-address" style="position: absolute; width: 32rem; margin-left: 140px;">
+                        
                     </div>
-                    <div class="col-auto">
+                    <div class="col-auto" style="margin-left: 40rem;">
                         <span class="pl-2 pr-2 link" data-toggle="modal">
                             <i class="fa fa-angle-right" aria-hidden="true"></i>
                         </span>
@@ -290,7 +290,7 @@
                             <div class="box-line-lg"></div>
                         </div>
                     </div>
-                    
+
                     <div id="brand_partial">
                     </div>
                     <div class="see-more-center">
@@ -311,7 +311,7 @@
                 <span>Đơn hàng của bạn sẽ được bảo quản như thế nào?</span>
             </h4>
             <span class="fnt-15">
-                    ShopeeFood sẽ bảo quản đơn của bạn bằng túi & thùng để chống nắng mưa, giữ nhiệt... trên đường đi một cách tốt nhất.
+                ShopeeFood sẽ bảo quản đơn của bạn bằng túi & thùng để chống nắng mưa, giữ nhiệt... trên đường đi một cách tốt nhất.
             </span>
             <img src="https://shopeefood.vn/app/assets/img/Box-food-preservation-footer.png?82adfd2ec19091256d09a94dac77aaba" alt="Food Preservation">
         </div>
@@ -321,7 +321,7 @@
                 <span>Ứng Dụng Shopee Partner</span>
             </h4>
             <span class="fnt-14">
-                    - <b>Ứng dụng Shopee Partner</b> là ứng dụng quản lý đơn hàng cho các nhà hàng đối tác của dịch vụ đặt món tận nơi
+                - <b>Ứng dụng Shopee Partner</b> là ứng dụng quản lý đơn hàng cho các nhà hàng đối tác của dịch vụ đặt món tận nơi
                 <p class="fnt-14">
                     - <b>ShopeeFood.vn </b> luôn sẵn sàng hợp tác với các nhà hàng, quán ăn, cafe... để mở rộng kinh doanh cũng như gia tăng khách hàng. Hãy kết nối vào hệ thống đặt và giao hàng để giảm bớt chi phí quản lý, vận hành, marketing, công nghệ...
                     Đăng ký tham gia:
@@ -514,6 +514,43 @@
     </div>
 </div>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 760px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Bạn muốn giao đến đâu?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="search-local">
+                    <div class="primary-local">
+                        <div class="row align-item-center no-gutters">
+                            <div class="col-auto" style="margin-left: 15px;">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </div>
+                            <div class="col">
+                                <input type="text" placeholder="Nhập địa chỉ giao hàng" name="diachi" id="diachi" class="" />
+                            </div>
+                            <div class="col-auto">
+                                <i class="fa-solid fa-x"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-address">
+                    <div id="location" class="location-item">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -525,6 +562,8 @@
     $('#Restaurant_Partial').load("/Restaurant/Restaurant_Partial")
     $('#promotion_partial').load("/Promotion/Promotion_Partial")
     $('#brand_partial').load("/Restaurant/Brand_Partial")
+    $('#location').load("/Login/_AddressUser")
+    $('#header-address').load("/Login/_HeaderUserAddress")
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -533,7 +572,7 @@
     $(document).ready(function () {
         $("#txtSearchHome").keyup(function () {
             var name = $("#txtSearchHome").val();
-            if (name.length>0) {
+            if (name.length > 0) {
                 $.ajax({
                     url: "@Url.Action("searchListOfRestaurant", "Restaurant")",
                     type: "GET",
@@ -543,14 +582,39 @@
                     }
                 });
             }
-            else
-            {
+            else {
                 $.ajax({
                     url: "@Url.Action("searchListOfRestaurant", "Restaurant")",
                     type: "GET",
                     data: { 'name': name },
                     success: function (response) {
                         $('#searchPartial').load("/Restaurant/Search_Restaurant")
+                    }
+                });
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $("#diachi").keyup(function () {
+            var nameAddress = $("#diachi").val();
+            if (nameAddress.length > 0) {
+                $.ajax({
+                    url: "@Url.Action("searchAddress", "Login")",
+                    type: "GET",
+                    data: { 'nameAddress': nameAddress },
+                    success: function (response) {
+                        $('#location').load("/Login/_AddressUser")
+                    }
+                });
+            }
+            else {
+                $.ajax({
+                    url: "@Url.Action("searchAddress", "Login")",
+                    type: "GET",
+                    data: { 'nameAddress': nameAddress },
+                    success: function (response) {
+                        $('#location').load("/Login/_AddressUser")
                     }
                 });
             }

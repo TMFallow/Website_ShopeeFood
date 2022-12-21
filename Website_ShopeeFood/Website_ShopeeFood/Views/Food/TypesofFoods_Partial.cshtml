@@ -2,7 +2,7 @@
 
 
 
-@if (Model != null)
+@if (Model != null && Model.Count() >0)
 {
     @foreach (var item in Model)
     {
@@ -32,6 +32,17 @@
             </div>
         </div>
     }
+}
+else
+{
+    <div class="menu-no-data">
+        <img src="https://shopeefood.vn/app/assets/img/no-results.png?7aafd0b598221e54f8ef4a4bd1b38297" style="margin-left: 221px; margin-top: 75px;" />
+        <div>
+            <div class="no-data-text" style="text-align: center; padding: 17px 0px; font-size: 18px; color: lightslategray;">
+                Không Có Dữ Liệu
+            </div>
+        </div>
+    </div>
 }
 
     

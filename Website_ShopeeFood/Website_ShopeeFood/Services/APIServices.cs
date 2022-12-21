@@ -684,13 +684,74 @@ namespace Website_ShopeeFood.Services
             return listFoodModel;
         }
 
-        public async Task<List<FoodModel>> searchListFoodByEachRestaurant(string name, List<FoodModel> foodModels)
+        public List<FoodModel> searchListFoodByEachRestaurant(string name, List<FoodModel> foodModels)
         {
             List<FoodModel> food = new List<FoodModel>();
 
             food = foodModels.Where(nameFood => nameFood.NameofFood.ToUpper().Contains(name.ToUpper())).ToList();
 
             return food;
+        }
+
+        public async Task<List<AddressUserModel>> getListAddressUserByUserId(int userId)
+        {
+            List<AddressUserModel> addressUser = new List<AddressUserModel>();
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(getIPAddress());
+
+                client.DefaultRequestHeaders.Clear();
+
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage respone = await client.GetAsync("/api/Address/getListAddressByID/"+ userId +"");
+
+                if (respone.IsSuccessStatusCode)
+                {
+                    var addressUsersTask = respone.Content.ReadAsAsync<List<AddressUserModel>>();
+
+                    addressUsersTask.Wait();
+
+                    addressUser = addressUsersTask.Result;
+                }
+            }
+            return addressUser;
+        }
+
+        public async Task<AddressUserModel> getAddressToDelivery(int addressId)
+        {
+            AddressUserModel addressUser = new AddressUserModel();
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(getIPAddress());
+
+                client.DefaultRequestHeaders.Clear();
+
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage respone = await client.GetAsync("/api/Address/GetAddressToDelivery/" + addressId + "");
+
+                if (respone.IsSuccessStatusCode)
+                {
+                    var addressUsersTask = respone.Content.ReadAsAsync<AddressUserModel>();
+
+                    addressUsersTask.Wait();
+
+                    addressUser = addressUsersTask.Result;
+                }
+            }
+            return addressUser;
+        }
+
+        public List<AddressUserModel> searchListAddressUserModel(string name, List<AddressUserModel> addressUserModels)
+        {
+            List<AddressUserModel> listAddressUserModel = new List<AddressUserModel>();
+
+            listAddressUserModel = addressUserModels.Where(nameAddress => nameAddress.Address.ToUpper().Contains(name.ToUpper())).ToList();
+
+            return listAddressUserModel;
         }
     }
 }

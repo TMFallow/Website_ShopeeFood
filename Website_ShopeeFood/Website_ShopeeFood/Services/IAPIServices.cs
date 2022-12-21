@@ -58,7 +58,13 @@ namespace Website_ShopeeFood.Services
 
         void updateUsersInfo(UsersModel usersModel);
 
-        Task<List<FoodModel>> searchListFoodByEachRestaurant(string name, List<FoodModel> foodModels);
+        List<FoodModel> searchListFoodByEachRestaurant(string name, List<FoodModel> foodModels);
+
+        Task<List<AddressUserModel>> getListAddressUserByUserId(int userId);
+
+        Task<AddressUserModel> getAddressToDelivery(int addressId);
+
+        List<AddressUserModel> searchListAddressUserModel(string name, List<AddressUserModel> addressUserModels);
 
     }
 }

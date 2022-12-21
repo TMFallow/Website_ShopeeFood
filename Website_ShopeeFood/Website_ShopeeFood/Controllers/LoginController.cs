@@ -34,12 +34,13 @@ namespace Website_ShopeeFood.Controllers
 
         private readonly IAPIServices aPIServices;
 
+        static AddressUserModel addressUsers = new AddressUserModel();
+
         public LoginController(IConfiguration configuration, IAPIServices aPIServices)
         {
             this.configuration = configuration;
             this.aPIServices = aPIServices;
         }
-
 
         [HttpGet]
         public IActionResult Login_Users()
@@ -87,7 +88,6 @@ namespace Website_ShopeeFood.Controllers
             UsersModel u = new UsersModel();
 
             int check = 0;
-
 
             foreach (var item in model)
             {
@@ -143,39 +143,51 @@ namespace Website_ShopeeFood.Controllers
             }
         }
 
-        //public void generateToken(UsersModel model)
-        //{
-        //    var tokenHandler = new JwtSecurityTokenHandler();
-        //    var key = Encoding.ASCII.GetBytes(configuration["App_Setting:serectKey"]);
-        //    var tokenDescriptor = new SecurityTokenDescriptor
-        //    {
-        //        Subject = new ClaimsIdentity(new Claim[]
-        //        {
-        //            new Claim(ClaimTypes.GivenName, model.FullName.ToString()),
-        //            new Claim(ClaimTypes.Email, model.Email.ToString())
-        //        }),
-        //        Expires = DateTime.UtcNow.AddMinutes(5),
+        static List<AddressUserModel> listAddressUsers = new List<AddressUserModel>();
+        
+        public async Task<IActionResult> _AddressUser()
+        {
+            HttpContext.Session.SetString("CheckSearch", "0");
 
-        //        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        //    };
+            int IdUser = int.Parse(HttpContext.Session.GetString("UserIdToCheckInvoices"));
 
-        //    var token = tokenHandler.CreateToken(tokenDescriptor);
+            listAddressUsers = await aPIServices.getListAddressUserByUserId(IdUser);
 
-        //    model.Token = tokenHandler.WriteToken(token);
+            if(HttpContext.Session.GetString("nameAddress") != null)
+            {
+                listAddressUsers = aPIServices.searchListAddressUserModel(HttpContext.Session.GetString("nameAddress"), listAddressUsers);
+            }
 
-        //    var cookieOptions = new CookieOptions
-        //    {
-        //        HttpOnly = true,
-        //        Expires = DateTime.Now.AddMinutes(5)
-        //    };
-        //    Response.Cookies.Append("refreshToken", token.ToString(), cookieOptions);
-        //}
+            return PartialView("_AddressUser", listAddressUsers);
+        }
+
+        public void searchAddress(string nameAddress)
+        {
+            if (nameAddress != null)
+            {
+                HttpContext.Session.SetString("nameAddress", nameAddress);
+            }
+            else
+            {
+                HttpContext.Session.Remove("nameAddress");
+            }
+        }
+
+        public async Task<IActionResult> _HeaderUserAddress(int idAddress)
+        {
+            return PartialView("_HeaderUserAddress", addressUsers);
+        }
+
+        public async Task<IActionResult> getIdAddress(int idAddress)
+        {
+            addressUsers = await aPIServices.getAddressToDelivery(idAddress);
+            return RedirectToAction("Index", "Home");
+        }
 
         public IActionResult HomePage_Login_Partial()
         {
             ViewBag.fullName = HttpContext.Session.GetString("FullName");
             ViewBag.imageUser = HttpContext.Session.GetString("ImageUser");
-
             return PartialView();
         }
 
@@ -356,6 +368,15 @@ namespace Website_ShopeeFood.Controllers
         {
             HttpContext.SignOutAsync();
             HttpContext.Session.Clear();
+            addressUsers.ID = null;
+            addressUsers.Name = null;
+            addressUsers.Address = null;
+            addressUsers.PhoneNumbers = null;
+            addressUsers.UserID = null;
+            addressUsers.areas = null;
+            addressUsers.detailAreas = null;
+            addressUsers.nameUser = null;
+            addressUsers.Email = null;
             return RedirectToAction("Index", "Home");
         }
 
