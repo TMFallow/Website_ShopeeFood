@@ -28,8 +28,12 @@ namespace Website_ShopeeFood.Controllers
 
             areas = await IAPIServices.getArea();
 
+            //ViewBag.Idcity = 
+
             if (areas != null)
             {
+                ViewBag.IdArea = HttpContext.Session.GetString("AreaIDofRestaurant");
+
                 return PartialView("Areas_Partial", areas);
             }
 

@@ -49,6 +49,13 @@ namespace Website_ShopeeFood
                     x.LoginPath = "/Login/Login_Users";
                     x.Cookie.Name = "AshProgHelpCookie";
                 });
+
+            services.AddAuthorization();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(20);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

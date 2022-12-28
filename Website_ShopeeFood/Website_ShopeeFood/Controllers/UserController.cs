@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,7 +37,15 @@ namespace Website_ShopeeFood.Controllers
         [HttpGet]
         public IActionResult UpdateUserInfo()
         {
-            return View();
+            if (HttpContext.Session.GetString("JwToken") != null)
+            {
+                ViewBag.ImageStatus = TempData["UpdateHinhUser"] as string;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login_Users", "Login");
+            }
         }
 
         //Update User Info 
@@ -46,8 +56,12 @@ namespace Website_ShopeeFood.Controllers
         {
             UsersModel users = new UsersModel();
 
+            string accessToken = HttpContext.Session.GetString("JwToken");
+
             using (var client = new HttpClient())
             {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
                 client.BaseAddress = new Uri(IAPIServices.getIPAddress());
 
                 client.DefaultRequestHeaders.Clear();
@@ -97,9 +111,13 @@ namespace Website_ShopeeFood.Controllers
                 HttpResponseMessage message1 = await client.PostAsync("api/users/UpdateUser", content);
             }
             TempData["updateMessage"] = "Updated Successfully";
+
             ViewBag.updatemsg = TempData["updateMessage"] as string;
 
             ViewBag.updateImage = TempData["UpdateHinhUser"] as string;
+
+            HttpContext.Session.SetString("FullName", users.FullName);
+
             return View();
         }
 
@@ -129,6 +147,10 @@ namespace Website_ShopeeFood.Controllers
 
             using (var client = new HttpClient())
             {
+                var accessToken = HttpContext.Session.GetString("JwToken");
+
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
                 client.BaseAddress = new Uri(IAPIServices.getIPAddress());
 
                 client.DefaultRequestHeaders.Clear();
@@ -400,6 +422,8 @@ namespace Website_ShopeeFood.Controllers
         {
             UsersModel users = new UsersModel();
 
+            string userName = HttpContext.Session.GetString("UserName");
+
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(IAPIServices.getIPAddress());
@@ -408,7 +432,7 @@ namespace Website_ShopeeFood.Controllers
 
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage message = await client.GetAsync("api/users/getUserByUsername/" + HttpContext.Session.GetString("UserName") + "");
+                HttpResponseMessage message = await client.GetAsync("api/users/getUserByUsername/" + userName + "");
 
                 if (message.IsSuccessStatusCode)
                 {
@@ -489,9 +513,13 @@ namespace Website_ShopeeFood.Controllers
                     usersModel.Image = @"../image/" + imageName;
                 }
 
+                Task.Delay(3000);
+
                 IAPIServices.updateUsersInfo(usersModel);
 
                 TempData["UpdateHinhUser"] = "Update Image Successfully";
+
+                HttpContext.Session.SetString("ImageUser", usersModel.Image);
             }
             return RedirectToAction("UpdateUserInfo");
         }

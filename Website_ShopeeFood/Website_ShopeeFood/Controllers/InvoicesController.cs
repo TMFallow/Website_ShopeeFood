@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Website_ShopeeFood.Models;
 using Website_ShopeeFood.Services;
@@ -24,13 +26,18 @@ namespace Website_ShopeeFood.Controllers
             this.listFoodsAddingToCart = RestaurantController.listCart;
         }
 
+        [Authorize]
         public async Task<IActionResult> ListInvoices()
         {
             List<InvoicesModel> listInvoices = new List<InvoicesModel>();
+
+            string accessToken = HttpContext.Session.GetString("JwToken");
+
             if (HttpContext.Session.GetString("UserIdToCheckInvoices") != null)
             {
                 int userID = int.Parse(HttpContext.Session.GetString("UserIdToCheckInvoices"));
-                listInvoices = await aPIServices.getListInvoicesByUserID(userID);
+
+                listInvoices = await aPIServices.getListInvoicesByUserID(userID, accessToken);
             }
 
             if (TempData["Invoices"] != null)
@@ -43,11 +50,15 @@ namespace Website_ShopeeFood.Controllers
             return View(listInvoices);
         }
 
-        public async Task<IActionResult> addNewInvoices(double totalPrice)
+        public async Task<IActionResult> addNewInvoices(double totalPrice, string useraddress)
         {
-            string status = "On way to delivery!";
+            List<InvoicesModel> listInvoicesModel = new List<InvoicesModel>();
 
-            string detail = "";
+            int invoicesId = 1;
+
+            string status = "Đang Giao Hàng";
+
+            string detail = useraddress;
 
             int userId = int.Parse(HttpContext.Session.GetString("UserIdToCheckInvoices"));
 
@@ -66,22 +77,6 @@ namespace Website_ShopeeFood.Controllers
             {
                 aPIServices.insertInvoices(invoicesModel);
 
-                int invoicesId = 1;
-
-                List<InvoicesModel> listInvoicesModel = new List<InvoicesModel>();
-
-                listInvoicesModel = await aPIServices.getAllInvoices();
-
-                if(listInvoicesModel !=null) 
-                {
-                    for (int i = 1; i < listInvoicesModel.Count; i++)
-                    {
-                        invoicesId = listInvoicesModel[i].InvoicesID + 1;
-                    }
-                }
-
-                HttpContext.Session.SetString("IdInvoices", invoicesId.ToString());
-
                 TempData["Invoices"] = "Adding Invoices Successfully!";
             }
             else
@@ -92,11 +87,22 @@ namespace Website_ShopeeFood.Controllers
             InvoiceDetailsModel InvoiceDetailsModel = new InvoiceDetailsModel(); 
             List<InvoiceDetailsModel> listInvoiceDetailsModel = new List<InvoiceDetailsModel>();
 
+            listInvoicesModel = await aPIServices.getAllInvoices();
+
+            if (listInvoicesModel != null)
+            {
+                invoicesId = listInvoicesModel.Max(s => s.InvoicesID);
+
+                HttpContext.Session.SetString("IdInvoiceDetail", invoicesId.ToString());
+            }
+
+            HttpContext.Session.SetString("IdInvoices", invoicesId.ToString());
+
             if (listFoodsAddingToCart != null)
             {
                 foreach (var item in listFoodsAddingToCart)
                 {
-                    InvoiceDetailsModel.InvoicesID = int.Parse(HttpContext.Session.GetString("IdInvoices"));
+                    InvoiceDetailsModel.InvoicesID = int.Parse(HttpContext.Session.GetString("IdInvoiceDetail"));
                     InvoiceDetailsModel.FoodId = item.Food.FoodId;
                     InvoiceDetailsModel.NameofFood = item.Food.NameofFood;
                     InvoiceDetailsModel.Images = item.Food.Images;

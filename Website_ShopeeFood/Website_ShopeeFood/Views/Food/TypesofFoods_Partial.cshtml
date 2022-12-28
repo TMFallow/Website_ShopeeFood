@@ -1,6 +1,11 @@
 ﻿@model IEnumerable<Website_ShopeeFood.Models.FoodModel>
 
-
+<style>
+    .btn-adding:hover{
+        color:white;
+        text-decoration:none;
+    }
+</style>
 
 @if (Model != null && Model.Count() >0)
 {
@@ -20,8 +25,8 @@
                     <div class="row ">
                         <div class="col-auto product-price">
                             <div class="current-price">
-                                @item.Price
-                                <span style="font-weight: 400;position: relative;top: -9px;font-size: 10px;right: 0;">đ</span>
+                                @item.Price.ToString("#,##")
+                                <span style="font-weight: 400;position: relative;top: -9px;font-size: 10px;right: 0;">VNĐ</span>
                             </div>
                         </div>
                         <div class="col-auto adding-food-cart txt-right">
@@ -39,7 +44,7 @@ else
         <img src="https://shopeefood.vn/app/assets/img/no-results.png?7aafd0b598221e54f8ef4a4bd1b38297" style="margin-left: 221px; margin-top: 75px;" />
         <div>
             <div class="no-data-text" style="text-align: center; padding: 17px 0px; font-size: 18px; color: lightslategray;">
-                Không Có Dữ Liệu
+                Không Có Món Ăn Bạn Cần Tìm
             </div>
         </div>
     </div>

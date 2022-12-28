@@ -31,7 +31,7 @@ namespace Website_ShopeeFood.Controllers
         public IActionResult Index()
         {
             var token = HttpContext.Session.GetString("JwToken");
-            
+
             return View();
         }
 

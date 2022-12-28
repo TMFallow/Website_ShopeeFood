@@ -103,13 +103,13 @@
         int i = 0;
         <div class="cart-info">
             <div class="img-user">
-                <img src=@ViewBag.ImgaeUser>
-                <div class="name-user">
-                    @ViewBag.NameUser
-                </div>
-                <div class="count-number">
-                    @i Món
-                </div>
+                @*<img src=@ViewBag.ImgaeUser>*@
+                @*<div class="name-user">
+            @ViewBag.NameUser
+            </div>
+            <div class="count-number">
+            @i Món
+            </div>*@
             </div>
         </div>
 
@@ -125,7 +125,7 @@
                     <button class="plusbtn" id="plus" onclick="addNumber(@item.Food.FoodId)">+</button>
                     <div class="name-of-products">
                         <span class="name" style="overflow-x:hidden;">@item.Food.NameofFood</span>
-                        <span id="item-price" class="prices">@item.Food.Price</span>
+                        <span id="item-price" class="prices">@item.Food.Price.ToString("#,##") VNĐ</span>
                     </div>
                 </div>
             }
@@ -150,7 +150,7 @@
                     total = total + (item2.Food.Price * item2.Quantity);
                 }
 
-                <input type="text" value="@total" style="border: none; text-align: center; margin-left: 70px; margin: 5px; margin-left: 49px; text-align: right;" />
+                <input type="text" value="@total.ToString("#,##") VNĐ" style="border: none; text-align: center; margin-left: 70px; margin: 5px; margin-left: 49px; text-align: right;" />
 
             </div>
             <div class="total-price">
@@ -169,7 +169,7 @@
                     @{
                         ttInvoices = total + fees;
                     }
-                    @ttInvoices
+                    @ttInvoices.ToString("#,##") VNĐ
                 </span>
             </div>
             <div class="btn-Order">
@@ -186,6 +186,7 @@
             double total = 0;
             double fees = 10000;
             double ttInvoices = 0;
+            string address = "";
             int i = 0;
             <div class="modal-content">
                 <div class="modal-header">
@@ -204,48 +205,59 @@
                                 <div class="gps">
                                     <div class="circle"></div>
                                     <div class="name">@ViewBag.NameUser</div>
-                                    <div class="address-user">TP.HCM</div>
+                                    <select class="form-select" name="useraddress" aria-label="Default select example" style="width: 352px; position: absolute; margin-top: 40px; margin-left: -34px;">
+                                        
+                                        @if(ViewBag.ListAddressUser!= null)
+                                        {
+                                            @foreach (var item in ViewBag.ListAddressUser)
+                                            {
+                                                <option value="@item.Address">@item.Address</option>
+                                                address = @item.Address;
+                                            }
+                                        }
+
+                                    </select>
                                 </div>
                             </div>
-                            <div class="change-address">
-                                <div class="text" style="font-size: 19px; font-weight: 700;">
-                                    Thay đổi thông tin đơn hàng
-                                </div>
-                                <div class="pointer">&#8594;</div>
-                            </div>
+                            @*<div class="change-address">
+                        <div class="text" style="font-size: 19px; font-weight: 700;">
+                        Thay đổi thông tin đơn hàng
+                        </div>
+                        <div class="pointer">&#8594;</div>
+                        </div>*@
                         </div>
                         <div class="content-right">
                             <div class="details-invoices">
                                 <span class="text" style="font-size: 19px; margin-left: -20px; font-weight: 700;">Chi tiết đơn hàng</span>
                                 <span class="pointer">></span>
                             </div>
-
-                            @foreach (var item in Model)
-                            {
-                                i++;
-                                <div class="item-producs">
-                                    <div class="number-products" style="padding: 0 11px;">
-                                        @item.Quantity
+                            <div style="overflow-y:scroll; max-height:300px;">
+                                @foreach (var item in Model)
+                                {
+                                    i++;
+                                    <div class="item-producs" style="overflow-y:hidden;">
+                                        <div class="number-products" style="padding: 0 11px;">
+                                            @item.Quantity
+                                        </div>
+                                        <div class="name-products">
+                                            @item.Food.NameofFood
+                                        </div>
+                                        <div class="price-product">
+                                            @item.Food.Price.ToString("#,##") VNĐ
+                                        </div>
                                     </div>
-                                    <div class="name-products">
-                                        @item.Food.NameofFood
-                                    </div>
-                                    <div class="price-product">
-                                        @item.Food.Price đ
-                                    </div>
-                                </div>
-                                total = total + (item.Food.Price * item.Quantity);
-                            }
-
+                                    total = total + (item.Food.Price * item.Quantity);
+                                }
+                            </div>
                             <div class="plus-prices">
-                                <div class="total-prices">
+                                <div class="total-prices" style="padding: 8px 0;">
                                     <span class="text" style="font-size: 19px; margin-left: -20px; font-weight: 700;">
                                         Tổng <span class="numbers">@i</span> món
                                     </span>
-                                    <span class="prices" style="font-weight: 700; font-size: 18px;">@total đ</span>
+                                    <span class="prices" style="font-weight: 700; font-size: 18px;">@total.ToString("#,##") VNĐ</span>
                                 </div>
 
-                                <div class="fees" style="padding: 17px 0;">
+                                <div class="fees" style="padding: 23px 0;">
                                     <span class="text" style="margin-left: -20px;">
                                         Phí vận chuyển:
                                     </span>
@@ -253,7 +265,7 @@
                                 </div>
                             </div>
 
-                            <div class="curent-prices" style="padding: 11px 0px;">
+                            <div class="curent-prices" style="padding: 57px 0px;">
                                 <div class="text" style="font-size: 19px; margin-left: -20px; font-weight: 700;">
                                     Tạm tính
                                 </div>
@@ -262,12 +274,12 @@
                                     @{
                                         ttInvoices = total + fees;
                                     }
-                                    @ttInvoices đ
+                                    @ttInvoices.ToString("#,##") VNĐ
                                 </div>
 
                             </div>
 
-                            <div class="payment-method">
+                            <div class="payment-method" style="padding: 23px 0;">
                                 <div class="text" style="font-size: 19px; margin-left: -20px; font-weight: 700;">
                                     Thanh toán bằng tiền mặt
                                 </div>
@@ -279,11 +291,11 @@
                 <div class="modal-footer" style="justify-content: center;">
                     <div class="complete-payment" style="width: 100%;">
                         <div class="button-payment">
-                            <a class="btn" href="~/Invoices/addNewInvoices?totalPrice=@ttInvoices">
+                            <a class="btn" href="~/Invoices/addNewInvoices?totalPrice=@ttInvoices&useraddress=@address">
                                 Hoàn tất đơn hàng &nbsp;
                                 <i class="fas fa-angle-right"></i> &nbsp;
                                 <span class="final-money">
-                                    @ttInvoices đ
+                                    @ttInvoices.ToString("#,##") VNĐ
                                 </span>
                             </a>
                         </div>
@@ -294,6 +306,7 @@
     </div>
 </div>
 
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <script>
@@ -302,52 +315,49 @@
 </script>
 
 <script>
-    function reduceNumber(foodId)
-    {
+    function reduceNumber(foodId) {
         $.ajax({
             type: "GET",
-            url: "reduceNumberOfIdFood?foodId="+ foodId +"",
+            url: "reduceNumberOfIdFood?foodId=" + foodId + "",
             success: function () {
-                window.location = "@Url.Action("DetailOfRestaurant","Restaurant")";
+                //window.location = "@Url.Action("DetailOfRestaurant","Restaurant")";
+                document.location.reload(true);
             }
         });
     }
 
-    function addNumber(foodId)
-    {
+    function addNumber(foodId) {
         $.ajax({
             type: "GET",
             url: "addNumberOfIdFood?foodId=" + foodId + "",
-            success: function()
-            {
-                window.location = "@Url.Action("DetailOfRestaurant","Restaurant")";
+            success: function () {
+                //window.location = "@Url.Action("DetailOfRestaurant","Restaurant")";
+                document.location.reload(true);
             }
         });
     }
 </script>
 
 <script>
-    $(document).ready(function(){
-        $("#find-food").keyup(function(){
+    $(document).ready(function () {
+        $("#find-food").keyup(function () {
             var nameOfFood = $("#find-food").val();
-            if(nameOfFood.length > 0)
-            {
-                $.ajax({
-                    type: "GET",
-                    url: "@Url.Action("searchingOfFood", "Food")",
-                    data: {"nameOfFood": nameOfFood},
-                    success: function(respone){
-                        $('#Food_PartialView').load('/Food/TypesofFoods_Partial')
-                    }
-                });
-            }
-            else
-            {
+            if (nameOfFood.length > 0) {
                 $.ajax({
                     type: "GET",
                     url: "@Url.Action("searchingOfFood", "Food")",
                     data: { "nameOfFood": nameOfFood },
-                    success: function(respone){
+                    success: function (respone) {
+                        $('#Food_PartialView').load('/Food/TypesofFoods_Partial')
+                    }
+                });
+            }
+            else {
+                $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("searchingOfFood", "Food")",
+                    data: { "nameOfFood": nameOfFood },
+                    success: function (respone) {
                         $('#Food_PartialView').load('/Food/TypesofFoods_Partial')
                     }
                 });

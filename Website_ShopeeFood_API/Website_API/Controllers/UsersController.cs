@@ -24,6 +24,7 @@ namespace Website_API.Controllers
         }
 
         [HttpGet("GetUsers")]
+
         public IEnumerable<User> GetUsers()
         {
             return users.GetAllUser().ToArray();

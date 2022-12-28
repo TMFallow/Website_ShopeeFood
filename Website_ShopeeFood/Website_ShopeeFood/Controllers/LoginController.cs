@@ -24,6 +24,8 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.Hosting;
 using Website_ShopeeFood.Services;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using System.Security.Cryptography;
 
 namespace Website_ShopeeFood.Controllers
 {
@@ -47,6 +49,8 @@ namespace Website_ShopeeFood.Controllers
         {
             ViewBag.message = TempData["message"] as string;
             ViewBag.check_Login = ViewData["Check_Login"] as string;
+            ViewBag.ChangePassword = TempData["ChangePassword"] as string;
+            ViewBag.checkUSer = TempData["checkUser"] as string;
             return PartialView();
         }
 
@@ -85,21 +89,15 @@ namespace Website_ShopeeFood.Controllers
         public async Task<IActionResult> Login_Users(string userName, string password)
         {
             var model = await aPIServices.GetListUsers();
+
             UsersModel u = new UsersModel();
 
-            int check = 0;
+            string token = await aPIServices.loginUser(userName, password);
 
-            foreach (var item in model)
+            if (token != "Invalid Credentials")
             {
-                if (item.Email == userName && item.Password == password)
-                {
-                    u = item;
-                    check = 1;
-                }
-            }
 
-            if (check == 1)
-            {
+                u = await aPIServices.GetUsersByEmail(userName);
 
                 using (var httpClient = new HttpClient())
                 {
@@ -109,7 +107,6 @@ namespace Website_ShopeeFood.Controllers
 
                     using (var response = await httpClient.PostAsync(baseURL, content))
                     {
-                        string token = await response.Content.ReadAsStringAsync();
                         HttpContext.Session.SetString("JwToken", token);
 
                         var claims = new List<Claim>
@@ -139,9 +136,10 @@ namespace Website_ShopeeFood.Controllers
             else
             {
                 ViewData["Check_Login"] = "Wrong Username or Password";
-                return View();
+                return RedirectToAction("Login_Users", "Login");
             }
         }
+
 
         static List<AddressUserModel> listAddressUsers = new List<AddressUserModel>();
         
@@ -207,6 +205,8 @@ namespace Website_ShopeeFood.Controllers
                 return BadRequest();
             }
 
+            HttpContext.Session.SetString("updatePasswordEmail", email);
+
             model = await aPIServices.GetUsersByEmail(email);
 
             if (model != null)
@@ -269,10 +269,12 @@ namespace Website_ShopeeFood.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ConfirmPassword(string username, string password, string confirmPassword)
+        public async Task<IActionResult> ConfirmPassword(string password, string confirmPassword)
         {
 
             UsersModel usersModel = new UsersModel();
+
+            string username = HttpContext.Session.GetString("updatePasswordEmail");
 
             string baseURL = aPIServices.getIPAddress();
 
@@ -284,7 +286,13 @@ namespace Website_ShopeeFood.Controllers
                 {
                     if (password == confirmPassword)
                     {
-                        usersModel.Password = password;
+                        usersModel.Password = BCrypt.Net.BCrypt.HashPassword(password); 
+                    }
+                    else
+                    {
+                        TempData["PasswordNotMatch"] = "Password Is Not Match";
+                        ViewBag.WrongPassword = TempData["PasswordNotMatch"] as string;
+                        return View("ConfirmPassword");
                     }
                 }
                 client.BaseAddress = new Uri(baseURL);
@@ -307,59 +315,80 @@ namespace Website_ShopeeFood.Controllers
                     usersModel = userTask.Result;
                 }
             }
+
+            TempData["ChangePassword"] = "Changed Successfully";
+
             return RedirectToAction("Login_Users", "Login");
         }
 
         [HttpGet]
         public IActionResult Register()
         {
-            ViewBag.checkUSer = ViewData["checkUser"];
+            ViewBag.CheckRegister = TempData["ErrorRegister"] as string;
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Register(string username, string password, string confirmPassword, string fullName, string sex, string email, string phoneNumber)
         {
-            List<UsersModel> usersModel = new List<UsersModel>();
-
-            UsersModel model = new UsersModel();
-
-            using (var client = new HttpClient())
+            if (username != null && password != null && confirmPassword != null && fullName != null && sex != null && email != null && phoneNumber != null)
             {
-                usersModel = await aPIServices.GetListUsers();
+                List<UsersModel> usersModel = new List<UsersModel>();
 
-                foreach (var item in usersModel)
+                UsersModel model = new UsersModel();
+
+                using (var client = new HttpClient())
                 {
-                    if (email == item.Email || username == item.Username)
+                    usersModel = await aPIServices.GetListUsers();
+
+                    foreach (var item in usersModel)
                     {
-                        ViewData["checkUser"] = "User Is Already Exisit";
+                        if (email == item.Email || username == item.Username)
+                        {
+                            TempData["checkUser1"] = "User Is Already Exists";
+                            ViewBag.checkUser1 = TempData["checkUser1"] as string;
+                            return View();
+                        }
+                    }
+
+                    if (password != confirmPassword)
+                    {
+                        TempData["checkUser1"] = "Password Is Not Matched";
+                        ViewBag.checkUser1 = TempData["checkUser1"] as string;
                         return View();
                     }
+
+                    string passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
+
+                    model.Username = username;
+                    model.Password = passwordHash;
+                    model.FullName = fullName;
+                    model.Sex = sex;
+                    model.Email = email;
+                    model.PhoneNumber = phoneNumber;
+                    model.Image = "";
+                    model.Token = "";
+
+                    client.BaseAddress = new Uri(aPIServices.getIPAddress());
+
+                    client.DefaultRequestHeaders.Clear();
+
+                    client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                    StringContent content = new StringContent(JsonConvert.SerializeObject(model),
+                        Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage message1 = await client.PostAsync("api/users/InsertUser", content);
+
+                    TempData["message"] = "Đăng Ký Thành Công";
+
+                    return RedirectToAction("Login_Users");
                 }
-
-                if(password != confirmPassword)
-                {
-                    ViewData["checkUser"] = "Password Is Not Matched";
-                    return View();
-                }
-
-                model.Username = username;
-                model.Password = password;
-                model.FullName = fullName;
-                model.Sex = sex;
-                model.Email = email;
-                model.PhoneNumber = phoneNumber;
-                model.Image = "";
-                model.Token = "";
-
-                StringContent content = new StringContent(JsonConvert.SerializeObject(model),
-                    Encoding.UTF8, "application/json");
-
-                HttpResponseMessage message1 = await client.PostAsync("api/users/InsertUser", content);
-
-                TempData["message"] = "Đăng Ký Thành Công";
-
-                return RedirectToAction("Login_Users");
+            }
+            else
+            {
+                TempData["ErrorRegister"] = "Please, Filling The Information Correctly";
+                return RedirectToAction("Register");
             }
         }
 

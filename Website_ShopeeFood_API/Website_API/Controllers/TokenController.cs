@@ -29,43 +29,50 @@ namespace Website_API.Controllers
             this.context = context;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(User users)
+        [HttpGet("CheckUser/{email}/{password}")]
+        public async Task<IActionResult> Post(string email, string password)
         {
-            var user = await GetUser(users.Username, users.Password);
-            if (user != null)
+            if (email != null && password != null)
             {
-                var Claims = new[]
+                var user = await GetUser(email, password);
+                if (user != null)
                 {
+                    var Claims = new[]
+                    {
                         new Claim("Id", user.UserId.ToString()),
-                        new Claim("userName", user.Username),
+                        new Claim("email", user.Email),
                         new Claim("password", user.Password)
                     };
 
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
+                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
 
-                var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                    var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-                var token = new JwtSecurityToken(
-                    configuration["Jwt:Issuer"],
-                    configuration["Jwt:Audience"],
-                    Claims,
-                    expires: DateTime.UtcNow.AddMinutes(5),
-                    signingCredentials: signIn
-                    );
+                    var token = new JwtSecurityToken(
+                        configuration["Jwt:Issuer"],
+                        configuration["Jwt:Audience"],
+                        Claims,
+                        expires: DateTime.UtcNow.AddMinutes(5),
+                        signingCredentials: signIn
+                        );
 
-                return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                    return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                }
+                else
+                {
+                    return BadRequest("Invalid Credentials");
+                }
             }
             else
             {
-                return BadRequest("Invalid Credentials");
+                return BadRequest();
             }
         }
 
         [HttpGet]
-        public async Task<User> GetUser(string userName, string password)
+        public async Task<User> GetUser(string email, string password)
         {
-            return await context.users.FirstOrDefaultAsync(x=>x.Username == userName && x.Password == password);
+            return await context.users.FirstOrDefaultAsync(x=>x.Email == email && x.Password == password);
         }
     }
 }

@@ -124,6 +124,15 @@
         });
     }
 
+    var ImageStatus = "@((string)ViewBag.ImageStatus)";
+    if (ImageStatus != null && ImageStatus != "") {
+        swal({
+            title: "Thông Báo",
+            text: ImageStatus,
+            icon: "success",
+        });
+    }
+
 </script>
 
 

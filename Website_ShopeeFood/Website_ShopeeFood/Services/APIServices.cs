@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using NuGet.Packaging.Signing;
 using System;
@@ -491,12 +492,15 @@ namespace Website_ShopeeFood.Services
             return listRestaurant;
         }
 
-        public async Task<List<InvoicesModel>> getListInvoicesByUserID(int userId)
+        public async Task<List<InvoicesModel>> getListInvoicesByUserID(int userId, string token)
         {
             List<InvoicesModel> listInvoiceByUserId = new List<InvoicesModel>();
 
             using (var client = new HttpClient())
             {
+
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
                 client.BaseAddress = new Uri(getIPAddress()); 
 
                 client.DefaultRequestHeaders.Clear();
@@ -752,6 +756,19 @@ namespace Website_ShopeeFood.Services
             listAddressUserModel = addressUserModels.Where(nameAddress => nameAddress.Address.ToUpper().Contains(name.ToUpper())).ToList();
 
             return listAddressUserModel;
+        }
+
+        public async Task<string> loginUser(string username, string password)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                using (var respone = await httpClient.GetAsync(getIPAddress() + "api/Token/CheckUser/"+ username +"/"+ password +""))
+                {
+                    string token = await respone.Content.ReadAsStringAsync();
+
+                    return token;
+                }
+            }
         }
     }
 }

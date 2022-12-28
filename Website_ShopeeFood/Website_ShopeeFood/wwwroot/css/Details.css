@@ -703,7 +703,6 @@
         }
 
     .content-right .item-producs {
-        overflow-y: scroll;
         max-height: 550px;
     }
 

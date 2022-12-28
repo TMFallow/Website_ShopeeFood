@@ -44,7 +44,7 @@ namespace Website_ShopeeFood.Services
 
         Task<List<RestaurantsModel>> getListRestauranrByIdDistricts(int IdDistricts);
 
-        Task<List<InvoicesModel>> getListInvoicesByUserID(int userId);
+        Task<List<InvoicesModel>> getListInvoicesByUserID(int userId, string token);
 
         Task<List<InvoiceDetailsModel>> getListDetailsInvoiceByInvoices(int invoicesId);
 
@@ -65,6 +65,8 @@ namespace Website_ShopeeFood.Services
         Task<AddressUserModel> getAddressToDelivery(int addressId);
 
         List<AddressUserModel> searchListAddressUserModel(string name, List<AddressUserModel> addressUserModels);
+
+        Task<string> loginUser(String username, String password);
 
     }
 }

@@ -99,8 +99,6 @@ namespace Website_ShopeeFood.Controllers
                     }
                     return PartialView("Restaurant_Partial", listRes);
                 }  
-                
-
             }
             else
             {
@@ -117,11 +115,20 @@ namespace Website_ShopeeFood.Controllers
 
                     List<RestaurantsModel> listRes = new List<RestaurantsModel>();
 
-                    for (int i = 0; i < soLanThemQuan; i++)
+                    int soLan = 9;
+
+                    for (int i = 0; i < soLan; i++)
                     {
                         if (restaurant[i].AreaID == int.Parse(HttpContext.Session.GetString("AreaIDofRestaurant")))
                         {
                             listRes.Add(restaurant[i]);
+                        }
+                        else
+                        {
+                            if (i >= soLanThemQuan - 1)
+                            {
+                                soLan++;
+                            }
                         }
                     }
 
@@ -141,11 +148,20 @@ namespace Website_ShopeeFood.Controllers
 
                     List<RestaurantsModel> listRes = new List<RestaurantsModel>();
 
-                    for (int i = 0; i < soLanThemQuan; i++)
+                    int soLan = 9;
+
+                    for (int i = 0; i < soLan; i++)
                     {
-                        if (restaurant_type[i].ID == int.Parse(HttpContext.Session.GetString("TypeIDofRestaurant")))
+                        if ((restaurant_type[i].ID == int.Parse(HttpContext.Session.GetString("TypeIDofRestaurant")) && (restaurant_type[i].AreaID == int.Parse(HttpContext.Session.GetString("AreaIDofRestaurant")))))
                         {
                             listRes.Add(restaurant_type[i]);
+                        }
+                        else
+                        {
+                            if (i >= soLanThemQuan - 1)
+                            {
+                                soLan++;
+                            }
                         }
                     }
 
@@ -590,7 +606,7 @@ namespace Website_ShopeeFood.Controllers
         static bool check = true;
 
         [HttpGet]
-        public async Task<IActionResult> DetailOfRestaurant(int restaurantId, int areaId)
+        public async Task<IActionResult> DetailOfRestaurant(int restaurantId, int areaId)   
         {
             if (restaurantId != 0)
             {
@@ -613,6 +629,21 @@ namespace Website_ShopeeFood.Controllers
             else
             {
                 ViewBag.NameUser = null;
+            }
+
+            if(HttpContext.Session.GetString("UserIdToCheckInvoices") != null)
+            {
+                int userID = int.Parse(HttpContext.Session.GetString("UserIdToCheckInvoices"));
+
+                List<AddressUserModel> addressUserModel = new List<AddressUserModel>();
+
+                addressUserModel = await aPIServices.getListAddressUserByUserId(userID);
+
+                ViewBag.ListAddressUser = addressUserModel;
+            }
+            else
+            {
+                ViewBag.ListAddressUser = null;
             }
 
             if (HttpContext.Session.GetString("FullName") != null)
@@ -699,10 +730,12 @@ namespace Website_ShopeeFood.Controllers
                     HttpContext.Session.SetString("AreaID", areaId.ToString());
                 }
                 TempData["checkAccountLogin"] = "You Need To Login First!";
+
                 ViewBag.CheckAccountAddToCart = TempData["checkAccountLogin"] as string;
                 return View();
             }
         }
+
 
         public IActionResult resetTheMenu()
         {
@@ -711,7 +744,7 @@ namespace Website_ShopeeFood.Controllers
             return RedirectToAction("DetailOfRestaurant");
         }
 
-        public async Task<IActionResult> reduceNumberOfIdFood(int foodId)
+        public  IActionResult reduceNumberOfIdFood(int foodId)
         {
             for (int i = 0; i < listCart.Count; i++)
             {
@@ -728,7 +761,6 @@ namespace Website_ShopeeFood.Controllers
                     break;
                 }
             }
-            
             return RedirectToAction("DetailOfRestaurant", listCart);
         }
 
@@ -743,13 +775,12 @@ namespace Website_ShopeeFood.Controllers
                 }
             }
 
-            return RedirectToAction("DetailOfRestaurant", listCart);
+            return View("DetailOfRestaurant", listCart);
         }
 
 
-
         [HttpGet]
-        public async Task<IActionResult> getFoodByID(int foodId)
+        public IActionResult getFoodByID(int foodId)
         {
             if (foodId != 0)
             {

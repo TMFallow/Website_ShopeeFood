@@ -90,6 +90,26 @@
             icon: "success",
         });
     }
+
+    var msg2 = "@((string)ViewBag.ChangePassword)";
+
+    if (msg2 != null && msg2 != "") {
+        swal({
+            title: "Thông Báo",
+            text: msg2,
+            icon: "success",
+        });
+    }
+
+    var msg3 = "@((string)ViewBag.checkUSer)";
+
+    if (msg3 != null && msg3 != "") {
+        swal({
+            title: "Thông Báo",
+            text: "Điền Đầy Đủ Thông Tin",
+            icon: "success",
+        });
+    }
 </script>
 
 

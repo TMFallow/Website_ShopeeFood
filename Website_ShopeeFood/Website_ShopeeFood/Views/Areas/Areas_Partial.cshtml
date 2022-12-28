@@ -1,21 +1,51 @@
 ﻿@model List<Website_ShopeeFood.Models.AreasModel>
 
-
-@if (Model != null)
-{
-
-    @foreach (var item in Model)
-    {
-        <div class="dropdown-item">
-            <span id="item-area" onclick="getItem(@item.AreaID)" class="name col"><a style="color:black;" href="~/Restaurant/filteredListOfRestaurantByID?AreaID=@item.AreaID">@item.NameofArea</a></span>
-        </div>
-    }
-}
-
 <style>
-    a:hover{
-        color:black;
-        text-decoration:none;
+    a:hover {
+        color: black;
+        text-decoration: none;
     }
 </style>
+
+<select id="select-item" class="btn btn-secondary dropdown-toggle" type="button" onchange="getName()" style="padding: 3px 7px;">
+    @if (Model != null)
+    {
+        @foreach (var item in Model)
+        {
+            <option value="@item.AreaID" style="padding: 3px 0;">
+                @item.NameofArea
+            </option>
+        }
+    }
+</select>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script>
+    function getName()
+    {
+       var AreaID = document.getElementById("select-item").value;
+       $.ajax({
+            type: "GET",
+            url: "/Restaurant/filteredListOfRestaurantByID?areaID=" + AreaID + "",
+            success: function () {
+                window.location = "@Url.Action("Index","Home")";
+                //document.location.reload(true);
+            }
+        });
+    }
+</script>
+
+<script>
+    if(@ViewBag.IdArea !=null)
+    {
+        $('#select-item').val(@ViewBag.IdArea);
+    }
+    else
+    {
+        $('#select-item').val(1);
+    }
+</script>
+
 
